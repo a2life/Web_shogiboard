@@ -1,0 +1,35 @@
+[[!addCSS? &fileurl=`[[~37]]`]]
+[[!addCSS? &fileurl=`[[~47]]`]]
+<!-- register CSS to draw shogiboard (This snippet will only register once)-->
+
+<div class="table forSnapshot" > <!-- outer table -->
+    <div class="row">
+        <div class="boardbase cell">
+            <img class="board" src="[[+sBoard]]"  alt=""/>
+            <img class="board" src="[[+sGrid]]" alt=""/>
+            [[+onBoardImgs]]
+        </div>
+        <div class="cell" style="display:none;">
+            <div class="table"><!-- inner table -->
+                <div class="row">
+                    <div class="goteMochigoma komadai cell">
+                        [[+gOnHandImgs]]
+                        <!-- Gote mochigoma -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="cell empty" ></div> <!-- gap between two komaban -->
+                </div>
+                <div class="row">
+                    <div id="senteMochigoma" class="komadai cell">
+                        [[+sOnHandImgs]]
+                        <!-- Sente komaban -->
+                    </div>
+                </div><!-- row -->
+            </div><!-- innter table -->
+        </div><!-- cell-->
+    </div><!-- shogirow for the outer css-table-->
+    <article class="comment">
+        hello world this is fun
+    </article>
+</div><!--outer table-->

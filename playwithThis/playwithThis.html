@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Play with this</title>
+
+</head>
+<body>
+<div class="main">
+    <p>hello world</p>
+
+    <div class="forSnapshot">
+        <div class="table"><!-- outer table -->
+            <div class="row">
+                <div class="boardbase cell">
+                    <p class="koma c3 r3">paragraph with class "koma c3 r3"</p>
+
+                    <p class="koma c4 r3">paragraph with class "koma c4 r3"<p>
+                </div>
+                <div class="cell"></div>
+                <!-- cell--></div>
+            <!-- shogirow for the outer css-table--></div>
+        <article>
+            Here is a comment about this shogi board. if this spans below the shogi board and koma dai
+            then it is a success!!!
+        </article>
+        <!--shogitable-->
+
+    <div class="buttonbar">
+        <input class="aButton" type="button" value="click and see"/>
+    </div>
+    </div>
+    <p>hello world</p>
+
+    <div class="forSnapshot">
+        <div class="table"><!-- outer table -->
+            <div class="row">
+                <div class="boardbase cell">
+                    <p class="koma c3 r3">paragraph with class "koma c3 r3"</p>
+
+                    <p class="koma c4 r3">paragraph with class "koma c4 r3"<p>
+                </div>
+                <div class="cell">
+                    another cell
+                </div>
+                <!-- cell--></div>
+            <!-- shogirow for the outer css-table--></div>
+        <!--shogitable-->
+        <article>Here is a comment about this shogi board. if this spans below the shogi board and koma dai
+        then it is a success!!!
+            </article>
+
+
+    <div class="buttonbar">
+        <input class="aButton" type="button" value="click and see"/>
+    </div>
+        </div>
+</div>
+
+
+</body>
+<!--  jQuery from googleapis.com -->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript">
+
+   var world=[
+       {liner:["hey pola","I love you!"],index:0},
+       {liner:["hey Pole", "me too!"],index:0}
+   ];
+   function workWithMe(self,i){
+
+       var target=$(self).closest(".forSnapshot");
+        target.find(".c3").css("color","green");
+        target.find(".boardbase").append(world[i].liner[world[i].index++]+"</br>");
+       world[i].index=(world[i].index)%world[i].liner.length;
+   }
+
+   function setupButtons(){
+       $('.aButton')
+               .each(function(i){$(this).click(function(){workWithMe(this,i)})}).attr("value","ready");
+   }
+    $(function () {
+        setupButtons()
+
+           });
+
+ /*
+   $(function () { $('.aButton')
+                   .each(function(i){$(this).click(function(){workWithMe(this,i)})}).attr("value","ready");
+
+
+           }
+
+
+   )
+*/
+</script>
+</html>

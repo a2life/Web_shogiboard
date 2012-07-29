@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<body>
+<div class="first">
+    <p>short html code to test jquery functionality of .html() handling</p>
+    <p> the first paragraph in the class first </p>
+    <p> the second paragraph in hte class first </p>
+</div>
+<div class="second">
+    <p>this is an paragraph in the class second</P>
+</div>
+<div class="third">
+</div>
+<div>
+    <input type="button" value="not Assigned" id="aButton" />
+</div>
+</body>
+<script>
+    function htmlcopy(){
+        var elem=[];
+        $('p:first').attr("data-koma","koma");
+        elem[0]=$('.first').html(); alert (elem[0]);
+        elem[1]=$('.second').html(); alert (elem[1]);
+        $('.second').empty().html(elem[0]);
+        alert($('p:first').first().attr("data-koma"));
+    }
+    function testclone() {
+        var elem=[];
+        $('.first').append("added with append to class first");
+        elem[0]=$('.first').clone();
+        elem[1]=$('.second').clone();
+//elem[2]=$('.second').clone();
+        $('.first').empty().append('<p>empttied first</p>');
+        elem[0].clone().appendTo('.first');
+        alert( typeof elem[0]);
+        elem[0].clone().appendTo('.second');
+        elem[0].clone().appendTo('.third');
+//elem[1].appendTo('.second');
+    }
+    function prepButton() { $('#aButton').click( function(){htmlcopy();}).attr("value","htmlcopy");}
+    $(document).ready( function(){ prepButton();})
+</script>
+</html>

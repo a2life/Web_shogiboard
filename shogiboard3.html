@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+<div class="main">
+    <p>hello world</p>
+    <div class="forSnapshot">
+        <div class="table" > <!-- outer table -->
+            <div class="row">
+                <div id="boardbase" class="cell">
+                    <img class="board" src="images/shogiboards/ban/ban_kaya_a.png"  alt=""/>
+                    <img class="board" src="images/shogiboards/masu/masu_dot_xy.png" alt=""/>
+                </div>
+                <div class="cell">
+                    <div class="table"><!-- inner table -->
+                        <div class="row">
+                            <div id="goteMochigoma" class="komadai cell"> <!-- Gote mochigoma -->
+                            </div>
+
+                            <div class="cell empty"></div>
+                            <!-- gap between two komaban -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="senteMochigoma" class="komadai cell"><!-- Sente komaban -->
+                        </div>
+                    </div><!-- row -->
+                </div><!-- innter table -->
+            </div><!-- cell-->
+        </div><!-- shogirow for the outer css-table-->
+    </div><!--shogitable-->
+
+    <article id="scomment" class="comment" >
+        Here is a comment about this shogi board.  if this spans below the shogi board and koma dai then it is a success!!!
+
+
+    </article>
+</div>
+<input type="button" id="aButton" value="javascript did not load">
+<input type="button" id="bButton" value="Jquery did not load">
+<input type="button" id="cButton" value="Board will not function">
+</body>
+</html>
