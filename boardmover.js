@@ -13,7 +13,7 @@
  * To change this template use File | Settings | File Templates.
  */
 /*dynamically add buttons to sections with "buttunBar" class
-*/
+ */
 function setupButtons() {
 
     $('<input type="button">')
@@ -22,9 +22,9 @@ function setupButtons() {
         .attr("value","Forward for solution")
         .each(function(i){$(this)
             .click(function () {animateBoard(board[i],this)}
-            )
+        )
         }
-        );
+    );
 
     $('<input type="button">')
         .attr("class","cButton")
@@ -50,8 +50,8 @@ function setupButtons() {
 
 
 
-function postComment(comment,i) {$('.scomment').eq(i).empty().append(comment);}
-function emptyComment(i) {$('.scomment').eq(i).empty();}
+function postComment(comment,i) {$('.comment').eq(i).empty().append(comment);}
+function emptyComment(i) {$('.comment').eq(i).empty();}
 function cordToClass(cord){ return 'koma c'+cord.charAt(0)+' r'+cord.charAt(1);}
 function cordToSelector(cord){return ('.koma.c'+cord.charAt(0)+'.r'+cord.charAt(1));}
 function setMarker(cord){
@@ -59,26 +59,26 @@ function setMarker(cord){
     markerClass="marker c"+cord.charAt(0)+' r'+cord.charAt(1);
     $('#marker').attr("class",markerClass);
 }
-function makeAdrop(side,koma,position) {
+function makeAdrop(side,koma,position,target) {
     var png=side.toUpperCase()+komatopng(koma);
-    if (side.toUpperCase()=='S') side='#senteMochigoma';
-    else side='#goteMochigoma';
+    if (side.toUpperCase()=='S') side='.senteMochigoma';
+    else side='.goteMochigoma';
     setMarker(position);
     position=cordToClass(position);
-    emptyComment();
+    emptyComment(target);
     var selector=side+' [src$="'+png+'"]';
-    $(selector).first().addClass(position).appendTo('#boardbase');
+    $(selector).first().addClass(position).appendTo('.boardbase');
 }
 function captureKoma(side,cord){
     var komaban,koma;
-    komaban=(side=='S')?'#senteMochigoma':'#goteMochigoma';
+    komaban=(side=='S')?'.senteMochigoma':'.goteMochigoma';
     koma=$(cordToSelector(cord)).data("koma");
     $(cordToSelector(cord)).first().attr("class","").attr("src",board.pathname+side+koma).appendTo(komaban);
 }
-function promoteKoma(side,cord) {
+function promoteKoma(side,cord,target) {
     var koma;
 
-    koma = $(cordToSelector(cord)).data("koma");
+    koma = target.find(cordToSelector(cord)).data("koma");
     if (koma == "hi.png") {
         koma = "ryu.png";
     } else {
@@ -88,7 +88,7 @@ function promoteKoma(side,cord) {
             koma = 'n' + koma;
         }
     }
-    $(cordToSelector(cord)).first().attr("src", board.pathname + side + koma);
+    target.find(cordToSelector(cord)).first().attr("src", board.pathname + side + koma);
 }
 function makeAmove(side,promote, from, to,target) {
     emptyComment(target);
@@ -96,7 +96,7 @@ function makeAmove(side,promote, from, to,target) {
     //for this we check the lenth of selector. ie, if $(".c6 .r7").length>0 then there is an element.
     if (target.find(cordToSelector(to)).length>0) captureKoma(side,to);
     // then set a marker to "to" position
-    setMarker(to,target);
+    setMarker(to);
     // then move the piece, it just involves the changing of class
     target.find(cordToSelector(from)).attr('class', cordToClass(to));
     // then check if the piece is promoted by checking the variable promote
@@ -115,12 +115,12 @@ function stepback(aBoard,target){
         setBoardToHistory(aBoard,--aBoard.index,target);
 }
 function animateBoard(aBoard,self){
-/* aBoard point to an array element of Board[]
- *  self point to button entity
- *  target is ".forSnapshot" block that is ancestor of button that fires
- *
- */
-    target=$(self).closest('.forSnapshot');
+    /* aBoard point to an array element of Board[]
+     *  self point to button entity
+     *  target is ".forSnapshot" block that is ancestor of button that fires
+     *
+     */
+    var target = $(self).closest('.forSnapshot');
     var zAction=aBoard.moves[aBoard.index];
     takeSnapshot(aBoard,target);
     parseAction(zAction,target);
