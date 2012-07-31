@@ -73,6 +73,9 @@ public function setsBoardPath() {
 Public function setsGridPath(){
  return $this->filePathBoard.'/masu_dot_xy.png';
 }
+ public function setKomaPath(){
+     return $this->filePathKoma;
+    }
 //handle board images here
 public function setOnBoardImgs(){
 $onBoardImgs="";

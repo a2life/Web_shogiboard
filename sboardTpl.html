@@ -2,14 +2,14 @@
 [[!addCSS? &fileurl=`[[~47]]`]]
 <!-- register CSS to draw shogiboard (This snippet will only register once)-->
 
-<div class="table forSnapshot" > <!-- outer table -->
+<div class="table forSnapshot" data-komapath="[[+komaPath]]" > <!-- outer table -->
     <div class="row">
         <div class="boardbase cell">
             <img class="board" src="[[+sBoard]]"  alt=""/>
             <img class="board" src="[[+sGrid]]" alt=""/>
             [[+onBoardImgs]]
         </div>
-        <div class="cell" style="display:none;">
+        <div class="cell" >
             <div class="table"><!-- inner table -->
                 <div class="row">
                     <div class="goteMochigoma komadai cell">
@@ -21,7 +21,7 @@
                     <div class="cell empty" ></div> <!-- gap between two komaban -->
                 </div>
                 <div class="row">
-                    <div id="senteMochigoma" class="komadai cell">
+                    <div class="senteMochigoma komadai cell">
                         [[+sOnHandImgs]]
                         <!-- Sente komaban -->
                     </div>
@@ -29,7 +29,10 @@
             </div><!-- innter table -->
         </div><!-- cell-->
     </div><!-- shogirow for the outer css-table-->
-    <article class="comment">
+
+    <article class="comment row">
         hello world this is fun
     </article>
-</div><!--outer table-->
+    <div class="buttonBar row"></div>
+    </div>
+

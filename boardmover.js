@@ -54,7 +54,7 @@ function setupButtons() {
 
 
 function postComment(comment,target) {target.find('.comment').empty().append(comment);}
-function emptyComment(i) {$('.comment').eq(i).empty();}
+function emptyComment(target) {target.find('.comment').empty();}
 function cordToClass(cord){ return 'koma c'+cord.charAt(0)+' r'+cord.charAt(1);}
 function cordToSelector(cord){return ('.koma.c'+cord.charAt(0)+'.r'+cord.charAt(1));}
 function setMarker(cord){
@@ -73,16 +73,17 @@ function makeAdrop(side,koma,position,target) {
     $(selector).first().addClass(position).appendTo('.boardbase');
 }
 function captureKoma(side,cord,target){
-    var komaban,koma;
+    var komaban,koma,komapath;
+    komapath=target.data("komapath");
     komaban=(side=='S')?'.senteMochigoma':'.goteMochigoma';
     koma=target.find(cordToSelector(cord)).data("koma");
     target.find(cordToSelector(cord)).first()
-        .attr("class","").attr("src",board.pathname+side+koma)
+        .attr("class","").attr("src",komapath+side+koma)
         .appendTo(target.find(komaban));
 }
 function promoteKoma(side,cord,target) {
-    var koma;
-
+    var koma,komapath;
+    komapath=target.data("komapath");
     koma = target.find(cordToSelector(cord)).data("koma");
     if (koma == "hi.png") {
         koma = "ryu.png";
@@ -93,7 +94,7 @@ function promoteKoma(side,cord,target) {
             koma = 'n' + koma;
         }
     }
-    target.find(cordToSelector(cord)).first().attr("src", board.pathname + side + koma);
+    target.find(cordToSelector(cord)).first().attr("src", komapath + side + koma);
 }
 function makeAmove(side,promote, from, to,target) {
     emptyComment(target);
