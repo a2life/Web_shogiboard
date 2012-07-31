@@ -32,22 +32,25 @@ function setupButton() {
  // as a result, it will be positioned to 26 on shogiboard image
  }
  */
-function komatopng(koma) { switch (koma){ //convert piece information to image filename information.
-    case 'p':return 'fu.png';
-    case 'P':return 'to.png';
-    case 'l': return 'kyo.png';
-    case 'L': return 'nkyo.png';
-    case 'n': return 'kei.png';
-    case 'N': return 'nkei.png';
-    case 's': return 'gin.png';
-    case 'S': return 'ngin.png';
-    case 'g': return 'kin.png';
-    case 'b': return 'kaku.png';
-    case 'B': return 'uma.png';
-    case 'r': return 'hi.png';
-    case 'R': return 'ryu.png';
-    case 'k': return 'ou.png';
+function komatopng(koma) {
+    var png;
+    switch (koma){ //convert piece information to image filename information.
+    case 'p':png='fu.png';break;
+    case 'P':png= 'to.png';break;
+    case 'l': png= 'kyo.png';break;
+    case 'L': png= 'nkyo.png';break;
+    case 'n': png= 'kei.png';break;
+    case 'N': png= 'nkei.png';break;
+    case 's': png= 'gin.png';break;
+    case 'S': png= 'ngin.png';break;
+    case 'g': png= 'kin.png';break;
+    case 'b': png= 'kaku.png';break;
+    case 'B': png= 'uma.png';break;
+    case 'r': png= 'hi.png';break;
+    case 'R': png= 'ryu.png';break;
+    case 'k': png= 'ou.png';break;
 }
+    return png;
 }
 function reloadpage(){window.location.reload();}
 
@@ -131,7 +134,7 @@ function parseAction(aAction) {
 
 }
 function initializeBoard() {
-    var i,cord,png;
+    var i,cord,png,kpng;
 
 
     //attach board marker to the boardbase. initially it is out of site
@@ -145,18 +148,20 @@ function initializeBoard() {
     for (i=0; i<board.onBoard.S.length; i++){
 
         png=komatopng(board.onBoard.S[i].charAt(2));
+        kpng=komatopng(board.tolowerCase(onBoard.S[i].charAt(2)));
         cord=board.onBoard.S[i].substr(0,2);
 
         $('<img alt=""/>')
-            .addClass(cordToClass(cord)).attr('src',board.pathname+'S'+png).attr('data-koma',png).appendTo('#boardbase');
+            .addClass(cordToClass(cord)).attr('src',board.pathname+'S'+png).attr('data-koma',kpng).appendTo('#boardbase');
     }
     for (i=0; i<board.onBoard.G.length; i++){
 
         png=komatopng(board.onBoard.G[i].charAt(2));
+        kpng=komatopng(board.tolowerCase(onBoard.S[i].charAt(2)));
         cord=board.onBoard.G[i].substr(0,2);
 
         $('<img alt=""/>')
-            .addClass(cordToClass(cord)).attr('src',board.pathname+'G'+png).attr('data-koma',png).appendTo('#boardbase');
+            .addClass(cordToClass(cord)).attr('src',board.pathname+'G'+png).attr('data-koma',kpng).appendTo('#boardbase');
     }
 
     for (i = 0; i < board.onHand.S.length; i++) {

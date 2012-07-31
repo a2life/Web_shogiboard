@@ -6,6 +6,9 @@
  * To change this template use File | Settings | File Templates.
  */
 /**
+ * issues identified
+ * Board.pathname not defined in boarddata.js
+ * data-koma not set up in PHP generated board.
  * Created with JetBrains WebStorm.
  * User: shared
  * Date: 6/3/12
@@ -69,11 +72,13 @@ function makeAdrop(side,koma,position,target) {
     var selector=side+' [src$="'+png+'"]';
     $(selector).first().addClass(position).appendTo('.boardbase');
 }
-function captureKoma(side,cord){
+function captureKoma(side,cord,target){
     var komaban,koma;
     komaban=(side=='S')?'.senteMochigoma':'.goteMochigoma';
-    koma=$(cordToSelector(cord)).data("koma");
-    $(cordToSelector(cord)).first().attr("class","").attr("src",board.pathname+side+koma).appendTo(komaban);
+    koma=target.find(cordToSelector(cord)).data("koma");
+    target.find(cordToSelector(cord)).first()
+        .attr("class","").attr("src",board.pathname+side+koma)
+        .appendTo(target.find(komaban));
 }
 function promoteKoma(side,cord,target) {
     var koma;

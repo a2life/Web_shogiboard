@@ -47,8 +47,8 @@ private function komatopng($koma) {
         return $png;
 
 }
-private   function makeImageTag($class,$pngimg){
-        return '<img src="'.$pngimg.'" class="'.$class.'" alt="">';
+private   function makeImageTag($class,$pngimg,$komadata){
+        return '<img src="'.$pngimg.'" class="'.$class.'"data-koma="'.$komadata.'" alt="">';
     }
 private function cordToClass($cord){
         $output='koma c';
@@ -62,8 +62,9 @@ private function getImageTag($str,$side,$fpk){
        $pngimg=$fpk;
        $pngimg.=$side;
        $komatopng=$this->komatopng(substr($str,2,1));
+    $komadata=$this->komatopng(strtolower(substr($str,2,1)));
         $pngimg.=$komatopng;
-        $output=$this->makeImageTag($class,$pngimg);
+        $output=$this->makeImageTag($class,$pngimg,$komadata);
         return $output;
     }
 public function setsBoardPath() {
@@ -97,8 +98,9 @@ if (!empty($this->gOnHand)){
         $pngimg=$this->filePathKoma;
         $pngimg.="G";
         $komatopng=$this->komatopng($koma);
+        $komadata=$this->komatopng(strtolower($koma));
         $pngimg.=$komatopng;
-        $imageTag= $this->makeImageTag($class,$pngimg);
+        $imageTag= $this->makeImageTag($class,$pngimg,$komadata);
         $gOnHandImgs.=$imageTag;
     }
 }
@@ -114,8 +116,9 @@ if(!empty($this->sOnHand)){
         $pngimg=$this->filePathKoma;
         $pngimg.="S";
         $komatopng=$this->komatopng($koma);
+        $komadata=$this->komatopng(strtolower($koma));
         $pngimg.=$komatopng;
-        $imageTag= $this->makeImageTag($class,$pngimg);
+        $imageTag= $this->makeImageTag($class,$pngimg,$komadata);
         $sOnHandImgs.=$imageTag;
     }}
     return $sOnHandImgs;
