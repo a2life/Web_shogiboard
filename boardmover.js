@@ -50,7 +50,7 @@ function setupButtons() {
 
 
 
-function postComment(comment,i) {$('.comment').eq(i).empty().append(comment);}
+function postComment(comment,target) {target.find('.comment').empty().append(comment);}
 function emptyComment(i) {$('.comment').eq(i).empty();}
 function cordToClass(cord){ return 'koma c'+cord.charAt(0)+' r'+cord.charAt(1);}
 function cordToSelector(cord){return ('.koma.c'+cord.charAt(0)+'.r'+cord.charAt(1));}

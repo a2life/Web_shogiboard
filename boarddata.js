@@ -48,7 +48,7 @@ board.push( {
      */
 });
 /*
-* to add another shogiboard, move is added as an array member. it will be retrived by parser
+* to add another shogiboard, move is added as an array member. it will be retrieved by parser
 * with board[i].moves[index] fashion;
  */
 board.push({
