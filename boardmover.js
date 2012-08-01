@@ -51,7 +51,26 @@ function setupButtons() {
  }
  */
 
-
+function komatopng(koma) {
+    var png;
+    switch (koma){ //convert piece information to image filename information.
+        case 'p':png='fu.png';break;
+        case 'P':png= 'to.png';break;
+        case 'l': png= 'kyo.png';break;
+        case 'L': png= 'nkyo.png';break;
+        case 'n': png= 'kei.png';break;
+        case 'N': png= 'nkei.png';break;
+        case 's': png= 'gin.png';break;
+        case 'S': png= 'ngin.png';break;
+        case 'g': png= 'kin.png';break;
+        case 'b': png= 'kaku.png';break;
+        case 'B': png= 'uma.png';break;
+        case 'r': png= 'hi.png';break;
+        case 'R': png= 'ryu.png';break;
+        case 'k': png= 'ou.png';break;
+    }
+    return png;
+}
 
 function postComment(comment,target) {target.find('.comment').empty().append(comment);}
 function emptyComment(target) {target.find('.comment').empty();}
@@ -66,11 +85,12 @@ function makeAdrop(side,koma,position,target) {
     var png=side.toUpperCase()+komatopng(koma);
     if (side.toUpperCase()=='S') side='.senteMochigoma';
     else side='.goteMochigoma';
-    setMarker(position);
+    setMarker(position,target);
     position=cordToClass(position);
     emptyComment(target);
     var selector=side+' [src$="'+png+'"]';
-    $(selector).first().addClass(position).appendTo('.boardbase');
+
+    target.find(selector).first().addClass(position).appendTo(target.find('.boardbase'));
 }
 function captureKoma(side,cord,target){
     var komaban,koma,komapath;
@@ -100,9 +120,9 @@ function makeAmove(side,promote, from, to,target) {
     emptyComment(target);
     //if to position is already occupied, then capture that image element to 'side's mochigoma
     //for this we check the lenth of selector. ie, if $(".c6 .r7").length>0 then there is an element.
-    if (target.find(cordToSelector(to)).length>0) captureKoma(side,to);
+    if (target.find(cordToSelector(to)).length>0) captureKoma(side,to,target);
     // then set a marker to "to" position
-    setMarker(to);
+    setMarker(to,target);
     // then move the piece, it just involves the changing of class
     target.find(cordToSelector(from)).attr('class', cordToClass(to));
     // then check if the piece is promoted by checking the variable promote
@@ -130,7 +150,7 @@ function animateBoard(aBoard,self){
     var zAction=aBoard.moves[aBoard.index];
     takeSnapshot(aBoard,target);
     parseAction(zAction,target);
-    if (aBoard.moves[aBoard.index].charAt(0)=='x')  self.attr("disabled","disabled")
+    if (aBoard.moves[aBoard.index].charAt(0)=='x')  $(self).attr("disabled","disabled")
     ; //once reaches the end...
 
 //after the move, if next line is a comment, then process it anyway.
