@@ -29,9 +29,8 @@
       <file leaf-file-name="boardmover.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/boardmover.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="33" selection-start="0" selection-end="6185" vertical-scroll-proportion="-4.76">
+            <state line="178" column="0" selection-start="6237" selection-end="6237" vertical-scroll-proportion="0.0">
               <folding>
-                <element signature="n#!!doc" expanded="true" />
                 <element signature="n#!!block;n#makeAmove#0" expanded="false" />
               </folding>
             </state>
@@ -50,7 +49,7 @@
       <file leaf-file-name="shBoard.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/shBoard.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="1" selection-start="0" selection-end="4247" vertical-scroll-proportion="-1.6666666">
+            <state line="79" column="26" selection-start="2830" selection-end="2831" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -59,12 +58,8 @@
       <file leaf-file-name="sboardTpl.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sboardTpl.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="50" selection-start="1295" selection-end="1295" vertical-scroll-proportion="0.7083333">
-              <folding>
-                <element signature="tag#div#0;tag#div#0;tag#div#1;tag#div#0;tag#div#0;tag#section#0" expanded="false" />
-                <element signature="tag#div#1;tag#div#0;tag#div#1;tag#div#0;tag#div#0;tag#section#0" expanded="false" />
-                <element signature="tag#div#2;tag#div#0;tag#div#1;tag#div#0;tag#div#0;tag#section#0" expanded="false" />
-              </folding>
+            <state line="30" column="34" selection-start="1470" selection-end="1470" vertical-scroll-proportion="0.68815595">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -78,6 +73,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/sboardTpl.html" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
@@ -93,11 +91,11 @@
         <option value="$PROJECT_DIR$/drawboard.php" />
         <option value="$PROJECT_DIR$/testdate.php" />
         <option value="$PROJECT_DIR$/boarddata.js" />
-        <option value="$PROJECT_DIR$/shBoard.php" />
         <option value="$PROJECT_DIR$/drawBoard3.php" />
         <option value="$PROJECT_DIR$/boardfunction.js" />
-        <option value="$PROJECT_DIR$/sboardTpl.html" />
+        <option value="$PROJECT_DIR$/shBoard.php" />
         <option value="$PROJECT_DIR$/boardmover.js" />
+        <option value="$PROJECT_DIR$/sboardTpl.html" />
       </list>
     </option>
   </component>
@@ -209,11 +207,11 @@
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="recentsLimit" value="5" />
     <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
+    <property name="recentsLimit" value="5" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -332,7 +330,11 @@
       <created>1343783441407</created>
       <updated>1343783441407</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="fixed step back">
+      <created>1343790940907</created>
+      <updated>1343790940907</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -359,7 +361,6 @@
     <frame x="1331" y="116" width="991" height="840" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32729805" sideWeight="0.9959142" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4170274" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -375,11 +376,12 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31754875" sideWeight="0.9989775" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="CSS Styles" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32905295" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32729805" sideWeight="0.9959142" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32905295" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JsTestDriver Server" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32905295" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -419,7 +421,7 @@
     <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed drop koma and disable forward button function" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed step back" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -438,6 +440,7 @@
     <MESSAGE value="fixed shBoard.php so that the imagetag will have correct data-koma image file name (doesnot include path though)" />
     <MESSAGE value="fixed promote koma routine and associated parts" />
     <MESSAGE value="fixed drop koma and disable forward button function" />
+    <MESSAGE value="fixed step back" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -465,58 +468,42 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/shogiboard4.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/testGetChunk.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="0" selection-start="166" selection-end="166" vertical-scroll-proportion="0.05255023">
-          <folding />
-        </state>
+        <state line="8" column="0" selection-start="166" selection-end="166" vertical-scroll-proportion="0.05255023" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/shogiboard3.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="7" selection-start="1662" selection-end="1662" vertical-scroll-proportion="1.099369">
-          <folding />
-        </state>
+        <state line="41" column="7" selection-start="1662" selection-end="1662" vertical-scroll-proportion="1.099369" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/testdate.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="78" selection-start="732" selection-end="732" vertical-scroll-proportion="0.36391437">
-          <folding />
-        </state>
+        <state line="14" column="78" selection-start="732" selection-end="732" vertical-scroll-proportion="0.36391437" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/drawBoard3.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="0" selection-start="434" selection-end="434" vertical-scroll-proportion="0.7839806">
-          <folding />
-        </state>
+        <state line="19" column="0" selection-start="434" selection-end="434" vertical-scroll-proportion="0.7839806" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/drawboard2.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-4.037037">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-4.037037" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/boardfunction.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="117" column="65" selection-start="4407" selection-end="4407" vertical-scroll-proportion="0.7707865">
-          <folding />
-        </state>
+        <state line="117" column="65" selection-start="4407" selection-end="4407" vertical-scroll-proportion="0.7707865" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/boarddata.js">
@@ -526,16 +513,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/shBoard.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="1" selection-start="0" selection-end="4247" vertical-scroll-proportion="-1.6666666">
+        <state line="79" column="26" selection-start="2830" selection-end="2831" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/boardmover.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="33" selection-start="0" selection-end="6185" vertical-scroll-proportion="-4.76">
+        <state line="178" column="0" selection-start="6237" selection-end="6237" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="n#!!doc" expanded="true" />
             <element signature="n#!!block;n#makeAmove#0" expanded="false" />
           </folding>
         </state>
@@ -543,12 +529,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sboardTpl.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="50" selection-start="1295" selection-end="1295" vertical-scroll-proportion="0.7083333">
-          <folding>
-            <element signature="tag#div#0;tag#div#0;tag#div#1;tag#div#0;tag#div#0;tag#section#0" expanded="false" />
-            <element signature="tag#div#1;tag#div#0;tag#div#1;tag#div#0;tag#div#0;tag#section#0" expanded="false" />
-            <element signature="tag#div#2;tag#div#0;tag#div#1;tag#div#0;tag#div#0;tag#section#0" expanded="false" />
-          </folding>
+        <state line="30" column="34" selection-start="1470" selection-end="1470" vertical-scroll-proportion="0.68815595">
+          <folding />
         </state>
       </provider>
     </entry>

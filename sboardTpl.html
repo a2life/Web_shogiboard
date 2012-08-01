@@ -2,37 +2,40 @@
 [[!addCSS? &fileurl=`[[~47]]`]]
 <!-- register CSS to draw shogiboard (This snippet will only register once)-->
 <section class="shogiBoard">
-<div class="table forSnapshot" data-komapath="[[+komaPath]]" > <!-- outer table -->
-    <div class="row" >
-        <div class="boardbase cell">
-            <img class="board" src="[[+sBoard]]"  alt=""/>
-            <img class="board" src="[[+sGrid]]" alt=""/>
-            [[+onBoardImgs]]
-        </div>
-        <div class="cell" >
-            <div class="table"><!-- inner table -->
-                <div class="row">
-                    <div class="goteMochigoma komadai cell">
-                        [[+gOnHandImgs]]
-                        <!-- Gote mochigoma -->
-                    </div>
+    <div class="forSnapshot" data-komapath="[[+komaPath]]" > <!-- outer table -->
+        <div class="table">
+            <div class="row" >
+                <div class="boardbase cell">
+                    <img class="board" src="[[+sBoard]]"  alt=""/>
+                    <img class="board" src="[[+sGrid]]" alt=""/>
+                    [[+onBoardImgs]]
                 </div>
-                <div class="row">
-                    <div class="cell empty" ></div> <!-- gap between two komaban -->
-                </div>
-                <div class="row">
-                    <div class="senteMochigoma komadai cell">
-                        [[+sOnHandImgs]]
-                        <!-- Sente komaban -->
-                    </div>
-                </div><!-- row -->
-            </div><!-- innter table -->
-        </div><!-- cell-->
-    </div><!-- shogirow for the outer css-table-->
+                <div class="cell" >
+                    <div class="table"><!-- inner table -->
+                        <div class="row">
+                            <div class="goteMochigoma komadai cell">
+                                [[+gOnHandImgs]]
+                                <!-- Gote mochigoma -->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="cell empty" ></div> <!-- gap between two komaban -->
+                        </div>
+                        <div class="row">
+                            <div class="senteMochigoma komadai cell">
+                                [[+sOnHandImgs]]
+                                <!-- Sente komaban -->
+                            </div>
+                        </div><!-- row -->
+                    </div><!-- innter table -->
+                </div><!-- cell-->
+            </div><!-- shogirow for the outer css-table-->
+        </div><!-- outer css-table -->
+        <article class="comment">
+            hello world this is fun
+        </article>
+        <section class="cell"></section>
 
-    <article class="comment row">
-        hello world this is fun
-    </article>
     </div>
     <div class="buttonBar"></div>
-</section>
+</section> <!-- shogiboard section -->

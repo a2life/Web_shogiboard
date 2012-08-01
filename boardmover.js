@@ -1,3 +1,5 @@
+
+
 /**
  * Created with JetBrains PhpStorm.
  * User: 10032268
@@ -24,7 +26,7 @@ function setupButtons() {
         .appendTo('.buttonBar')
         .attr("value","Forward for solution")
         .each(function(i){$(this)
-            .click(function () {animateBoard(board[i],$(this).closest('.shogiBoard').find('.forSnapshot'));}
+            .click(function () {animateBoard(board[i],this)}
         )
         }
     );
@@ -133,7 +135,7 @@ function takeSnapshot(aBoard,target){
     ++aBoard.index;
 }
 function setBoardToHistory(aBoard,i,target){
-    target.find('.aButton').removeAttr("disabled");
+    target.closest(".shogiBoard").find('.aButton').removeAttr("disabled");
     target.empty().html(aBoard.history[i]);
 }
 function stepback(aBoard,target){
@@ -141,12 +143,14 @@ function stepback(aBoard,target){
     if(aBoard.index>0)
         setBoardToHistory(aBoard,--(aBoard.index),target);
 }
-function animateBoard(aBoard,target){
+function animateBoard(aBoard,self){
     /* aBoard point to an array element of Board[]
      *  self point to button entity
      *  target is ".forSnapshot" block that is ancestor of button that fires
      *
      */
+    var target=$(self).closest('.shogiBoard')
+        .find('.forSnapshot');
     var zAction=aBoard.moves[aBoard.index];
     takeSnapshot(aBoard,target);
     parseAction(zAction,target);
