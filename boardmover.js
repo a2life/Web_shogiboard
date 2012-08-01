@@ -24,7 +24,7 @@ function setupButtons() {
         .appendTo('.buttonBar')
         .attr("value","Forward for solution")
         .each(function(i){$(this)
-            .click(function () {animateBoard(board[i],this)}
+            .click(function () {animateBoard(board[i],$(this).closest('.shogiBoard').find('.forSnapshot'));}
         )
         }
     );
@@ -34,7 +34,7 @@ function setupButtons() {
         .appendTo('.buttonBar')
         .attr("value","Step Back")
         .each(function(i){$(this)
-            .click(function () {stepback(board[i],this);}
+            .click(function () {stepback(board[i],$(this).closest('.shogiBoard').find('.forSnapshot'));}
         )
         }
     );
@@ -130,23 +130,23 @@ function makeAmove(side,promote, from, to,target) {
 }
 function takeSnapshot(aBoard,target){
     aBoard.history[aBoard.index]=target.html();
-    aBoard.index++;
+    ++aBoard.index;
 }
 function setBoardToHistory(aBoard,i,target){
     target.find('.aButton').removeAttr("disabled");
     target.empty().html(aBoard.history[i]);
 }
 function stepback(aBoard,target){
+
     if(aBoard.index>0)
-        setBoardToHistory(aBoard,--aBoard.index,target);
+        setBoardToHistory(aBoard,--(aBoard.index),target);
 }
-function animateBoard(aBoard,self){
+function animateBoard(aBoard,target){
     /* aBoard point to an array element of Board[]
      *  self point to button entity
      *  target is ".forSnapshot" block that is ancestor of button that fires
      *
      */
-    var target = $(self).closest('.forSnapshot');
     var zAction=aBoard.moves[aBoard.index];
     takeSnapshot(aBoard,target);
     parseAction(zAction,target);
