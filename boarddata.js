@@ -54,7 +54,7 @@ board.push( {
 board.push({
     moves:[
     "*this is an essense of tsume problem",
-        "s+5216 *Sacrifice without capturing any piece!","g-5261","sd62s *Checkmate!"
+        "s+5216 *Sacrifice without capturing any piece!","g-5261","sd62s *Checkmate!","x"
     ],
     index:0,
 history:[]

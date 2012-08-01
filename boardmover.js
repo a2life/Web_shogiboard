@@ -78,10 +78,10 @@ function postComment(comment,target) {target.find('.comment').empty().append(com
 function emptyComment(target) {target.find('.comment').empty();}
 function cordToClass(cord){ return 'koma c'+cord.charAt(0)+' r'+cord.charAt(1);}
 function cordToSelector(cord){return ('.koma.c'+cord.charAt(0)+'.r'+cord.charAt(1));}
-function setMarker(cord){
+function setMarker(cord,target){
     var markerClass;
     markerClass="marker c"+cord.charAt(0)+' r'+cord.charAt(1);
-    $('#marker').attr("class",markerClass);
+    target.find('.marker').attr("class",markerClass);
 }
 function makeAdrop(side,koma,position,target) {
     var png=side.toUpperCase()+komatopng(koma);

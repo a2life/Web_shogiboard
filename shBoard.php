@@ -67,6 +67,10 @@ private function getImageTag($str,$side,$fpk){
         $output=$this->makeImageTag($class,$pngimg,$komadata);
         return $output;
     }
+    private function getMarkerTag($fpk){ //nee to work on this
+        $output=$fpk."png";
+        return '<img class="marker lostworld" src="'.$fpk.'/focus_trpt_g.png" alt=""/>';
+    }
 public function setsBoardPath() {
     return $this->filePathBoard.'/ban_kaya_a.png';
 }
@@ -79,6 +83,7 @@ Public function setsGridPath(){
 //handle board images here
 public function setOnBoardImgs(){
 $onBoardImgs="";
+    $onBoardImgs.=$this->getMarkerTag($this->filePathKoma);
 if(!empty($this->sOnBoard)){
     $komas=explode(",",$this->sOnBoard);
     foreach($komas as $koma){$onBoardImgs.=$this->getImageTag($koma,"S",$this->filePathKoma);}
