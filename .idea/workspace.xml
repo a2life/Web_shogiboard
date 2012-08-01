@@ -4,8 +4,6 @@
     <list default="true" id="7a51946b-f3d6-448f-8a54-9d3ff99aaec2" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/boarddata.js" afterPath="$PROJECT_DIR$/boarddata.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/boardmover.js" afterPath="$PROJECT_DIR$/boardmover.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shBoard.php" afterPath="$PROJECT_DIR$/shBoard.php" />
     </list>
     <ignored path="untitled.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,10 +25,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="boardmover.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="boardmover.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/boardmover.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="143" column="58" selection-start="0" selection-end="6254" vertical-scroll-proportion="0.13934426">
+            <state line="152" column="30" selection-start="5416" selection-end="5416" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -45,11 +43,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="boarddata.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="boarddata.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/boarddata.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="42" selection-start="477" selection-end="489" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="20" column="30" selection-start="971" selection-end="971" vertical-scroll-proportion="0.3065574">
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -102,8 +102,8 @@
         <option value="$PROJECT_DIR$/boardfunction.js" />
         <option value="$PROJECT_DIR$/sboardTpl.html" />
         <option value="$PROJECT_DIR$/boardmover.js" />
-        <option value="$PROJECT_DIR$/boarddata.js" />
         <option value="$PROJECT_DIR$/shBoard.php" />
+        <option value="$PROJECT_DIR$/boarddata.js" />
       </list>
     </option>
   </component>
@@ -361,7 +361,11 @@
       <created>1343827307175</created>
       <updated>1343827307175</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="revived marker( to show the last move)">
+      <created>1343844745304</created>
+      <updated>1343844745304</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -388,6 +392,7 @@
     <frame x="51" y="0" width="1109" height="770" extended-state="0" />
     <editor active="true" />
     <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32729805" sideWeight="0.9959142" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4170274" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -403,7 +408,6 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31754875" sideWeight="0.9989775" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="CSS Styles" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32905295" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32729805" sideWeight="0.9959142" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -448,7 +452,7 @@
     <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed button disable function. redefind shogiboard template" />
+    <option name="LAST_COMMIT_MESSAGE" value="revived marker( to show the last move)" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -469,6 +473,7 @@
     <MESSAGE value="fixed drop koma and disable forward button function" />
     <MESSAGE value="fixed step back" />
     <MESSAGE value="Fixed button disable function. redefind shogiboard template" />
+    <MESSAGE value="revived marker( to show the last move)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -541,13 +546,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/boarddata.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="42" selection-start="477" selection-end="489" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/shBoard.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="12" column="21" selection-start="0" selection-end="4493" vertical-scroll-proportion="-3.9230769">
@@ -557,8 +555,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/boardmover.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="143" column="58" selection-start="0" selection-end="6254" vertical-scroll-proportion="0.13934426">
+        <state line="152" column="30" selection-start="5416" selection-end="5416" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/boarddata.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="30" selection-start="971" selection-end="971" vertical-scroll-proportion="0.3065574">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
