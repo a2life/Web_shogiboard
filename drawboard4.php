@@ -10,6 +10,29 @@
  */
 
 require_once "assets/components/shBoard.php";
+
+
+/*
+ * if $moves exist, add javascript adding snippets in turn they will add buttons to the board
+ * below code will register Javascript files and section. regClientScript will register the file only once.
+ */
+
+if (isset($moves)) {
+    $modx->regClientScript("http://code.jquery.com/jquery-1.7.2.min.js");
+    $modx->regClientScript("assets/components/boardmover.js");
+    $src=<<<EOT
+    <script type="text/javascript">
+board.push({
+moves:[$moves],index:0,history:[]});
+</script>
+EOT;
+    $modx->regClientScript($src);
+
+}
+
+if(isset($moves)){
+    $buttonBarBlock='<div class="buttonBar"></div>';
+} else $buttonBarBlock="";
 /*
  * Put the relevant information for class library into array $a
  */
@@ -35,24 +58,12 @@ $b=array(
     "onBoardImgs"=>$aBoard->setOnBoardImgs(),
     "gOnHandImgs"=>$aBoard->setGOnHandImgs(),
     "sOnHandImgs"=>$aBoard->setSOnHandImgs(),
-    "komaPath"=>$aBoard->setKomaPath()
+    "komaPath"=>$aBoard->setKomaPath(),
+    "buttonBarBlock"=>$buttonBarBlock
 );
 
 
 $output=$modx->getChunk('shogiBoardTpl',$b);
-/*
- * if $moves exist, add javascript adding snippets in turn they will add buttons to the board
- */
-if (isset($moves)) {
-    $modx->regClientScript("http://code.jquery.com/jquery-1.7.2.min.js");
-    $modx->regClientScript("assets/components/boardmover.js");
-    $src=<<<EOT
-    <script type="text/javascript">
-board.push({
-moves:[$moves],index:0,history:[]});
-</script>
-EOT;
-    $modx->regClientScript($src);
-}
+
 
 return $output;
