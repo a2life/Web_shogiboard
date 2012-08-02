@@ -7,7 +7,7 @@
  * This is the storage for shobiboard moves. stored in the object in the array.
  */
 /* first declare the container.  In this case, object array by name of board*/
-var board=[];
+
 /* with help of modx script registering, I use push() function to add object element.  if there are three animated shogi
 * board in one page, there will be three push() string inside PHP side script
 * Combination

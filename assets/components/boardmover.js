@@ -172,7 +172,7 @@ function parseAction(aAction,target) {
     }
 
 }
-
+var board=[];
 $(function () {
     setupButtons();
 });
