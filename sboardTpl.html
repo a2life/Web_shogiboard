@@ -1,7 +1,6 @@
-[[!addCSS? &fileurl=`[[~37]]`]]
-[[!addCSS? &fileurl=`[[~47]]`]]
-<!-- register CSS to draw shogiboard (This snippet will only register once)-->
+<!-- Shogiboard html block -->
 <section class="shogiBoard">
+    [[+captionBlock]]
     [[+buttonBarBlock]]
     <div class="forSnapshot" data-komapath="[[+komaPath]]" > <!-- outer table -->
         <div class="table">
@@ -33,7 +32,7 @@
             </div><!-- shogirow for the outer css-table-->
         </div><!-- outer css-table -->
         <article class="comment">
-            hello world this is fun
+            [[+initialComment]]
         </article>
         <section class="cell"></section>
 

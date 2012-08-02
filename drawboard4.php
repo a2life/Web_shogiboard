@@ -13,11 +13,36 @@ require_once "assets/components/shBoard.php";
 
 
 /*
- * if $moves exist, add javascript adding snippets in turn they will add buttons to the board
- * below code will register Javascript files and section. regClientScript will register the file only once.
+ * Add CSS for shogiboard. these calls will register CSS files only onece.
  */
 
+$modx->regClientCSS("index.php?id=37");
+$modx->regClientCSS("index.php?id=47");
+
+/*
+ * If there is initial comment, then set it to placeholder
+ */
+if (isset($comment)){
+    $initialComment=$comment;
+} else $initialComment="";
+/*
+ * if caption is specified, then set it to placeholder
+ */
+if (isset($caption)){
+    $captionBlock='<div class="caption">'.$caption.'</div>';
+}else $captionBlock="";
+
+/*
+ * if $moves exist,
+ * add buttonBar section to the template.
+ * then register necessary javascript files and string.
+ * at the browser side, the Javascript will create buttons and attach to each board
+ * regClientScript will register the file only once.
+ */
+
+
 if (isset($moves)) {
+    $buttonBarBlock='<div class="buttonBar"></div>';
     $modx->regClientScript("http://code.jquery.com/jquery-1.7.2.min.js");
     $modx->regClientScript("assets/components/boardmover.js");
     $src=<<<EOT
@@ -28,10 +53,6 @@ moves:[$moves],index:0,history:[]});
 EOT;
     $modx->regClientScript($src);
 
-}
-
-if(isset($moves)){
-    $buttonBarBlock='<div class="buttonBar"></div>';
 } else $buttonBarBlock="";
 /*
  * Put the relevant information for class library into array $a
@@ -59,7 +80,9 @@ $b=array(
     "gOnHandImgs"=>$aBoard->setGOnHandImgs(),
     "sOnHandImgs"=>$aBoard->setSOnHandImgs(),
     "komaPath"=>$aBoard->setKomaPath(),
-    "buttonBarBlock"=>$buttonBarBlock
+    "buttonBarBlock"=>$buttonBarBlock,
+    "captionBlock"=>$captionBlock,
+    "initialComment"=>$initialComment
 );
 
 

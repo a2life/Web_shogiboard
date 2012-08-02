@@ -47,9 +47,10 @@
       <file leaf-file-name="drawboard4.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/drawboard4.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="62" column="2" selection-start="1695" selection-end="1695" vertical-scroll-proportion="-12.961538">
+            <state line="20" column="0" selection-start="0" selection-end="2345" vertical-scroll-proportion="-7.8461537">
               <folding>
-                <element signature="e#6#288#0" expanded="true" />
+                <marker date="1343942957250" expanded="true" signature="1342:1402" placeholder="..." />
+                <marker date="1343942957250" expanded="true" signature="1355:1391" placeholder="{&quot;index&quot;: 0...}" />
               </folding>
             </state>
           </provider>
@@ -67,7 +68,7 @@
       <file leaf-file-name="boardfunction.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/boardfunction.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="140" column="23" selection-start="5132" selection-end="5172" vertical-scroll-proportion="0.0">
+            <state line="144" column="70" selection-start="5436" selection-end="5436" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -85,7 +86,7 @@
       <file leaf-file-name="sboardTpl.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sboardTpl.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="22" selection-start="573" selection-end="573" vertical-scroll-proportion="0.3770795">
+            <state line="0" column="27" selection-start="27" selection-end="27" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -129,9 +130,9 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" interpreter_name="PHP5.4.4(Non-thread safe)VC9" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="1287" />
-    <option name="y" value="85" />
-    <option name="width" value="1109" />
+    <option name="x" value="121" />
+    <option name="y" value="201" />
+    <option name="width" value="1074" />
     <option name="height" value="714" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -182,16 +183,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -248,6 +239,16 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -264,16 +265,16 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="72" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="734" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="722" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="722" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="734" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="69" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="63" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -415,7 +416,11 @@
       <created>1343876741997</created>
       <updated>1343876741997</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Now only add buttons to those with moves.  relocated buttonbar to the top of diagram.">
+      <created>1343927277584</created>
+      <updated>1343927277584</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -439,14 +444,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1287" y="85" width="1109" height="714" extended-state="0" />
+    <frame x="121" y="201" width="1074" height="714" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4170274" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18165304" sideWeight="0.67270195" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18761726" sideWeight="0.67270195" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39967898" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -461,8 +466,8 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="JsTestDriver Server" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32905295" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="JsTestDriver Server" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -502,7 +507,7 @@
     <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="drawboard new version. now incorporates animation part" />
+    <option name="LAST_COMMIT_MESSAGE" value="Now only add buttons to those with moves.  relocated buttonbar to the top of diagram." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -526,6 +531,7 @@
     <MESSAGE value="revived marker( to show the last move)" />
     <MESSAGE value="clean up boarddata, javascript data structure" />
     <MESSAGE value="drawboard new version. now incorporates animation part" />
+    <MESSAGE value="Now only add buttons to those with moves.  relocated buttonbar to the top of diagram." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -571,28 +577,14 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-4.037037" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/components/boardmover.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="173" column="1" selection-start="6212" selection-end="6212" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/drawBoard3.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="45" selection-start="212" selection-end="212" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="9" column="45" selection-start="212" selection-end="212" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/components/shBoard.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="19" selection-start="331" selection-end="331" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/boardfunction.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="140" column="23" selection-start="5132" selection-end="5172" vertical-scroll-proportion="0.0" />
+        <state line="18" column="19" selection-start="331" selection-end="331" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/boarddata.js">
@@ -600,18 +592,31 @@
         <state line="9" column="0" selection-start="319" selection-end="319" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/boardfunction.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="144" column="70" selection-start="5436" selection-end="5436" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/components/boardmover.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="173" column="1" selection-start="6212" selection-end="6212" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/drawboard4.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="2" selection-start="1695" selection-end="1695" vertical-scroll-proportion="-12.961538">
+        <state line="20" column="0" selection-start="0" selection-end="2345" vertical-scroll-proportion="-7.8461537">
           <folding>
-            <element signature="e#6#288#0" expanded="true" />
+            <marker date="1343942957250" expanded="true" signature="1342:1402" placeholder="..." />
+            <marker date="1343942957250" expanded="true" signature="1355:1391" placeholder="{&quot;index&quot;: 0...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sboardTpl.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="22" selection-start="573" selection-end="573" vertical-scroll-proportion="0.3770795">
+        <state line="0" column="27" selection-start="27" selection-end="27" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
