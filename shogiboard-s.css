@@ -1,0 +1,16 @@
+/*
+Scaled down version of shogiboard. 43->32px and 48->36px
+C and R position adjusted accordingly.
+*/
+.board {width:305px; height: 341px;}
+.komadai {width:120px; height:168px;}
+.komadai img,.koma, .marker {width:32px; height:36px;}
+.comment {padding-left:7px; width:450px;min-height:100px;}
+.boardbase {width:330px; height:356px;}
+#boardbase {width:330px; height:356px;}
+.c1 {left:274px;} .c2 {left: 242px;} .c3 {left:210px;}
+.c4 {left:178px;} .c5 {left: 146px;} .c6 {left:114px;}
+.c7 {left:82px;} .c8 {left: 50px;}  .c9 {left: 18px;}
+.r1 {top:17px;}   .r2 {top:53px;}    .r3 {top:89px;}
+.r4{top:125px;}   .r5{top:161px;}    .r6 {top:197px;}
+.r7{top:233px;}   .r8{top:269px;}    .r9{top:305px;}

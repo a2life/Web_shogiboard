@@ -1,0 +1,30 @@
+/*
+This is CSS for shogiboard.
+all ID selectors(start with #) are for backword compatibility only. the latest code will only use
+class selectors
+Idea of this CSS to position each piece according to class assgined to image file.
+the equation is as follows (each image file size is 43 x 48. offsets are after trial and error)
+x=43x(9-c)+11
+y=48x(r-1)+10
+*/
+.forSnapshot {position:relative;}
+.table {display:table;}
+.row {display:table-row;}
+.cell {display:table-cell;}
+.empty {height:25px;}
+#boardbase {position:relative; width: 440px; height:490px;}
+.boardbase {position:relative; width: 440px; height:490px;}
+#senteMochigoma {vertical-align:bottom;}
+.senteMochigoma {vertical-align:bottom;}
+.komadai {height:220px; width:160px; background-image:url(images/shogiboards/ban/ban_kaya_a.png);}
+.board {position: absolute; left:10px; top:9px; }
+.comment {padding-left:10px; width:590px;min-height:120px;}
+.koma {position: absolute ; width:43px; height:48px;}
+.marker {position:absolute; width:43px; height:48px;}
+.lostworld {left:-20000px; top: -20000px;}
+.c1 {left:365px;} .c2 {left: 322px;} .c3 {left:279px;}
+.c4 {left:236px;} .c5 {left: 193px;} .c6 {left:150px;}
+.c7 {left:107px;} .c8 {left: 64px;}  .c9 {left: 23px;}
+.r1 {top:20px;}   .r2 {top:68px;}    .r3 {top:116px;}
+.r4{top:164px;}   .r5{top:212px;}    .r6 {top:260px;}
+.r7{top:308px;}   .r8{top:356px;}    .r9{top:404px;}
