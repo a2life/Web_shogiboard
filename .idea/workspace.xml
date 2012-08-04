@@ -2,25 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7a51946b-f3d6-448f-8a54-9d3ff99aaec2" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/shogiboard-s.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/shogiboard-s2.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/shogiboard.css" />
-      <change type="DELETED" beforePath="C:\Documents and Settings\10032268\WebstormProjects\htmlshogiboard\templatecheck.html" afterPath="" />
-      <change type="MOVED" beforePath="C:\Documents and Settings\10032268\WebstormProjects\htmlshogiboard\boarddata.js" afterPath="$PROJECT_DIR$/olderVersions/boarddata.js" />
-      <change type="MOVED" beforePath="C:\Documents and Settings\10032268\WebstormProjects\htmlshogiboard\boardfunction.js" afterPath="$PROJECT_DIR$/JavaScriptOnlySolution/boardfunction.js" />
-      <change type="MOVED" beforePath="C:\Documents and Settings\10032268\WebstormProjects\htmlshogiboard\checkingwidth.html" afterPath="$PROJECT_DIR$/proofOfConcepts/checkingwidth.html" />
-      <change type="MOVED" beforePath="C:\Documents and Settings\10032268\WebstormProjects\htmlshogiboard\drawBoard3.php" afterPath="$PROJECT_DIR$/olderVersions/drawBoard3.php" />
-      <change type="MOVED" beforePath="C:\Documents and Settings\10032268\WebstormProjects\htmlshogiboard\drawboard2.php" afterPath="$PROJECT_DIR$/olderVersions/drawboard2.php" />
-      <change type="MOVED" beforePath="C:\Documents and Settings\10032268\WebstormProjects\htmlshogiboard\index.php" afterPath="$PROJECT_DIR$/proofOfConcepts/index.php" />
-      <change type="MOVED" beforePath="C:\Documents and Settings\10032268\WebstormProjects\htmlshogiboard\jquery.html" afterPath="$PROJECT_DIR$/proofOfConcepts/jquery.html" />
-      <change type="MOVED" beforePath="C:\Documents and Settings\10032268\WebstormProjects\htmlshogiboard\playwithThis\playwithThis.html" afterPath="$PROJECT_DIR$/proofOfConcepts/playwithThis/playwithThis.html" />
-      <change type="MOVED" beforePath="C:\Documents and Settings\10032268\WebstormProjects\htmlshogiboard\playwithThis\playwithjs.html" afterPath="$PROJECT_DIR$/proofOfConcepts/playwithThis/playwithjs.html" />
-      <change type="MOVED" beforePath="C:\Documents and Settings\10032268\WebstormProjects\htmlshogiboard\shogiboard2.html" afterPath="$PROJECT_DIR$/JavaScriptOnlySolution/shogiboard2.html" />
-      <change type="MOVED" beforePath="C:\Documents and Settings\10032268\WebstormProjects\htmlshogiboard\shogiboard3.html" afterPath="$PROJECT_DIR$/JavaScriptOnlySolution/shogiboard3.html" />
-      <change type="MOVED" beforePath="C:\Documents and Settings\10032268\WebstormProjects\htmlshogiboard\shogiboard4.php" afterPath="$PROJECT_DIR$/proofOfConcepts/shogiboard4.php" />
-      <change type="MOVED" beforePath="C:\Documents and Settings\10032268\WebstormProjects\htmlshogiboard\testGetChunk.php" afterPath="$PROJECT_DIR$/proofOfConcepts/testGetChunk.php" />
-      <change type="MOVED" beforePath="C:\Documents and Settings\10032268\WebstormProjects\htmlshogiboard\testdate.php" afterPath="$PROJECT_DIR$/proofOfConcepts/testdate.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="untitled.iws" />
@@ -55,7 +36,7 @@
       <file leaf-file-name="drawboard4.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/drawboard4.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="0" selection-start="501" selection-end="501" vertical-scroll-proportion="-0.65384614">
+            <state line="20" column="0" selection-start="501" selection-end="501" vertical-scroll-proportion="0.0">
               <folding>
                 <marker date="1343942957250" expanded="true" signature="1342:1402" placeholder="..." />
                 <marker date="1343942957250" expanded="true" signature="1355:1391" placeholder="{&quot;index&quot;: 0...}" />
@@ -76,7 +57,7 @@
       <file leaf-file-name="shogiboard-s.css" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/shogiboard-s.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="58" selection-start="290" selection-end="290" vertical-scroll-proportion="0.20987654">
+            <state line="7" column="58" selection-start="290" selection-end="290" vertical-scroll-proportion="0.25625">
               <folding />
             </state>
           </provider>
@@ -138,10 +119,10 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" interpreter_name="PHP5.4.4(Non-thread safe)VC9" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="1287" />
-    <option name="y" value="133" />
-    <option name="width" value="1074" />
-    <option name="height" value="714" />
+    <option name="x" value="256" />
+    <option name="y" value="128" />
+    <option name="width" value="768" />
+    <option name="height" value="512" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -295,16 +276,16 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="93" />
-    <property name="DefaultHtmlFileTemplate" value="Html5" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="742" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="754" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="742" />
+    <property name="DefaultHtmlFileTemplate" value="Html5" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="90" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="84" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -458,7 +439,11 @@
       <created>1343943560523</created>
       <updated>1343943560523</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="added CSS files in version control">
+      <created>1344106130300</created>
+      <updated>1344106130300</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -482,14 +467,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1287" y="133" width="1074" height="714" extended-state="0" />
-    <editor active="true" />
+    <frame x="256" y="128" width="768" height="512" extended-state="0" />
+    <editor active="false" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4170274" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18761726" sideWeight="0.6739865" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1868421" sideWeight="0.6739865" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39967898" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -504,8 +489,8 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32905295" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JsTestDriver Server" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32905295" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -545,7 +530,7 @@
     <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added comment and caption. moved CSS registration from template chunk to snippet" />
+    <option name="LAST_COMMIT_MESSAGE" value="added CSS files in version control" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -571,6 +556,7 @@
     <MESSAGE value="drawboard new version. now incorporates animation part" />
     <MESSAGE value="Now only add buttons to those with moves.  relocated buttonbar to the top of diagram." />
     <MESSAGE value="Added comment and caption. moved CSS registration from template chunk to snippet" />
+    <MESSAGE value="added CSS files in version control" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -631,16 +617,9 @@
         <state line="173" column="1" selection-start="6212" selection-end="6212" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sboardTpl.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="27" selection-start="215" selection-end="215" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/drawboard4.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="0" selection-start="501" selection-end="501" vertical-scroll-proportion="-0.65384614">
+        <state line="20" column="0" selection-start="501" selection-end="501" vertical-scroll-proportion="0.0">
           <folding>
             <marker date="1343942957250" expanded="true" signature="1342:1402" placeholder="..." />
             <marker date="1343942957250" expanded="true" signature="1355:1391" placeholder="{&quot;index&quot;: 0...}" />
@@ -650,21 +629,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/shogiboard.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="33" selection-start="388" selection-end="388" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="9" column="33" selection-start="388" selection-end="388" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/shogiboard-s2.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="13" selection-start="0" selection-end="101" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="1" column="13" selection-start="0" selection-end="101" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sboardTpl.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="27" selection-start="215" selection-end="215" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/shogiboard-s.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="58" selection-start="290" selection-end="290" vertical-scroll-proportion="0.20987654">
+        <state line="7" column="58" selection-start="290" selection-end="290" vertical-scroll-proportion="0.25625">
           <folding />
         </state>
       </provider>
