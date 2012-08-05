@@ -81,7 +81,7 @@ function captureKoma(side,cord){
     $(cordToSelector(cord)).first().attr("class","").attr("src",board.pathname+side+koma).appendTo(komaban);
 }
 function promoteKoma(side,cord) {
-    var koma;
+  var koma;
 
     koma = $(cordToSelector(cord)).data("koma");
     koma = (koma == "hi.png") ? "ryu.png" : koma = (koma == "kaku.png") ? "uma.png" : 'n' + koma;
