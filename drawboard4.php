@@ -4,16 +4,27 @@
  * User: 10032268
  * Date: 8/1/12
  * Time: 7:52 PM
- * To change this template use File | Settings | File Templates.
  * start from drawboard3 and then add the part to insert boardmover javascript and boarddata javascript source
  * at the end
+ * usage of this snippet
+ * parameters
+ * comment: comment for intial display
+ * caption: caption for the shogiboard
+ * sOnBoard: array of on board pieces for sente: default is initial set position
+ * gOnBoard: array of on board pieces for gote: default is initial set position
+ * sOnHand : array of on hand pieces for Sente: default is none;
+ * gOnHand : array of on hand pieces for Gote: default is none;
+ * filePathKoma: file path for koma images.: defaults is for kinki images
+ * filePathBoard: file path for board image : default is for kaya
+ * filePathGrid: file path for grid image: default is with x,y and dots.
+ * moves : array of moves. If not specified then the board is static (no buttons)
  */
 
 require_once "assets/components/shBoard.php";
 
 
 /*
- * Add CSS for shogiboard. these calls will register CSS files only onece.
+ * Add CSS for shogiboard. these calls will register CSS files only once.
  */
 
 $modx->regClientCSS("index.php?id=37");
