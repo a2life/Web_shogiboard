@@ -86,6 +86,7 @@ function promoteKoma(side,cord) {
     koma = $(cordToSelector(cord)).data("koma");
     koma = (koma == "hi.png") ? "ryu.png" : koma = (koma == "kaku.png") ? "uma.png" : 'n' + koma;
     $(cordToSelector(cord)).first().attr("src", board.pathname + side + koma);
+
 }
 function makeAmove(side,promote, from, to) {
     emptyComment();
