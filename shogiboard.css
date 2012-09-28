@@ -6,6 +6,7 @@ Idea of this CSS to position each piece according to class assgined to image fil
 the equation is as follows (each image file size is 43 x 48. offsets are after trial and error)
 x=43x(9-c)+11
 y=48x(r-1)+10
+#nameid class definition for backward compatibility.
 */
 .forSnapshot {position:relative;}
 .table {display:table;}
