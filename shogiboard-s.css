@@ -1,6 +1,8 @@
 /*
 Scaled down version of shogiboard. 43->32px and 48->36px
 C and R position adjusted accordingly.
+x=32x(9-c)+11+7
+y=36x(r-1)+10+7
 */
 .board {width:305px; height: 341px;}
 .komadai {width:120px; height:168px;}
