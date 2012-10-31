@@ -72,6 +72,7 @@ $a=array(
     "filePathKoma"=>$filePathKoma,
     "filePathGrid"=>$filePathGrid,
     "filePathBoard"=>$filePathBoard,
+    "filePathFocus"=>$filePathFocus,
     "sOnBoard"=>$sOnBoard,
     "gOnBoard"=>$gOnBoard,
     "sOnHand"=>$sOnHand,
