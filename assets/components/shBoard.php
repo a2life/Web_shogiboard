@@ -4,7 +4,9 @@
  * User: 10032268
  * Date: 6/20/12
  * Time: 7:41 PM
- * To change this template use File | Settings | File Templates.
+ *
+ * 11/9/2012 added markerAt parameter. If empty, then it will be "lostworld" otherwise, needs 2 digits character string like
+ * 13, 34 etc.,
  */
 
 
@@ -18,6 +20,7 @@ class shBoard
     public $gOnBoard='';
     public $sOnHand='';
     public $gOnHand='';
+    public $markerAt;
     public function __construct($params){
         if (array_key_exists('filePathKoma', $params))$this->filePathKoma=$params["filePathKoma"];
         if (array_key_exists('filePathGrid', $params))$this->filePathGrid=$params["filePathGrid"];
@@ -27,6 +30,7 @@ class shBoard
         if (array_key_exists('gOnBoard', $params))$this->gOnBoard=$params["gOnBoard"];
         if (array_key_exists('sOnHand', $params))$this->sOnHand=$params["sOnHand"];
         if (array_key_exists('gOnHand', $params))$this->gOnHand=$params["gOnHand"];
+        if (array_key_exists('markerAt', $params))$this->markerAt=$params["markerAt"];
     }
     private function komatopng($koma) {
         switch ($koma){ //convert piece information to image filename information.
@@ -69,8 +73,10 @@ class shBoard
         $output=$this->makeImageTag($class,$pngimg,$komadata);
         return $output;
     }
-    private function getMarkerTag($fpk){
-        $output='<img class="marker lostworld" src="'.$fpk.'/focus_trpt_g.png" alt=""/>';
+    private function getMarkerTag($fpk,$pos){
+        if ($pos==""){$focus="lostworld";}
+        else $focus=$this->cordToClass($pos);
+        $output='<img class="marker '.$focus.'" src="'.$fpk.'/focus_trpt_g.png" alt=""/>';
         return $output;
     }
     public function setsBoardPath() {
@@ -85,7 +91,7 @@ class shBoard
 //handle board images here
     public function setOnBoardImgs(){
         $onBoardImgs="";
-        $onBoardImgs.=$this->getMarkerTag($this->filePathFocus);
+        $onBoardImgs.=$this->getMarkerTag($this->filePathFocus,$this->markerAt);
         if(!empty($this->sOnBoard)){
             $komas=explode(",",$this->sOnBoard);
             foreach($komas as $koma){$onBoardImgs.=$this->getImageTag($koma,"S",$this->filePathKoma);}

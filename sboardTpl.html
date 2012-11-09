@@ -1,4 +1,5 @@
-<!-- Shogiboard html block -->
+[[-This is a shogiboard html Template, to be used in modx with a lot of placeholders]]
+[[-11/09/12]]
 <section class="shogiBoard">
     [[+captionBlock]]
     [[+buttonBarBlock]]
@@ -13,7 +14,7 @@
                 <div class="cell" >
                     <div class="table"><!-- inner table -->
                         <div class="row">
-                            <div class="goteMochigoma komadai cell">
+                            <div class="goteMochigoma komadai cell [[+hide]]">
                                 [[+gOnHandImgs]]
                                 <!-- Gote mochigoma -->
                             </div>
@@ -31,7 +32,7 @@
                 </div><!-- cell-->
             </div><!-- shogirow for the outer css-table-->
         </div><!-- outer css-table -->
-        <article class="comment">
+        <article class="comment [[+displayComment]]">
             [[+initialComment]]
         </article>
         <section class="cell"></section>

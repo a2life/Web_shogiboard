@@ -19,6 +19,8 @@
  * filePathGrid: file path for grid image: default is with x,y and dots.
  * moves : array of moves. If not specified then the board is static (no buttons)
  * type : only support "1" at this time. in this case, the board arrangement is for tsume shogi.
+ * markerAt: usually blank.
+ * noComment: hide comment section
  */
 
 require_once "assets/components/shBoard.php";
@@ -26,10 +28,11 @@ require_once "assets/components/shBoard.php";
 
 /*
  * Add CSS for shogiboard. these calls will register CSS files only once.
+ * change resource ids for particular modx install
  */
 
-$modx->regClientCSS("index.php?id=37");
-$modx->regClientCSS("index.php?id=47");
+$modx->regClientCSS("index.php?id=260");
+$modx->regClientCSS("index.php?id=265");
 
 /*
  * If there is initial comment, then set it to placeholder
@@ -37,6 +40,10 @@ $modx->regClientCSS("index.php?id=47");
 if (isset($comment)){
     $initialComment=$comment;
 } else $initialComment="";
+
+if (isset($noComment)){
+    if ($noComment=='1'){$displayComment="hide";}
+}
 /*
  * if caption is specified, then set it to placeholder
  */
@@ -50,7 +57,7 @@ if (isset($caption)){
 */
 $hide="";
 if (isset($type)){
-    if ($type="1"){$hide="hide";}
+    if ($type=="1"){$hide="hide";}
 }
 /*
  * if $moves exist,
@@ -85,7 +92,8 @@ $a=array(
     "sOnBoard"=>$sOnBoard,
     "gOnBoard"=>$gOnBoard,
     "sOnHand"=>$sOnHand,
-    "gOnHand"=>$gOnHand
+    "gOnHand"=>$gOnHand,
+    "markerAt"=>$markerAt
 
 );
 
@@ -104,7 +112,8 @@ $b=array(
     "buttonBarBlock"=>$buttonBarBlock,
     "captionBlock"=>$captionBlock,
     "initialComment"=>$initialComment,
-    "hide"=>$hide
+    "hide"=>$hide,
+    "displayComment"=>$displayComment
 );
 
 
