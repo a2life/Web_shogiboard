@@ -1,0 +1,20 @@
+/*
+ This will use 60% scaling.
+* x-width=26, y-height=29
+* x=26x(9-c)+16
+* y=29x(r-1)+15
+* 
+* board-width and height with this scaling will be 246 x 272
+*/
+.board {width:246px; height: 273px;}
+.komadai {width:100px; height:133px;}
+.komadai img,.koma, .marker {width:26px; height:29px;}
+.comment {padding-left:7px; width:450px;min-height:100px;}
+.boardbase {width:266px; height:292px;}
+#boardbase {width:266px; height:292px;}
+.c1 {left:224px;} .c2 {left: 198px;} .c3 {left:172px;}
+.c4 {left:146px;} .c5 {left: 120px;} .c6 {left:94px;}
+.c7 {left:68px;} .c8 {left: 42px;}  .c9 {left: 16px;}
+.r1 {top:15px;}   .r2 {top:44px;}    .r3 {top:73px;}
+.r4{top:102px;}   .r5{top:131px;}    .r6 {top:160px;}
+.r7{top:189px;}   .r8{top:218px;}    .r9{top:247px;}

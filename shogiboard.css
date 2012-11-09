@@ -1,18 +1,21 @@
 /*
 This is CSS for shogiboard.
-all ID selectors(start with #) are for backword compatibility only. the latest code will only use
+all ID selectors(start with #) are for backward compatibility only. the latest code will only use
 class selectors
-Idea of this CSS to position each piece according to class assgined to image file.
+Idea of this CSS is to position each piece according to classes (C-column and r-row) assigned to a image file.
 the equation is as follows (each image file size is 43 x 48. offsets are after trial and error)
-x=43x(9-c)+11
-y=48x(r-1)+10
-#nameid class definition for backward compatibility.
+x=43x(9-c)+11+12
+y=48x(r-1)+10+10
+size of board and grid image is : 410 x 454. offset (margin) put a 0,0 cordinate to (11,10)
+.board= size of board itself =410x454
+.boardbase includes
 */
 .forSnapshot {position:relative;}
 .table {display:table;}
 .row {display:table-row;}
 .cell {display:table-cell;}
 .empty {height:25px;}
+.hide {display:hide;}
 #boardbase {position:relative; width: 440px; height:490px;}
 .boardbase {position:relative; width: 440px; height:490px;}
 #senteMochigoma {vertical-align:bottom;}

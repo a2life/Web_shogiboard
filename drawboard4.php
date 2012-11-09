@@ -18,6 +18,7 @@
  * filePathBoard: file path for board image : default is for kaya
  * filePathGrid: file path for grid image: default is with x,y and dots.
  * moves : array of moves. If not specified then the board is static (no buttons)
+ * type : only support "1" at this time. in this case, the board arrangement is for tsume shogi.
  */
 
 require_once "assets/components/shBoard.php";
@@ -43,6 +44,14 @@ if (isset($caption)){
     $captionBlock='<div class="caption">'.$caption.'</div>';
 }else $captionBlock="";
 
+/*
+ * if $type is defined and is set to 1, then the board is used for Tsume shogi.
+ * hide the goteMochigoma by use of placeholder for template .
+*/
+$hide="";
+if (isset($type)){
+    if ($type="1"){$hide="hide";}
+}
 /*
  * if $moves exist,
  * add buttonBar section to the template.
@@ -72,6 +81,7 @@ $a=array(
     "filePathKoma"=>$filePathKoma,
     "filePathGrid"=>$filePathGrid,
     "filePathBoard"=>$filePathBoard,
+    "filePathFocus"=>$filePathFocus,
     "sOnBoard"=>$sOnBoard,
     "gOnBoard"=>$gOnBoard,
     "sOnHand"=>$sOnHand,
@@ -93,7 +103,8 @@ $b=array(
     "komaPath"=>$aBoard->setKomaPath(),
     "buttonBarBlock"=>$buttonBarBlock,
     "captionBlock"=>$captionBlock,
-    "initialComment"=>$initialComment
+    "initialComment"=>$initialComment,
+    "hide"=>$hide
 );
 
 

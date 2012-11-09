@@ -2,22 +2,10 @@
 
 /**
  * Created with JetBrains PhpStorm.
- * User: 10032268
- * Date: 6/25/12
- * Time: 3:01 PM
- * To change this template use File | Settings | File Templates.
- */
-/**
- * issues identified
- * Board.pathname not defined in boarddata.js
- * data-koma not set up in PHP generated board.
- * Created with JetBrains WebStorm.
- * User: shared
- * Date: 6/3/12
- * Time: 10:51 PM
- * To change this template use File | Settings | File Templates.
- */
-/*dynamically add buttons to sections with "buttunBar" class
+ * User: a2life
+ * Date: 10/29/12
+ *this Js is to be used with PHP file that creates the shogiboard initial setup.
+ * this javascript will then animate the boaord.
  */
 function setupButtons() {
 
@@ -112,9 +100,17 @@ function promoteKoma(side,cord,target) {
     } else {
         if (koma == "kaku.png") {
             koma = "uma.png";
-        } else {
+        }
+
+        else{
+        if (koma=="fu.png"){
+            koma="to.png";
+        }
+
+        else {
             koma = 'n' + koma;
         }
+      }
     }
     target.find(cordToSelector(cord)).first().attr("src", komapath + side + koma);
 }
