@@ -93,7 +93,10 @@ $a=array(
     "gOnBoard"=>$gOnBoard,
     "sOnHand"=>$sOnHand,
     "gOnHand"=>$gOnHand,
-    "markerAt"=>$markerAt
+    "markerAt"=>$markerAt,
+    "banImage"=>$banImage,
+    "gridImage"=>$gridImage,
+    "focusImage"=>$focusImage
 
 );
 
