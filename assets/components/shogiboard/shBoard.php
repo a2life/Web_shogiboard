@@ -12,18 +12,18 @@
 
 class shBoard
 {
-    public $filePathKoma;
-    public $filePathGrid;
-    public $filePathFocus;
-    public $filePathBoard;
-    public $sOnBoard='';
-    public $gOnBoard='';
-    public $sOnHand='';
-    public $gOnHand='';
-    public $markerAt;
-    public $banImage='ban_kaya_a.png';
-    public $gridImage='masu_dot_xy.png';
-    public $markerImage='focus_trpt_g.png';
+    private  $filePathKoma;
+    private  $filePathGrid;
+    private  $filePathFocus;
+    private  $filePathBoard;
+    private  $sOnBoard='';
+    private  $gOnBoard='';
+    private  $sOnHand='';
+    private  $gOnHand='';
+    private  $markerAt;
+    private  $banImage='ban_kaya_a.png';
+    private  $gridImage='masu_dot_xy.png';
+    private  $markerImage='focus_trpt_g.png';
     public function __construct($params){
         if (array_key_exists('filePathKoma', $params))$this->filePathKoma=$params["filePathKoma"];
         if (array_key_exists('filePathGrid', $params))$this->filePathGrid=$params["filePathGrid"];
