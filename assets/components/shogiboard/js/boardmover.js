@@ -97,21 +97,15 @@ function promoteKoma(side,cord,target) {
     koma = target.find(cordToSelector(cord)).data("koma");
     if (koma == "hi.png") {
         koma = "ryu.png";
-    } else {
-        if (koma == "kaku.png") {
-            koma = "uma.png";
-        }
-
-        else{
-        if (koma=="fu.png"){
-            koma="to.png";
-        }
-
-        else {
-            koma = 'n' + koma;
-        }
-      }
     }
+    else if (koma == "kaku.png") {
+        koma = "uma.png";
+    }
+    else if (koma == "fu.png") {
+        koma = "to.png";
+    }
+    else koma = 'n' + koma;
+
     target.find(cordToSelector(cord)).first().attr("src", komapath + side + koma);
 }
 function makeAmove(side,promote, from, to,target) {
