@@ -21,6 +21,9 @@ class shBoard
     public $sOnHand='';
     public $gOnHand='';
     public $markerAt;
+    public $banImage='ban_kaya_a.png';
+    public $gridImage='masu_dot_xy.png';
+    public $markerImage='focus_trpt_g.png';
     public function __construct($params){
         if (array_key_exists('filePathKoma', $params))$this->filePathKoma=$params["filePathKoma"];
         if (array_key_exists('filePathGrid', $params))$this->filePathGrid=$params["filePathGrid"];
@@ -31,6 +34,11 @@ class shBoard
         if (array_key_exists('sOnHand', $params))$this->sOnHand=$params["sOnHand"];
         if (array_key_exists('gOnHand', $params))$this->gOnHand=$params["gOnHand"];
         if (array_key_exists('markerAt', $params))$this->markerAt=$params["markerAt"];
+        if (array_key_exists('banImage',$params))$this->banImage=$params["banImage"];
+        if (array_key_exists('gridImage',$params))$this->gridImage=$params["gridImage"];
+        if (array_key_exists('markerImage',$params))$this->markerImage=$params["markerImage"];
+
+
     }
     private function komatopng($koma) {
         switch ($koma){ //convert piece information to image filename information.
@@ -73,17 +81,17 @@ class shBoard
         $output=$this->makeImageTag($class,$pngimg,$komadata);
         return $output;
     }
-    private function getMarkerTag($fpk,$pos){
+    private function getMarkerTag($fpk,$img,$pos){
         if ($pos==""){$focus="lostworld";}
         else $focus=$this->cordToClass($pos);
-        $output='<img class="marker '.$focus.'" src="'.$fpk.'/focus_trpt_g.png" alt=""/>';
+        $output='<img class="marker '.$focus.'" src="'.$fpk.$img.'" alt=""/>';
         return $output;
     }
     public function setsBoardPath() {
-        return $this->filePathBoard.'/ban_kaya_a.png';
+        return $this->filePathBoard.$this->banImage;
     }
     Public function setsGridPath(){
-        return $this->filePathGrid.'/masu_dot_xy.png';
+        return $this->filePathGrid.$this->gridImage;
     }
     public function setKomaPath(){
         return $this->filePathKoma;
@@ -91,7 +99,7 @@ class shBoard
 //handle board images here
     public function setOnBoardImgs(){
         $onBoardImgs="";
-        $onBoardImgs.=$this->getMarkerTag($this->filePathFocus,$this->markerAt);
+        $onBoardImgs.=$this->getMarkerTag($this->filePathFocus,$this->markerImage,$this->markerAt);
         if(!empty($this->sOnBoard)){
             $komas=explode(",",$this->sOnBoard);
             foreach($komas as $koma){$onBoardImgs.=$this->getImageTag($koma,"S",$this->filePathKoma);}

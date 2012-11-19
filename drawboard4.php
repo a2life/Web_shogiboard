@@ -23,7 +23,7 @@
  * noComment: hide comment section
  */
 
-require_once "assets/components/shBoard.php";
+require_once "assets/components/shogiboard/shBoard.php";
 
 
 /*
@@ -31,8 +31,10 @@ require_once "assets/components/shBoard.php";
  * change resource ids for particular modx install
  */
 
-$modx->regClientCSS("index.php?id=260");
-$modx->regClientCSS("index.php?id=265");
+$modx->regClientCSS("assets/components/shogiboard/css/shogiboard.css");
+$modx->regClientCSS("assets/components/shogiboard/css/shogiboard-small.css");
+
+
 
 /*
  * If there is initial comment, then set it to placeholder
@@ -71,7 +73,7 @@ if (isset($type)){
 if (isset($moves)) {
     $buttonBarBlock='<div class="buttonBar"></div>';
     $modx->regClientScript("http://code.jquery.com/jquery-1.7.2.min.js");
-    $modx->regClientScript("assets/components/boardmover.js");
+    $modx->regClientScript("assets/components/shogiboard/js/boardmover.js");
     $src=<<<EOT
     <script type="text/javascript">
 board.push({
@@ -93,7 +95,10 @@ $a=array(
     "gOnBoard"=>$gOnBoard,
     "sOnHand"=>$sOnHand,
     "gOnHand"=>$gOnHand,
-    "markerAt"=>$markerAt
+    "markerAt"=>$markerAt,
+    "banImage"=>$banImage,
+    "gridImage"=>$gridImage,
+    "markerImage"=>$markerImage
 
 );
 

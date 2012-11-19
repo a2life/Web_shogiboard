@@ -4,12 +4,12 @@ C and R position adjusted accordingly.
 x=30x(9-c)+11+7
 y=33x(r-1)+10+7
 */
+.boardbase {width: 309px; height:337px;}
+#boardbase {width:323px; height:337px;}
 .board {width:286px; height: 312px;}
 .komadai {width:100px; height:150px;}
 .komadai img,.koma, .marker {width:30px; height:33px;}
 .comment {padding-left:7px; width:450px;min-height:100px;}
-.boardbase {width:323px; height:337px;}
-#boardbase {width:323px; height:337px;}
 .c1 {left:258px;} .c2 {left: 228px;} .c3 {left:198px;}
 .c4 {left:168px;} .c5 {left: 138px;} .c6 {left:108px;}
 .c7 {left:78px;} .c8 {left: 48px;}  .c9 {left: 18px;}
