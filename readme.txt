@@ -1,15 +1,29 @@
 This is a readme file for shogiboard system.
-This setup works with modx CMS
+This setup works with modx content management framework (the code is PHP and Javascript mix.
+However, PHP code uses MODX tags and APIs.
 
-call by
+MOdx snippet tag call example
 [[!drawboard? &parameter....]]
 parameters:
-sOnHand :
-gOnHand :
-sOnBoard:
-gOnBoard:
-markerAt:
-type :  if set to 1, board is for tsume shogi
+sOnHand :'s,s'
+gOnHand :``
+sOnBoard: `53s,15b`
+gOnBoard: `41s,51k,61s`
+markerAt:if blank, no initial focus
+type=`1` :  if set to 1, board is for tsume shogi
+noComment: if set to 1, then there will be no comment shown.
+moves=`s+5215,g-5241,sd42s*3 move tsume` 
+
+format
+Each pieces are represented in the following format
+"p"=>"歩","P"=>"と",'L'=>"成香","l"=>"香",
+'N'=>'成桂','n'=>'桂','S'=>'成銀','s'=>'銀',
+'r'=>'飛',"R"=>"[竜龍]","b"=>"角","B"=>"馬",
+"k"=>"玉","g"=>"金", ,"d"=>"打","+"=>"成"
+*comment
+Coordinate is in arabic, 11,99 etc.,
+
+
 
 to do:
 
