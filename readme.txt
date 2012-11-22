@@ -12,7 +12,7 @@ gOnBoard: `41s,51k,61s`
 markerAt:if blank, no initial focus
 type=`1` :  if set to 1, board is for tsume shogi
 noComment: if set to 1, then there will be no comment shown.
-moves=`s+5215,g-5241,sd42s*3 move tsume` 
+moves=`s+5215,g-5241,sd42s*3 move tsume`
 
 format
 Each pieces are represented in the following format
