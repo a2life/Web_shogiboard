@@ -34,3 +34,6 @@ $.ajax({
 add type to handle handycap board, (or this can be set up as @property)
 
 mixed size in the same page => need to change class name in the template chunk.
+
+buttonbar section need to be outside of "snapshot" Div, as snapshot is simply an htmlcontents copy.
+If buttons are copied over, then it will lose binging and lose its functionality after first stepback.
