@@ -2,10 +2,22 @@
 
 /**
  * Created with JetBrains PhpStorm.
- * User: a2life
- * Date: 10/29/12
- *this Js is to be used with PHP file that creates the shogiboard initial setup.
- * this javascript will then animate the boaord.
+ * User: 10032268
+ * Date: 6/25/12
+ * Time: 3:01 PM
+ * To change this template use File | Settings | File Templates.
+ */
+/**
+ * issues identified
+ * Board.pathname not defined in boarddata.js
+ * data-koma not set up in PHP generated board.
+ * Created with JetBrains WebStorm.
+ * User: shared
+ * Date: 6/3/12
+ * Time: 10:51 PM
+ * To change this template use File | Settings | File Templates.
+ */
+/*dynamically add buttons to sections with "buttunBar" class
  */
 function setupButtons() {
 
@@ -144,8 +156,10 @@ function animateBoard(aBoard,self){
     var zAction=aBoard.moves[aBoard.index];
     takeSnapshot(aBoard,target);
     parseAction(zAction,target);
-    if (aBoard.moves[aBoard.index].charAt(0)=='x')  $(self).attr("disabled","disabled")
-    ; //once reaches the end...
+    //   if (aBoard.moves[aBoard.index].charAt(0)=='x')
+    if (/x[0-9]*\*?|^$/.test(aBoard.moves[aBoard.index]))
+        $(self).attr("disabled","disabled")
+        ; //once reaches the end...
 
 //after the move, if next line is a comment, then process it anyway.
 }
