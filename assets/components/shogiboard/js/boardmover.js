@@ -62,21 +62,19 @@ function setupButtons() {
  return png;
  }
  */
+
 function komatopng(koma){
-    if (komatopng.selector==="undefined"){
-        komatopng.selector = {
-            'p':'fu.png', 'P':'to.png',
-            'l':'kyo.png', 'L':'nkyo.png',
-            'n':'kei.png', 'N':'nkei.png',
-            's':'gin.png', 'S':'ngin.png',
-            'g':'kin.png',
-            'b':'kaku.png', 'B':'uma.png',
-            'r':'hi.png', 'R':'ryu.png',
-            'k':'ou.png'
+    //convert koma information and return image file name
+    if (typeof this.partlist=="undefined")
+        this.partlist={
+            "p":"fu", "P":"to","l":"kyo","L":"nkyo",
+            "n":"kei","N":"nkei","s":"gin","S":"ngin",
+            "g":"gin","b":"kaku","B":"uma","r":"hi",
+            "R":"ryu","k":"ou"
         };
-        return komatopng.selector[koma];
-    }
-}
+    return this.partlist[koma]+'.png';
+
+};
 
 
 function postComment(comment,target) {target.find('.comment').empty().append(comment);}
