@@ -24,7 +24,7 @@ function setupButtons() {
         .appendTo('.buttonBar')
         .attr("value","Step Back")
         .each(function(i){$(this)
-            .click(function () {stepback(board[i],$(this).closest('.shogiBoard').find('.forSnapshot'));}
+            .click(function () {stepback(board[i],$(this));}
         )
         }
     );
@@ -40,27 +40,44 @@ function setupButtons() {
  // as a result, it will be positioned to 26 on shogiboard image
  }
  */
-
-function komatopng(koma) {
-    var png;
-    switch (koma){ //convert piece information to image filename information.
-        case 'p':png='fu.png';break;
-        case 'P':png= 'to.png';break;
-        case 'l': png= 'kyo.png';break;
-        case 'L': png= 'nkyo.png';break;
-        case 'n': png= 'kei.png';break;
-        case 'N': png= 'nkei.png';break;
-        case 's': png= 'gin.png';break;
-        case 'S': png= 'ngin.png';break;
-        case 'g': png= 'kin.png';break;
-        case 'b': png= 'kaku.png';break;
-        case 'B': png= 'uma.png';break;
-        case 'r': png= 'hi.png';break;
-        case 'R': png= 'ryu.png';break;
-        case 'k': png= 'ou.png';break;
+/*
+ function komatopng(koma) {
+ var png;
+ switch (koma){ //convert piece information to image filename information.
+ case 'p':png='fu.png';break;
+ case 'P':png= 'to.png';break;
+ case 'l': png= 'kyo.png';break;
+ case 'L': png= 'nkyo.png';break;
+ case 'n': png= 'kei.png';break;
+ case 'N': png= 'nkei.png';break;
+ case 's': png= 'gin.png';break;
+ case 'S': png= 'ngin.png';break;
+ case 'g': png= 'kin.png';break;
+ case 'b': png= 'kaku.png';break;
+ case 'B': png= 'uma.png';break;
+ case 'r': png= 'hi.png';break;
+ case 'R': png= 'ryu.png';break;
+ case 'k': png= 'ou.png';break;
+ }
+ return png;
+ }
+ */
+function komatopng(koma){
+    if (komatopng.selector==="undefined"){
+        komatopng.selector = {
+            'p':'fu.png', 'P':'to.png',
+            'l':'kyo.png', 'L':'nkyo.png',
+            'n':'kei.png', 'N':'nkei.png',
+            's':'gin.png', 'S':'ngin.png',
+            'g':'kin.png',
+            'b':'kaku.png', 'B':'uma.png',
+            'r':'hi.png', 'R':'ryu.png',
+            'k':'ou.png'
+        };
+        return komatopng.selector[koma];
     }
-    return png;
 }
+
 
 function postComment(comment,target) {target.find('.comment').empty().append(comment);}
 function emptyComment(target) {target.find('.comment').empty();}
@@ -128,8 +145,9 @@ function setBoardToHistory(aBoard,i,target){
     target.closest(".shogiBoard").find('.aButton').removeAttr("disabled");
     target.empty().html(aBoard.history[i]);
 }
-function stepback(aBoard,target){
-
+function stepback(aBoard,self){
+    var target=$(self).closest('.shogiBoard')
+        .find('.forSnapshot');
     if(aBoard.index>0)
         setBoardToHistory(aBoard,--(aBoard.index),target);
 }
@@ -144,7 +162,7 @@ function animateBoard(aBoard,self){
     var zAction=aBoard.moves[aBoard.index];
     takeSnapshot(aBoard,target);
     parseAction(zAction,target);
-    if (aBoard.moves[aBoard.index].charAt(0)=='x')  $(self).attr("disabled","disabled")
+    if (/[a-zA-Z0-9]*x/.test(aBoard.moves[aBoard.index]))  $(self).attr("disabled","disabled")
     ; //once reaches the end...
 
 //after the move, if next line is a comment, then process it anyway.
