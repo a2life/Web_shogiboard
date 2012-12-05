@@ -5,27 +5,171 @@
  * User: a2life
  * Date: 10/29/12
  *this Js is to be used with PHP file that creates the shogiboard initial setup.
- * this javascript will then animate the boaord.
+ * this javascript will then animate the board.
+ * 12/5/ update.. added 00
  */
-function setupButtons() {
+
+function komatopng(koma) {"use strict";
+    //convert koma information and return image file name
+    if (komatopng.partlist === undefined) {
+        komatopng.partlist = {
+            "p": "fu",
+            "P": "to",
+            "l": "kyo",
+            "L": "nkyo",
+            "n": "kei",
+            "N": "nkei",
+            "s": "gin",
+            "S": "ngin",
+            "g": "gin",
+            "b": "kaku",
+            "B": "uma",
+            "r": "hi",
+            "R": "ryu",
+            "k": "ou"
+        };
+    }
+    var png = komatopng.partlist[koma] + '.png';
+    return png;
+
+}
+
+
+function postComment(comment, target) {"use strict"; target.find('.comment').empty().append(comment); }
+function emptyComment(target) {"use strict"; target.find('.comment').empty(); }
+function cordToClass(cord) {"use strict"; return 'koma c' + cord.charAt(0) + ' r' + cord.charAt(1); }
+function cordToSelector(cord) {"use strict"; return ('.koma.c' + cord.charAt(0) + '.r' + cord.charAt(1)); }
+function setMarker(cord, target) {"use strict";
+    var markerClass;
+    markerClass = "marker c" + cord.charAt(0) + ' r' + cord.charAt(1);
+    target.find('.marker').attr("class", markerClass);
+}
+function makeAdrop(side, koma, position, target) {"use strict";
+    var selector, png = side.toUpperCase() + komatopng(koma);
+    if (side.toUpperCase() === 'S') {
+        side = '.senteMochigoma';
+    } else {side = '.goteMochigoma'; }
+    setMarker(position, target);
+    position = cordToClass(position);
+    emptyComment(target);
+    selector = side + ' [src$="' + png + '"]';
+
+    target.find(selector).first().addClass(position).appendTo(target.find('.boardbase'));
+}
+function captureKoma(side, cord, target) { "use strict";
+    var komaban, koma, komapath;
+    komapath = target.data("komapath");
+    komaban = (side === 'S') ? '.senteMochigoma' : '.goteMochigoma';
+    koma = target.find(cordToSelector(cord)).data("koma");
+    target.find(cordToSelector(cord)).first()
+        .attr("class", "").attr("src", komapath + side + koma)
+        .appendTo(target.find(komaban));
+}
+function promoteKoma(side, cord, target) {"use strict";
+    var koma, komapath;
+    komapath = target.data("komapath");
+    koma = target.find(cordToSelector(cord)).data("koma");
+    if (koma === "hi.png") {
+        koma = "ryu.png";
+    } else if (koma === "kaku.png") {
+        koma = "uma.png";
+    } else if (koma === "fu.png") {
+        koma = "to.png";
+    } else {
+        koma = 'n' + koma;
+    }
+
+    target.find(cordToSelector(cord)).first().attr("src", komapath + side + koma);
+}
+function makeAmove(side, promote, from, to, target) {"use strict";
+    if (makeAmove.prevMove === undefined) {makeAmove.prevMove = to;}
+    if (to === "00") { to = makeAmove.prevMove; }
+    makeAmove.prevMove = to; //remember previous move to accomodate 00 notation
+    //small shortcut for replacign 00 as 同. This will also make KIF parser a little easier
+    emptyComment(target);
+    //if to position is already occupied, then capture that image element to 'side's mochigoma
+    //for this we check the lenth of selector. ie, if $(".c6 .r7").length>0 then there is an element.
+    if (target.find(cordToSelector(to)).length > 0) {
+        captureKoma(side, to, target);
+    }
+    // then set a marker to "to" position
+    setMarker(to, target);
+    // then move the piece, it just involves the changing of class
+    target.find(cordToSelector(from)).attr('class', cordToClass(to));
+    // then check if the piece is promoted by checking the variable promote
+    if (promote === '+') {promoteKoma(side, to, target); }
+}
+function takeSnapshot(aBoard, target) {"use strict";
+    aBoard.history[aBoard.index] = target.html();
+    ++aBoard.index;
+}
+function setBoardToHistory(aBoard, i, target) {"use strict";
+    target.closest(".shogiBoard").find('.aButton').removeAttr("disabled");
+    target.empty().html(aBoard.history[i]);
+}
+function stepback(aBoard, self) {"use strict";
+    var target = $(self).closest('.shogiBoard')
+        .find('.forSnapshot');
+    if (aBoard.index > 0) {
+        setBoardToHistory(aBoard, --(aBoard.index), target);
+    }
+}
+
+function parseAction(aAction, target) {
+
+    if (aAction.charAt(0) === '*') {
+        postComment(aAction.slice(1), target);
+    } else {
+        if (aAction.charAt(1) === 'd') {
+            makeAdrop(aAction.charAt(0), aAction.charAt(4), aAction.substr(2, 2), target);
+        } else {
+            makeAmove(aAction.charAt(0).toUpperCase(), aAction.charAt(1), aAction.substr(4, 2), aAction.substr(2, 2), target);
+        }
+        if (aAction.indexOf('*') > 0) {postComment(aAction.slice(aAction.indexOf('*') + 1), target); }
+    }
+
+}
+function animateBoard(aBoard, self) {"use strict";
+    /* aBoard point to an array element of Board[]
+     *  self point to button entity
+     *  target is ".forSnapshot" block that is ancestor of button that fires
+     *
+     */
+    var target = $(self).closest('.shogiBoard')
+            .find('.forSnapshot'),
+        zAction = aBoard.moves[aBoard.index];
+    takeSnapshot(aBoard, target);
+    parseAction(zAction, target);
+    if (/[a-zA-Z0-9]*x/.test(aBoard.moves[aBoard.index])) {
+        $(self).attr("disabled", "disabled");
+    }
+
+    //once reaches the end...
+
+//after the move, if next line is a comment, then process it anyway.
+}
+
+var board = [];
+
+function setupButtons() {"use strict";
 
     $('<input type="button">')
-        .attr("class","aButton")
+        .attr("class", "aButton")
         .appendTo('.buttonBar')
-        .attr("value","Forward for solution")
-        .each(function(i){$(this)
-            .click(function () {animateBoard(board[i],this)}
-        )
+        .attr("value", "Forward for solution")
+        .each(function (i) {$(this)
+            .click(function () { animateBoard(board[i], this); }
+        );
         }
     );
 
     $('<input type="button">')
-        .attr("class","cButton")
+        .attr("class", "cButton")
         .appendTo('.buttonBar')
-        .attr("value","Step Back")
-        .each(function(i){$(this)
-            .click(function () {stepback(board[i],$(this));}
-        )
+        .attr("value", "Step Back")
+        .each(function (i) {$(this)
+            .click(function () {stepback(board[i], $(this)); }
+        );
         }
     );
 
@@ -63,122 +207,7 @@ function setupButtons() {
  }
  */
 
-function komatopng(koma){
-    //convert koma information and return image file name
-    if (typeof this.partlist=="undefined")
-        this.partlist={
-            "p":"fu", "P":"to","l":"kyo","L":"nkyo",
-            "n":"kei","N":"nkei","s":"gin","S":"ngin",
-            "g":"gin","b":"kaku","B":"uma","r":"hi",
-            "R":"ryu","k":"ou"
-        };
-    return this.partlist[koma]+'.png';
 
-};
-
-
-function postComment(comment,target) {target.find('.comment').empty().append(comment);}
-function emptyComment(target) {target.find('.comment').empty();}
-function cordToClass(cord){ return 'koma c'+cord.charAt(0)+' r'+cord.charAt(1);}
-function cordToSelector(cord){return ('.koma.c'+cord.charAt(0)+'.r'+cord.charAt(1));}
-function setMarker(cord,target){
-    var markerClass;
-    markerClass="marker c"+cord.charAt(0)+' r'+cord.charAt(1);
-    target.find('.marker').attr("class",markerClass);
-}
-function makeAdrop(side,koma,position,target) {
-    var png=side.toUpperCase()+komatopng(koma);
-    if (side.toUpperCase()=='S') side='.senteMochigoma';
-    else side='.goteMochigoma';
-    setMarker(position,target);
-    position=cordToClass(position);
-    emptyComment(target);
-    var selector=side+' [src$="'+png+'"]';
-
-    target.find(selector).first().addClass(position).appendTo(target.find('.boardbase'));
-}
-function captureKoma(side,cord,target){
-    var komaban,koma,komapath;
-    komapath=target.data("komapath");
-    komaban=(side=='S')?'.senteMochigoma':'.goteMochigoma';
-    koma=target.find(cordToSelector(cord)).data("koma");
-    target.find(cordToSelector(cord)).first()
-        .attr("class","").attr("src",komapath+side+koma)
-        .appendTo(target.find(komaban));
-}
-function promoteKoma(side,cord,target) {
-    var koma,komapath;
-    komapath=target.data("komapath");
-    koma = target.find(cordToSelector(cord)).data("koma");
-    if (koma == "hi.png") {
-        koma = "ryu.png";
-    }
-    else if (koma == "kaku.png") {
-        koma = "uma.png";
-    }
-    else if (koma == "fu.png") {
-        koma = "to.png";
-    }
-    else koma = 'n' + koma;
-
-    target.find(cordToSelector(cord)).first().attr("src", komapath + side + koma);
-}
-function makeAmove(side,promote, from, to,target) {
-    emptyComment(target);
-    //if to position is already occupied, then capture that image element to 'side's mochigoma
-    //for this we check the lenth of selector. ie, if $(".c6 .r7").length>0 then there is an element.
-    if (target.find(cordToSelector(to)).length>0) captureKoma(side,to,target);
-    // then set a marker to "to" position
-    setMarker(to,target);
-    // then move the piece, it just involves the changing of class
-    target.find(cordToSelector(from)).attr('class', cordToClass(to));
-    // then check if the piece is promoted by checking the variable promote
-    if (promote=='+') {promoteKoma(side,to,target);}
-}
-function takeSnapshot(aBoard,target){
-    aBoard.history[aBoard.index]=target.html();
-    ++aBoard.index;
-}
-function setBoardToHistory(aBoard,i,target){
-    target.closest(".shogiBoard").find('.aButton').removeAttr("disabled");
-    target.empty().html(aBoard.history[i]);
-}
-function stepback(aBoard,self){
-    var target=$(self).closest('.shogiBoard')
-        .find('.forSnapshot');
-    if(aBoard.index>0)
-        setBoardToHistory(aBoard,--(aBoard.index),target);
-}
-function animateBoard(aBoard,self){
-    /* aBoard point to an array element of Board[]
-     *  self point to button entity
-     *  target is ".forSnapshot" block that is ancestor of button that fires
-     *
-     */
-    var target=$(self).closest('.shogiBoard')
-        .find('.forSnapshot');
-    var zAction=aBoard.moves[aBoard.index];
-    takeSnapshot(aBoard,target);
-    parseAction(zAction,target);
-    if (/[a-zA-Z0-9]*x/.test(aBoard.moves[aBoard.index]))  $(self).attr("disabled","disabled")
-    ; //once reaches the end...
-
-//after the move, if next line is a comment, then process it anyway.
-}
-function parseAction(aAction,target) {
-
-    if (aAction.charAt(0) == '*') postComment(aAction.slice(1),target);
-    else {
-        if (aAction.charAt(1) == 'd') makeAdrop(aAction.charAt(0), aAction.charAt(4), aAction.substr(2, 2),target);
-        else {
-            makeAmove(aAction.charAt(0).toUpperCase(), aAction.charAt(1), aAction.substr(4, 2), aAction.substr(2, 2),target);
-
-        }
-        if(aAction.indexOf('*')>0){postComment(aAction.slice(aAction.indexOf('*')+1),target)}
-    }
-
-}
-var board=[];
 $(function () {
     setupButtons();
 });
