@@ -30,7 +30,13 @@
  rewrote to
  target is the target htmle area.
  data applied to is on boards[i]
- }
+  }
+  CSS plays are big role in this scheme.
+  All onboard pieces images will be on <div class="shogiboard"> block. If there is more than one ".shogiboard" block
+  then it will be processed based on data in boards[] array. boards[] array is stuffed with one or more "board" object (see boarddata.js)
+  "shogiboard" block consists of "boardbase" for board itself, "gotemochigoma" and "sentemochigoma" blocks for pieces on hand,
+   and "buttonBar" block in case board also has "moves" data.
+
  */
 function komatopng(koma) {"use strict";
     //convert koma information and return image file name
@@ -44,7 +50,7 @@ function komatopng(koma) {"use strict";
             "N": "nkei",
             "s": "gin",
             "S": "ngin",
-            "g": "gin",
+            "g": "kin",
             "b": "kaku",
             "B": "uma",
             "r": "hi",
@@ -151,7 +157,7 @@ function parseAction(aAction, target) {
     }
 
 }
-function animateBoard(aBoard, self) {
+function forwardOne(aBoard, self) {
     /* aBoard point to an array element of Board[]
      *  self point to button entity
      *  target is ".forSnapshot" block that is ancestor of button that fires
@@ -222,7 +228,7 @@ function setupButtons() {"use strict";
         .appendTo('.buttonBar')
         .attr("value", "Forward for solution")
         .each(function (i) {$(this)
-            .click(function () {animateBoard(boards[i], this); }
+            .click(function () {forwardOne(boards[i], this); }
             );
         }
         );

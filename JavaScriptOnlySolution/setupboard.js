@@ -14,12 +14,13 @@ function setupboard() {
         if (boards[i].moves !== undefined) {
             str = '<div class="buttonBar"></div>';
         } else {
-            str = null;
+            str = "";
         }
         return str;
     }
-    var i,
-        contents = '<p>hello world</p>' +
+    var i,contents;
+    for (i = 0; i < boards.length; i++) {
+        contents = '<p class="sCaption">Caption comes here</p>' +
             '<div class="forSnapshot">' +
             '<div class="table" > <!-- outer table -->' +
             '<div class="row">' +
@@ -46,7 +47,7 @@ function setupboard() {
             'Here is a comment about this shogi board.  if this spans below the shogi board and koma dai then it is a success!!!' +
             '</article>';
 
-    for (i = 0; i < boards.length; i++) {
+
         contents += '</div>';
         contents += buttonSection(i);
         $($('.shogiBoard')[i]).append(contents);
