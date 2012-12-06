@@ -20,7 +20,7 @@ function komatopng(koma) {"use strict";
             "N": "nkei",
             "s": "gin",
             "S": "ngin",
-            "g": "gin",
+            "g": "kin",
             "b": "kaku",
             "B": "uma",
             "r": "hi",
@@ -31,18 +31,14 @@ function komatopng(koma) {"use strict";
     var png = komatopng.partlist[koma] + '.png';
     return png;
 
-}
+    }
 
 
 function postComment(comment, target) {"use strict"; target.find('.comment').empty().append(comment); }
 function emptyComment(target) {"use strict"; target.find('.comment').empty(); }
-function cordToClass(cord) {"use strict"; return 'koma c' + cord.charAt(0) + ' r' + cord.charAt(1); }
-function cordToSelector(cord) {"use strict"; return ('.koma.c' + cord.charAt(0) + '.r' + cord.charAt(1)); }
-function setMarker(cord, target) {"use strict";
-    var markerClass;
-    markerClass = "marker c" + cord.charAt(0) + ' r' + cord.charAt(1);
-    target.find('.marker').attr("class", markerClass);
-}
+function cordToClass(cord) { return cord.replace(/(\d)(\d)/, 'koma c$1 r$2'); }//turn cordination info into .class info
+function cordToSelector(cord) {return cord.replace(/(\d)(\d)/, '.koma.c$1.r$2'); }//turn .class info into css selector
+function setMarker(cord, target) { target.find('.marker').attr("class", cord.replace(/(\d)(\d)/, 'marker c$1 r$2')); }//marker class info
 function makeAdrop(side, koma, position, target) {"use strict";
     var selector, png = side.toUpperCase() + komatopng(koma);
     if (side.toUpperCase() === 'S') {
@@ -54,7 +50,7 @@ function makeAdrop(side, koma, position, target) {"use strict";
     selector = side + ' [src$="' + png + '"]';
 
     target.find(selector).first().addClass(position).appendTo(target.find('.boardbase'));
-}
+    }
 function captureKoma(side, cord, target) { "use strict";
     var komaban, koma, komapath;
     komapath = target.data("komapath");
@@ -63,7 +59,7 @@ function captureKoma(side, cord, target) { "use strict";
     target.find(cordToSelector(cord)).first()
         .attr("class", "").attr("src", komapath + side + koma)
         .appendTo(target.find(komaban));
-}
+    }
 function promoteKoma(side, cord, target) {"use strict";
     var koma, komapath;
     komapath = target.data("komapath");
@@ -71,17 +67,17 @@ function promoteKoma(side, cord, target) {"use strict";
     if (koma === "hi.png") {
         koma = "ryu.png";
     } else if (koma === "kaku.png") {
-        koma = "uma.png";
-    } else if (koma === "fu.png") {
-        koma = "to.png";
-    } else {
-        koma = 'n' + koma;
-    }
+    koma = "uma.png";
+} else if (koma === "fu.png") {
+    koma = "to.png";
+} else {
+    koma = 'n' + koma;
+}
 
     target.find(cordToSelector(cord)).first().attr("src", komapath + side + koma);
-}
+    }
 function makeAmove(side, promote, from, to, target) {"use strict";
-    if (makeAmove.prevMove === undefined) {makeAmove.prevMove = to;}
+    if (makeAmove.prevMove === undefined) {makeAmove.prevMove = to; }
     if (to === "00") { to = makeAmove.prevMove; }
     makeAmove.prevMove = to; //remember previous move to accomodate 00 notation
     emptyComment(target);
@@ -96,22 +92,22 @@ function makeAmove(side, promote, from, to, target) {"use strict";
     target.find(cordToSelector(from)).attr('class', cordToClass(to));
     // then check if the piece is promoted by checking the variable promote
     if (promote === '+') {promoteKoma(side, to, target); }
-}
+    }
 function takeSnapshot(aBoard, target) {"use strict";
     aBoard.history[aBoard.index] = target.html();
     ++aBoard.index;
-}
+    }
 function setBoardToHistory(aBoard, i, target) {"use strict";
     target.closest(".shogiBoard").find('.aButton').removeAttr("disabled");
     target.empty().html(aBoard.history[i]);
-}
+    }
 function stepback(aBoard, self) {"use strict";
     var target = $(self).closest('.shogiBoard')
         .find('.forSnapshot');
     if (aBoard.index > 0) {
         setBoardToHistory(aBoard, --(aBoard.index), target);
     }
-}
+    }
 
 function parseAction(aAction, target) {
 
@@ -145,7 +141,7 @@ function animateBoard(aBoard, self) {"use strict";
     //once reaches the end...
 
 //after the move, if next line is a comment, then process it anyway.
-}
+    }
 
 var board = [];
 
@@ -157,9 +153,9 @@ function setupButtons() {"use strict";
         .attr("value", "Forward for solution")
         .each(function (i) {$(this)
             .click(function () { animateBoard(board[i], this); }
-        );
+            );
         }
-    );
+        );
 
     $('<input type="button">')
         .attr("class", "cButton")
@@ -167,11 +163,11 @@ function setupButtons() {"use strict";
         .attr("value", "Step Back")
         .each(function (i) {$(this)
             .click(function () {stepback(board[i], $(this)); }
-        );
+            );
         }
-    );
+        );
 
-}
+    }
 /* theory of placing koma piece on the board
  function testmove() {
 

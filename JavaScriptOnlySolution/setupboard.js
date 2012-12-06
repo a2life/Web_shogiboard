@@ -18,7 +18,7 @@ function setupboard() {
         }
         return str;
     }
-    var i,contents;
+    var i, contents;
     for (i = 0; i < boards.length; i++) {
         contents = '<p class="sCaption">Caption comes here</p>' +
             '<div class="forSnapshot">' +

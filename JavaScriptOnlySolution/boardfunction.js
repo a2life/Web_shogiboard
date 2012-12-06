@@ -14,30 +14,8 @@
  */
 
 /*jslint browser: true*/
-/*global  $, boards, setupboard*/
+/*global  $,  boards, setupboard, */
 
-
-
-/* theory of placing koma piece on the board
- $("#bButton").click(function() {reloadpage()}).attr("value","Reset board");
- function testmove() {
-
- $('#marker').attr('class', 'koma c2 r6'); // class of "koma c2 r6" will place the marker at 26
- $('#senteMochigoma [src$="Skyo.png"]').first().detach().addClass('koma c2 r6').appendTo('#boardbase');
- // this line select <img > tag with kyo.png src from #senteMochigoma div,  detach from parent element,
- // add class for the context of c2 r6 position and append to #boardbase element
- // as a result, it will be positioned to 26 on shogiboard image
- rewrote to
- target is the target htmle area.
- data applied to is on boards[i]
-  }
-  CSS plays are big role in this scheme.
-  All onboard pieces images will be on <div class="shogiboard"> block. If there is more than one ".shogiboard" block
-  then it will be processed based on data in boards[] array. boards[] array is stuffed with one or more "board" object (see boarddata.js)
-  "shogiboard" block consists of "boardbase" for board itself, "gotemochigoma" and "sentemochigoma" blocks for pieces on hand,
-   and "buttonBar" block in case board also has "moves" data.
-
- */
 function komatopng(koma) {"use strict";
     //convert koma information and return image file name
     if (komatopng.partlist === undefined) {
@@ -65,13 +43,9 @@ function komatopng(koma) {"use strict";
 
 function postComment(comment, target) {target.find('.comment').empty().append(comment); }
 function emptyComment(target) {target.find('.comment').empty(); }
-function cordToClass(cord) { return 'koma c' + cord.charAt(0) + ' r' + cord.charAt(1); }
-function cordToSelector(cord) {return ('.koma.c' + cord.charAt(0) + '.r' + cord.charAt(1)); }
-function setMarker(cord, target) {
-    var markerClass;
-    markerClass = "marker c" + cord.charAt(0) + ' r' + cord.charAt(1);
-    target.find('.marker').attr("class", markerClass);
-}
+function cordToClass(cord) { return cord.replace(/(\d)(\d)/, 'koma c$1 r$2'); }//turn cordination info into .class info
+function cordToSelector(cord) {return cord.replace(/(\d)(\d)/, '.koma.c$1.r$2'); }//turn .class info into css selector
+function setMarker(cord, target) { target.find('.marker').attr("class", cord.replace(/(\d)(\d)/, 'marker c$1 r$2')); }//marker class info
 function makeAdrop(side, koma, position, target) {
     var selector, png = side.toUpperCase() + komatopng(koma);
     if (side.toUpperCase() === 'S') {
@@ -118,7 +92,11 @@ function promoteKoma(side, cord, target) {
 function makeAmove(side, promote, from, to, target) {
     emptyComment(target);
     //if to position is already occupied, then capture that image element to 'side's mochigoma
-    //for this we check the lenth of selector. ie, if $(".c6 .r7").length>0 then there is an element.
+    //for this we check the lenth of the targeted selector. ie, if $(".c6 .r7").length>0 then there is an element.
+    if (makeAmove.prevMove === undefined) {makeAmove.prevMove = to; } //this is..
+    if (to === "00") { to = makeAmove.prevMove; }//a mechanism to..
+    makeAmove.prevMove = to; //remember previous move to accomodate 00 notation
+    emptyComment(target);
     if (target.find(cordToSelector(to)).length > 0) {
         captureKoma(side, to, target);
     }
@@ -222,16 +200,18 @@ function initializeBoard(j) { //i is a index to board data in boards array, as w
             .attr('src', board.filePathKoma + 'G' + png).attr('data-koma', png).appendTo(gotemochigoma);
     }
 }
-function setupButtons() {"use strict";
+function setupButtons() {
     $('<input type="button">')
         .attr("class", "aButton")
         .appendTo('.buttonBar')
         .attr("value", "Forward for solution")
         .each(function (i) {$(this)
-            .click(function () {forwardOne(boards[i], this); }
+            .click(function () {
+                forwardOne(boards[i], this);
+            }
+                );
+            }
             );
-        }
-        );
 
     $('<input type="button">')
         .attr("class", "cButton")
@@ -239,17 +219,16 @@ function setupButtons() {"use strict";
         .attr("value", "Step Back")
         .each(function (i) {$(this)
             .click(function () {stepback(boards[i], $(this).closest('.shogiBoard').find('.forSnapshot')); }
-             );
-        }
-        );
+                );
+            }
+            );
 
     $('<input type="button">')
         .attr("class", "bbutton")
         .appendTo('.buttonBar')
         .attr("value", "Reset Board")
         .click(function () {document.reload(); });
-
-    }
+}
 function initializeBoards() {
     var i;
     for (i = 0; i < boards.length; i++) {
@@ -260,6 +239,4 @@ $(function () {
     setupboard();
     initializeBoards();
     setupButtons();
-
-
 });
