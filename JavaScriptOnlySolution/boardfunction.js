@@ -223,11 +223,6 @@ function setupButtons() {
             }
             );
 
-    $('<input type="button">')
-        .attr("class", "bbutton")
-        .appendTo('.buttonBar')
-        .attr("value", "Reset Board")
-        .click(function () {document.reload(); });
 }
 function initializeBoards() {
     var i;

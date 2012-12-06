@@ -20,7 +20,7 @@ function setupboard() {
     }
     var i, contents;
     for (i = 0; i < boards.length; i++) {
-        contents = '<p class="sCaption">Caption comes here</p>' +
+        contents = '<p class="sCaption">' + boards[i].caption + '</p>' +
             '<div class="forSnapshot">' +
             '<div class="table" > <!-- outer table -->' +
             '<div class="row">' +
@@ -44,7 +44,7 @@ function setupboard() {
             '</div><!-- shogirow for the outer css-table-->' +
             '</div><!--shogitable-->' +
             '<article class="scomment comment" >' +
-            'Here is a comment about this shogi board.  if this spans below the shogi board and koma dai then it is a success!!!' +
+            boards[i].initialComment +
             '</article>';
 
 

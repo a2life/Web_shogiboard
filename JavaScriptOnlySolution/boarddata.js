@@ -28,7 +28,9 @@ protoboard = {
     // moves is an array of moves. for first char, * is comment, s or g shows side.
     // second char is either - (move) or d for drop. cordinateion in /to/from order.
     index: 0,
-    history: []
+    history: [],
+    caption: "JSShogiBoard&#0169;",
+    initialComment: ""
 
 };
 var boards = [];
@@ -51,16 +53,23 @@ board.moves = [
     "g-2231",
     "x"
 ];
+board.initialComment = "Don't worry about extra shogi piece.  I am just tyring to ensure the program works.<br>" +
+    "駒の数が多いのはご愛嬌です。";
 
 boards.push(board);
+
+//now create another shogiboard data object
 board = Object.create(protoboard);
+board.caption = "The latest Yagura 3g silver -矢倉３七銀2012年最新型";
+board.initialComment = "The program can not show branch moves yet so it only follows the actual game played by Hirose and Watanabe" +
+    "on October 2012.";
 board.moves = [
     "*One of the reasons for Yagura's steady popularity is this thanks to Miyata's discovery of  p-65(６五歩).  Let's take a look.",
     "s-7677=1:７六歩",
     "g-8483=2:８四歩",
     "s-6879=3:６八銀",
     "g-3433=4:３四歩",
-    "s-6667=5:６六歩",
+    "s-6667=5:６六歩*silver 7g was more popular move here years ago. some people still play s-7g to avoid gote's right wing fourth range rook attack.",
     "g-6271=6:６二銀",
     "s-5657=7:５六歩",
     "g-5453=8:５四歩",
