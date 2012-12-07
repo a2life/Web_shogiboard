@@ -104,6 +104,7 @@ function makeAmove(side, promote, from, to, target) {
     if (promote === '+') {promoteKoma(side, to, target); }
 }
 function takeSnapshot(aBoard, target) {
+    if (aBoard.history === undefined) {aBoard.history = []; }
     aBoard.history[aBoard.index] = target.html();
     ++aBoard.index;
 }

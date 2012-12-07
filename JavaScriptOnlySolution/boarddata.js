@@ -28,9 +28,8 @@ protoboard = {
     // moves is an array of moves. for first char, * is comment, s or g shows side.
     // second char is either - (move) or d for drop. cordinateion in /to/from order.
     index: 0,
-    history: [],
-    caption: "JSShogiBoard&#0169;",
-    initialComment: ""
+//    history: [] this does not work. better to have it created on the fly.
+    caption: "JSShogiBoard&#0169;"
 
 };
 var boards = [];
@@ -387,4 +386,5 @@ board.moves = [
     "s+8384=73:８三歩成",
     "g-6665=74:６六歩"
 ];
+
 boards.push(board);
