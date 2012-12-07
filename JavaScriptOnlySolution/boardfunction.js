@@ -93,10 +93,6 @@ function makeAmove(side, promote, from, to, target) {
     emptyComment(target);
     //if to position is already occupied, then capture that image element to 'side's mochigoma
     //for this we check the lenth of the targeted selector. ie, if $(".c6 .r7").length>0 then there is an element.
-    if (makeAmove.prevMove === undefined) {makeAmove.prevMove = to; } //this is..
-    if (to === "00") { to = makeAmove.prevMove; }//a mechanism to..
-    makeAmove.prevMove = to; //remember previous move to accomodate 00 notation
-    emptyComment(target);
     if (target.find(cordToSelector(to)).length > 0) {
         captureKoma(side, to, target);
     }
@@ -126,10 +122,14 @@ function parseAction(aAction, target) {
     if (aAction.charAt(0) === '*') {
         postComment(aAction.slice(1), target);
     } else {
+        var to = aAction.substr(2, 2);
+        if (parseAction.prevMove === undefined) {parseAction.prevMove = to; } //this is..
+        if (to === "00") { to = parseAction.prevMove; }//a mechanism to..
+        parseAction.prevMove = to; //remember previous move to accomodate 00 notation
         if (aAction.charAt(1) === 'd') {
-            makeAdrop(aAction.charAt(0), aAction.charAt(4), aAction.substr(2, 2), target);
+            makeAdrop(aAction.charAt(0), aAction.charAt(4), to, target);
         } else {
-            makeAmove(aAction.charAt(0).toUpperCase(), aAction.charAt(1), aAction.substr(4, 2), aAction.substr(2, 2), target);
+            makeAmove(aAction.charAt(0).toUpperCase(), aAction.charAt(1), aAction.substr(4, 2), to, target);
         }
         if (aAction.indexOf('*') > 0) {postComment(aAction.slice(aAction.indexOf('*') + 1), target); }
     }
