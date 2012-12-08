@@ -77,9 +77,7 @@ function promoteKoma(side, cord, target) {"use strict";
     target.find(cordToSelector(cord)).first().attr("src", komapath + side + koma);
     }
 function makeAmove(side, promote, from, to, target) {"use strict";
-    if (makeAmove.prevMove === undefined) {makeAmove.prevMove = to; }
-    if (to === "00") { to = makeAmove.prevMove; }
-    makeAmove.prevMove = to; //remember previous move to accomodate 00 notation
+
     emptyComment(target);
     //if to position is already occupied, then capture that image element to 'side's mochigoma
     //for this we check the lenth of selector. ie, if $(".c6 .r7").length>0 then there is an element.
@@ -110,14 +108,17 @@ function stepback(aBoard, self) {"use strict";
     }
 
 function parseAction(aAction, target) {
-
-    if (aAction.charAt(0) === '*') {
+    var to = aAction.substr(2, 2), side = aAction.charAt(0);
+    if (parseAction.prevMove === undefined) {parseAction.prevMove = to; }
+    if (to === "00") { to = parseAction.prevMove; }
+    parseAction.prevMove = to; //remember previous move to accomodate 00 notation
+    if (side === '*') {
         postComment(aAction.slice(1), target);
     } else {
         if (aAction.charAt(1) === 'd') {
-            makeAdrop(aAction.charAt(0), aAction.charAt(4), aAction.substr(2, 2), target);
+            makeAdrop(side, aAction.charAt(4), to, target);
         } else {
-            makeAmove(aAction.charAt(0).toUpperCase(), aAction.charAt(1), aAction.substr(4, 2), aAction.substr(2, 2), target);
+            makeAmove(side.toUpperCase(), aAction.charAt(1), aAction.substr(4, 2), to, target);
         }
         if (aAction.indexOf('*') > 0) {postComment(aAction.slice(aAction.indexOf('*') + 1), target); }
     }

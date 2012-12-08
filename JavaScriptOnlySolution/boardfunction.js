@@ -71,8 +71,8 @@ function captureKoma(side, cord, target) {
         .appendTo(target.find(komaban));
 }
 function promoteKoma(side, cord, target) {
-    var koma, komapath;
-    komapath = '../images/shogiboard/koma/pieces_kinki/';
+    var koma, komaPath;
+    komaPath = '../images/shogiboard/koma/pieces_kinki/';
    //komapath=board[0].filePathKoma;
    // komapath=filePathKoma;
     koma = target.find(cordToSelector(cord)).data("koma");
@@ -86,17 +86,13 @@ function promoteKoma(side, cord, target) {
         koma = 'n' + koma;
     }
 
-    target.find(cordToSelector(cord)).first().attr("src", komapath + side + koma);
+    target.find(cordToSelector(cord)).first().attr("src", komaPath + side + koma);
 }
 
 function makeAmove(side, promote, from, to, target) {
     emptyComment(target);
     //if to position is already occupied, then capture that image element to 'side's mochigoma
     //for this we check the lenth of the targeted selector. ie, if $(".c6 .r7").length>0 then there is an element.
-    if (makeAmove.prevMove === undefined) {makeAmove.prevMove = to; } //this is..
-    if (to === "00") { to = makeAmove.prevMove; }//a mechanism to..
-    makeAmove.prevMove = to; //remember previous move to accomodate 00 notation
-    emptyComment(target);
     if (target.find(cordToSelector(to)).length > 0) {
         captureKoma(side, to, target);
     }
@@ -108,6 +104,7 @@ function makeAmove(side, promote, from, to, target) {
     if (promote === '+') {promoteKoma(side, to, target); }
 }
 function takeSnapshot(aBoard, target) {
+    if (aBoard.history === undefined) {aBoard.history = []; }
     aBoard.history[aBoard.index] = target.html();
     ++aBoard.index;
 }
@@ -126,14 +123,60 @@ function parseAction(aAction, target) {
     if (aAction.charAt(0) === '*') {
         postComment(aAction.slice(1), target);
     } else {
+        var to = aAction.substr(2, 2);
+        if (parseAction.prevMove === undefined) {parseAction.prevMove = to; } //this is..
+        if (to === "00") { to = parseAction.prevMove; }//a mechanism to..
+        parseAction.prevMove = to; //remember previous move to accomodate 00 notation
         if (aAction.charAt(1) === 'd') {
-            makeAdrop(aAction.charAt(0), aAction.charAt(4), aAction.substr(2, 2), target);
+            makeAdrop(aAction.charAt(0), aAction.charAt(4), to, target);
         } else {
-            makeAmove(aAction.charAt(0).toUpperCase(), aAction.charAt(1), aAction.substr(4, 2), aAction.substr(2, 2), target);
+            makeAmove(aAction.charAt(0).toUpperCase(), aAction.charAt(1), aAction.substr(4, 2), to, target);
         }
         if (aAction.indexOf('*') > 0) {postComment(aAction.slice(aAction.indexOf('*') + 1), target); }
     }
 
+}
+function setupBranches(aBoard, self) {
+    var i = aBoard.index, options = [], htesuu = "", f = false,
+        rePattern = new RegExp('^[\\-\\+0-9a-z]+[J=](\\d+)(.*)'),
+        tesuu = Number(aBoard.moves[i].replace(rePattern, "$1")),
+        dlist = $('<select></select>'),
+        str;
+    options.push(i);
+loop1:
+    do {
+        i++;// now find 変化：　string in the array.
+        do {
+            f = /変化/.test(aBoard.moves[i++]);
+            if (i >= aBoard.moves.length) {
+                break loop1;
+            }
+        } while (!f);
+    //from i, find henkatesuu using regex.
+        htesuu = Number(aBoard.moves[i].replace(rePattern, "$1"));
+   // then if tesu == henkatesuu then push i to options array.
+        if (tesuu === htesuu) {options.push(i); }
+    // do this until end of array or henkatesu is less than tesuu
+    } while ((htesuu >= tesuu));
+    for (i = 0; i < options.length; i++) {
+        str = aBoard.moves[options[i]].replace(rePattern, "$2");
+        $('<option></option>')
+            .attr("value", options[i])
+            .text(str)
+            .appendTo(dlist);
+    }
+
+    $(self).closest('.shogiBoard').find('.scomment').append(dlist);
+  /*  dlist[0].onchange = function () {
+        var newvalue = this.options[this.selectedIndex].value;
+        alert(newvalue + ' selected');
+
+    }; */
+    dlist.change(function () {
+        var newvalue = this.options[this.selectedIndex].value;
+        aBoard.index = newvalue;
+
+    });
 }
 function forwardOne(aBoard, self) {
     /* aBoard point to an array element of Board[]
@@ -144,13 +187,14 @@ function forwardOne(aBoard, self) {
     var target = $(self).closest('.shogiBoard')//scan up from button element to class shogiboard
         .find('.forSnapshot'),
         zAction = aBoard.moves[aBoard.index];
+
     takeSnapshot(aBoard, target);
     parseAction(zAction, target);
     //   if (aBoard.moves[aBoard.index].charAt(0)=='x')
-    if (/^[\-a-zA-Z0-9]*(x|X)/.test(aBoard.moves[aBoard.index])) {
+    if (/(^[\-a-zA-Z0-9]*(x|X))|(変化)/.test(aBoard.moves[aBoard.index])) {
         $(self).attr("disabled", "disabled");
     } //once reaches the end...
-
+    if (/[\-\+0-9pPlLnNsSgrRbB]+J/.test(aBoard.moves[aBoard.index])) {setupBranches(aBoard, self); }
 //after the move, if next line is a comment, then process it anyway.
 }
 
