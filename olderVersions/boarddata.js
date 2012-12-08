@@ -16,6 +16,7 @@
 * index will be always 0, history array will be always empty. moves array will have piece move information.
 * Original arrangement of the board is on server side PHP
 */
+var board=[];
 board.push( {
     /* p=pawn, l=lance, L=promoted lance, s=silver, S=promoted Silver, g=gold, r=rook, R=promoted Rook, b=bishop, B=promoted Bishop
      k=king 11=1a, 12=1b etc.,
@@ -62,7 +63,7 @@ board.push( {
 board.push({
     moves:[
         "*this is an essense of tsume problem",
-        "s+5216 *Sacrifice without capturing any piece!","g-5261","sd62s *Checkmate!","x"
+        "s+5216 *Sacrifice without capturing any piece!","g-0061","sd62s *Checkmate!","x"
     ],
     index:0,
     history:[]

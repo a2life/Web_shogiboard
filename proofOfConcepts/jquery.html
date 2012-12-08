@@ -1,6 +1,8 @@
 <!DOCTYPE HTML>
 <html>
+<head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+</head>
 <body>
 <div class="first">
     <p>short html code to test jquery functionality of .html() handling</p>
@@ -8,29 +10,36 @@
     <p> the second paragraph in hte class first </p>
 </div>
 <div class="second">
-    <p>this is an paragraph in the class second</P>
+    <p>this is an paragraph in the class second</p>
 </div>
 <div class="third">
 </div>
 <div>
     <input type="button" value="not Assigned" id="aButton" />
 </div>
-</body>
+
 <script>
     function htmlcopy(){
         var elem=[];
+        //noinspection JSJQueryEfficiency
         $('p:first').attr("data-koma","koma");
         elem[0]=$('.first').html(); alert (elem[0]);
+        //noinspection JSJQueryEfficiency
         elem[1]=$('.second').html(); alert (elem[1]);
+        //noinspection JSJQueryEfficiency
         $('.second').empty().html(elem[0]);
+        //noinspection JSJQueryEfficiency
         alert($('p:first').first().attr("data-koma"));
     }
     function testclone() {
         var elem=[];
+        //noinspection JSJQueryEfficiency
         $('.first').append("added with append to class first");
+        //noinspection JSJQueryEfficiency
         elem[0]=$('.first').clone();
         elem[1]=$('.second').clone();
 //elem[2]=$('.second').clone();
+        //noinspection JSJQueryEfficiency
         $('.first').empty().append('<p>empttied first</p>');
         elem[0].clone().appendTo('.first');
         alert( typeof elem[0]);
@@ -41,4 +50,5 @@
     function prepButton() { $('#aButton').click( function(){htmlcopy();}).attr("value","htmlcopy");}
     $(document).ready( function(){ prepButton();})
 </script>
+</body>
 </html>
