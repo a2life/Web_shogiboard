@@ -71,8 +71,8 @@ function captureKoma(side, cord, target) {
         .appendTo(target.find(komaban));
 }
 function promoteKoma(side, cord, target) {
-    var koma, komapath;
-    komapath = '../images/shogiboard/koma/pieces_kinki/';
+    var koma, komaPath;
+    komaPath = '../images/shogiboard/koma/pieces_kinki/';
    //komapath=board[0].filePathKoma;
    // komapath=filePathKoma;
     koma = target.find(cordToSelector(cord)).data("koma");
@@ -86,7 +86,7 @@ function promoteKoma(side, cord, target) {
         koma = 'n' + koma;
     }
 
-    target.find(cordToSelector(cord)).first().attr("src", komapath + side + koma);
+    target.find(cordToSelector(cord)).first().attr("src", komaPath + side + koma);
 }
 
 function makeAmove(side, promote, from, to, target) {
@@ -136,6 +136,42 @@ function parseAction(aAction, target) {
     }
 
 }
+function setupBranches(aBoard, self) {
+    var i = aBoard.index, options = [], htesuu = "", f = false,
+        rePattern = new RegExp('^[\\-\\+0-9a-z]+[J=](\\d+)(.*)'),
+        tesuu = Number(aBoard.moves[i].replace(rePattern, "$1")),
+        dlist = $('<select></select>'),
+        str;
+    options.push(i);
+loop1:
+    do {
+        i++;// now find 変化：　string in the array.
+        do {
+            f = /変化/.test(aBoard.moves[i++]);
+            if (i >= aBoard.moves.length) {
+                break loop1;
+            }
+        } while (!f);
+    //from i, find henkatesuu using regex.
+        htesuu = Number(aBoard.moves[i].replace(rePattern, "$1"));
+   // then if tesu == henkatesuu then push i to options array.
+        if (tesuu === htesuu) {options.push(i); }
+    // do this until end of array or henkatesu is less than tesuu
+    } while ((htesuu >= tesuu));
+    for (i = 0; i < options.length; i++) {
+        str = aBoard.moves[options[i]].replace(rePattern, "$2");
+        $('<option></option>')
+            .attr("value", options[i])
+            .text(str)
+            .appendTo(dlist);
+    }
+
+    $(self).closest('.shogiBoard').find('.scomment').append(dlist);
+    dlist[0].onchange = function () {
+        var newvalue = this.options[this.selectedIndex].value;
+        alert(newvalue + ' selected');
+    };
+}
 function forwardOne(aBoard, self) {
     /* aBoard point to an array element of Board[]
      *  self point to button entity
@@ -145,13 +181,14 @@ function forwardOne(aBoard, self) {
     var target = $(self).closest('.shogiBoard')//scan up from button element to class shogiboard
         .find('.forSnapshot'),
         zAction = aBoard.moves[aBoard.index];
+
     takeSnapshot(aBoard, target);
     parseAction(zAction, target);
     //   if (aBoard.moves[aBoard.index].charAt(0)=='x')
     if (/^[\-a-zA-Z0-9]*(x|X)/.test(aBoard.moves[aBoard.index])) {
         $(self).attr("disabled", "disabled");
     } //once reaches the end...
-
+    if (/[\-\+0-9pPlLnNsSgrRbB]+J/.test(aBoard.moves[aBoard.index])) {setupBranches(aBoard, self); }
 //after the move, if next line is a comment, then process it anyway.
 }
 
