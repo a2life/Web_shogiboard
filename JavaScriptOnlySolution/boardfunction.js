@@ -167,10 +167,16 @@ loop1:
     }
 
     $(self).closest('.shogiBoard').find('.scomment').append(dlist);
-    dlist[0].onchange = function () {
+  /*  dlist[0].onchange = function () {
         var newvalue = this.options[this.selectedIndex].value;
         alert(newvalue + ' selected');
-    };
+
+    }; */
+    dlist.change(function () {
+        var newvalue = this.options[this.selectedIndex].value;
+        aBoard.index = newvalue;
+
+    });
 }
 function forwardOne(aBoard, self) {
     /* aBoard point to an array element of Board[]
@@ -185,7 +191,7 @@ function forwardOne(aBoard, self) {
     takeSnapshot(aBoard, target);
     parseAction(zAction, target);
     //   if (aBoard.moves[aBoard.index].charAt(0)=='x')
-    if (/^[\-a-zA-Z0-9]*(x|X)/.test(aBoard.moves[aBoard.index])) {
+    if (/(^[\-a-zA-Z0-9]*(x|X))|(変化)/.test(aBoard.moves[aBoard.index])) {
         $(self).attr("disabled", "disabled");
     } //once reaches the end...
     if (/[\-\+0-9pPlLnNsSgrRbB]+J/.test(aBoard.moves[aBoard.index])) {setupBranches(aBoard, self); }
