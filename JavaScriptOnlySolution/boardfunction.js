@@ -131,8 +131,7 @@ function stepback(aBoard, target) {
         setBoardToHistory(aBoard, aBoard.index, target);
         $('select')//attach event handler to selectors if its a part of snapshot retrived.
             .change(function () {
-            var newvalue = this.options[this.selectedIndex].value;
-            aBoard.index = newvalue;
+            aBoard.index = this.options[this.selectedIndex].value;
             });
     }
 }
@@ -190,11 +189,7 @@ loop1:
         alert(newvalue + ' selected');
 
     }; */
-    dlist.change(function () {
-        var newvalue = this.options[this.selectedIndex].value;
-        aBoard.index = newvalue;
-
-    });
+    dlist.change(function () { aBoard.index = this.options[this.selectedIndex].value;});
 }
 function forwardOne(aBoard, self) {
     /* aBoard point to an array element of Board[]
