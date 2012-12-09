@@ -46,10 +46,10 @@ board.moves = [
     "g-2423 *capturing the piece is implied",
     "s-2428",
     "gd23p",
-    "s+2324",
+    "s+2324*promotion effect is nice",
     "g-3241",
     "s-2223",
-    "g-2231",
+    "g-0031 *capture the same should be treated nicely.",
     "x"
 ];
 board.initialComment = "Don't worry about extra shogi piece.  I am just tyring to ensure the program works.<br>" +
@@ -186,7 +186,7 @@ boards.push(board);
 
 board = Object.create(protoboard);
 board.caption = "aigakari";
-board.initialComment = "this one has a branch.  Need to develop the logic to sniff out the branch!";
+board.initialComment = "this one has a branch.  Unlike the one above, these are live branches and will work.";
 board.moves = [
     "s-2627=1:２六歩",
     "g-8483=2:８四歩",
@@ -384,7 +384,8 @@ board.moves = [
     "変化：72手",
     "g-7483=72:７四金",
     "s+8384=73:８三歩成",
-    "g-6665=74:６六歩"
+    "g-6665=74:６六歩",
+    "x"
 ];
 
 boards.push(board);
