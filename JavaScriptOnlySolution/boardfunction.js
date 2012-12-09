@@ -113,9 +113,27 @@ function setBoardToHistory(aBoard, i, target) {
     target.empty().html(aBoard.history[i]);
 }
 function stepback(aBoard, target) {
-
+    var f,tesuu, tesuuPattern, rePattern = new RegExp("変化：(\\d+).*");
     if (aBoard.index > 0) {
-        setBoardToHistory(aBoard, --(aBoard.index), target);
+        //add instruction to correctly handles branch step back
+        --aBoard.index;
+        if (/変化/.test(aBoard.moves[aBoard.index])){
+            //if this test is true then the line contains number that should be matched by "going up" the list
+            //get the number
+            tesuu = aBoard.moves[aBoard.index].replace(rePattern,"$1");
+            tesuuPattern = new RegExp("J"+tesuu);
+            do {
+            --aBoard.index;
+                f = tesuuPattern.test(aBoard.moves[aBoard.index]);
+            } while (!f);
+            --aBoard.index; // now the index point to original branch point (jnnn - 1)
+        }
+        setBoardToHistory(aBoard, aBoard.index, target);
+        $('select')//attach event handler to selectors if its a part of snapshot retrived.
+            .change(function () {
+            var newvalue = this.options[this.selectedIndex].value;
+            aBoard.index = newvalue;
+            });
     }
 }
 function parseAction(aAction, target) {
@@ -158,7 +176,7 @@ loop1:
         if (tesuu === htesuu) {options.push(i); }
     // do this until end of array or henkatesu is less than tesuu
     } while ((htesuu >= tesuu));
-    for (i = 0; i < options.length; i++) {
+    for (i = 0; i < options.length; i++) { //stuff a dropdown list with alternative moves
         str = aBoard.moves[options[i]].replace(rePattern, "$2");
         $('<option></option>')
             .attr("value", options[i])
