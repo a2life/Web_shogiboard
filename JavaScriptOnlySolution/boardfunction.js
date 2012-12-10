@@ -105,34 +105,38 @@ function makeAmove(side, promote, from, to, target) {
 }
 function takeSnapshot(aBoard, target) {
     if (aBoard.history === undefined) {aBoard.history = []; }
-    aBoard.history[aBoard.index] = target.html();
-    ++aBoard.index;
+    aBoard.history.push(target.html());
+    target.closest(".shogiBoard").find('.cButton').removeAttr("disabled");
 }
-function setBoardToHistory(aBoard, i, target) {
+function backOneMove(aBoard, target, self) {
     target.closest(".shogiBoard").find('.aButton').removeAttr("disabled");
-    target.empty().html(aBoard.history[i]);
+    var history = aBoard.history.pop();
+    target.empty().html(history);
+    if (aBoard.history.length === 0) {$(self).attr("disabled", "disabled"); }
 }
-function stepback(aBoard, target) {
-    var f,tesuu, tesuuPattern, rePattern = new RegExp("変化：(\\d+).*");
+function stepback(aBoard, target, self) {
+    var f, sniff, tesuu, tesuuPattern, rePattern = new RegExp("変化：(\\d+).*");
     if (aBoard.index > 0) {
         //add instruction to correctly handles branch step back
         --aBoard.index;
-        if (/変化/.test(aBoard.moves[aBoard.index])){
+        sniff = aBoard.index - 1;
+        if (/変化/.test(aBoard.moves[sniff])) {
             //if this test is true then the line contains number that should be matched by "going up" the list
             //get the number
-            tesuu = aBoard.moves[aBoard.index].replace(rePattern,"$1");
-            tesuuPattern = new RegExp("J"+tesuu);
+            tesuu = aBoard.moves[sniff].replace(rePattern, "$1");
+            tesuuPattern = new RegExp("J" + tesuu);
             do {
-            --aBoard.index;
+                --aBoard.index;
                 f = tesuuPattern.test(aBoard.moves[aBoard.index]);
             } while (!f);
-            --aBoard.index; // now the index point to original branch point (jnnn - 1)
+//            --aBoard.index; // now the index point to original branch point (jnnn - 1)
         }
-        setBoardToHistory(aBoard, aBoard.index, target);
+        backOneMove(aBoard, target, self);
         $('select')//attach event handler to selectors if its a part of snapshot retrived.
             .change(function () {
-            aBoard.index = this.options[this.selectedIndex].value;
+                aBoard.index = this.options[this.selectedIndex].value;
             });
+
     }
 }
 function parseAction(aAction, target) {
@@ -189,7 +193,7 @@ loop1:
         alert(newvalue + ' selected');
 
     }; */
-    dlist.change(function () { aBoard.index = this.options[this.selectedIndex].value;});
+    dlist.change(function () { aBoard.index = this.options[this.selectedIndex].value; });
 }
 function forwardOne(aBoard, self) {
     /* aBoard point to an array element of Board[]
@@ -202,6 +206,7 @@ function forwardOne(aBoard, self) {
         zAction = aBoard.moves[aBoard.index];
 
     takeSnapshot(aBoard, target);
+    ++aBoard.index;
     parseAction(zAction, target);
     //   if (aBoard.moves[aBoard.index].charAt(0)=='x')
     if (/(^[\-a-zA-Z0-9]*(x|X))|(変化)/.test(aBoard.moves[aBoard.index])) {
@@ -274,8 +279,9 @@ function setupButtons() {
         .attr("class", "cButton")
         .appendTo('.buttonBar')
         .attr("value", "Step Back")
+        .attr("disabled", "disabled")
         .each(function (i) {$(this)
-            .click(function () {stepback(boards[i], $(this).closest('.shogiBoard').find('.forSnapshot')); }
+            .click(function () {stepback(boards[i], $(this).closest('.shogiBoard').find('.forSnapshot'), this); }
                 );
             }
             );
