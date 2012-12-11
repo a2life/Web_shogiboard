@@ -115,12 +115,12 @@ function backOneMove(aBoard, target, self) {
     if (aBoard.history.length === 0) {$(self).attr("disabled", "disabled"); }
 }
 function stepback(aBoard, target, self) {
-    var f, sniff, tesuu, tesuuPattern, rePattern = new RegExp("変化：(\\d+).*");
+    var f, sniff, tesuu, tesuuPattern, rePattern = new RegExp("C:(\\d+).*");
     if (aBoard.index > 0) {
         //add instruction to correctly handles branch step back
         --aBoard.index;
         sniff = aBoard.index - 1;
-        if (/変化/.test(aBoard.moves[sniff])) {
+        if (/C:/.test(aBoard.moves[sniff])) {
             //if this test is true then the line contains number that should be matched by "going up" the list
             //get the number
             tesuu = aBoard.moves[sniff].replace(rePattern, "$1");
@@ -166,9 +166,9 @@ function setupBranches(aBoard, self) {
     options.push(i);
 loop1:
     do {
-        i++;// now find 変化：　string in the array.
+        i++;// now find C：　string in the array.
         do {
-            f = /変化/.test(aBoard.moves[i++]);
+            f = /C:/.test(aBoard.moves[i++]);
             if (i >= aBoard.moves.length) {
                 break loop1;
             }
@@ -209,7 +209,7 @@ function forwardOne(aBoard, self) {
     ++aBoard.index;
     parseAction(zAction, target);
     //   if (aBoard.moves[aBoard.index].charAt(0)=='x')
-    if (/(^[\-a-zA-Z0-9]*(x|X))|(変化)/.test(aBoard.moves[aBoard.index])) {
+    if (/(^[\-a-zA-Z0-9]*[xXC])/.test(aBoard.moves[aBoard.index])) {
         $(self).attr("disabled", "disabled");
     } //once reaches the end...
     if (/[\-\+0-9pPlLnNsSgrRbB]+J/.test(aBoard.moves[aBoard.index])) {setupBranches(aBoard, self); }
