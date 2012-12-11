@@ -81,7 +81,7 @@ function makeAmove(side, promote, from, to, target) {"use strict";
     emptyComment(target);
     //if to position is already occupied, then capture that image element to 'side's mochigoma
     //for this we check the lenth of selector. ie, if $(".c6 .r7").length>0 then there is an element.
-    if (target.find(cordToSelector(to)).length > 0) {
+    if ((from !== to) && (target.find(cordToSelector(to)).length > 0)) {
         captureKoma(side, to, target);
     }
     // then set a marker to "to" position

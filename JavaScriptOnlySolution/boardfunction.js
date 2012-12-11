@@ -46,6 +46,7 @@ function emptyComment(target) {target.find('.comment').empty(); }
 function cordToClass(cord) { return cord.replace(/(\d)(\d)/, 'koma c$1 r$2'); }//turn cordination info into .class info
 function cordToSelector(cord) {return cord.replace(/(\d)(\d)/, '.koma.c$1.r$2'); }//turn .class info into css selector
 function setMarker(cord, target) { target.find('.marker').attr("class", cord.replace(/(\d)(\d)/, 'marker c$1 r$2')); }//marker class info
+function getMarkerCord(target) {return target.find('.marker').attr("class").replace(/marker c(\d) r(\d)/, '$1$2'); }
 function makeAdrop(side, koma, position, target) {
     var selector, png = side.toUpperCase() + komatopng(koma);
     if (side.toUpperCase() === 'S') {
@@ -93,8 +94,10 @@ function makeAmove(side, promote, from, to, target) {
     emptyComment(target);
     //if to position is already occupied, then capture that image element to 'side's mochigoma
     //for this we check the lenth of the targeted selector. ie, if $(".c6 .r7").length>0 then there is an element.
-    if (target.find(cordToSelector(to)).length > 0) {
-        captureKoma(side, to, target);
+    if (from !== to) { //if from and to is the same, this is not capturing move
+        if (target.find(cordToSelector(to)).length > 0) {
+            captureKoma(side, to, target);
+        }
     }
     // then set a marker to "to" position
     setMarker(to, target);
@@ -145,9 +148,7 @@ function parseAction(aAction, target) {
         postComment(aAction.slice(1), target);
     } else {
         var to = aAction.substr(2, 2);
-        if (parseAction.prevMove === undefined) {parseAction.prevMove = to; } //this is..
-        if (to === "00") { to = parseAction.prevMove; }//a mechanism to..
-        parseAction.prevMove = to; //remember previous move to accomodate 00 notation
+        if (to === "00") { to = getMarkerCord(target); }//if 00 cordinate, then take to cordinate is marker position
         if (aAction.charAt(1) === 'd') {
             makeAdrop(aAction.charAt(0), aAction.charAt(4), to, target);
         } else {
