@@ -188,7 +188,7 @@ loop1:
             .appendTo(dlist);
     }
 
-    $(self).closest('.shogiBoard').find('.scomment').append(dlist);
+    $(self).closest('.shogiBoard').find('.comment').append(dlist);
   /*  dlist[0].onchange = function () {
         var newvalue = this.options[this.selectedIndex].value;
         alert(newvalue + ' selected');
