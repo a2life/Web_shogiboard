@@ -46,6 +46,7 @@ function emptyComment(target) {target.find('.comment').empty(); }
 function cordToClass(cord) { return cord.replace(/(\d)(\d)/, 'koma c$1 r$2'); }//turn cordination info into .class info
 function cordToSelector(cord) {return cord.replace(/(\d)(\d)/, '.koma.c$1.r$2'); }//turn .class info into css selector
 function setMarker(cord, target) { target.find('.marker').attr("class", cord.replace(/(\d)(\d)/, 'marker c$1 r$2')); }//marker class info
+function getMarkerCord(target) {return target.find('.marker').attr("class").replace(/marker c(\d) r(\d)/, '$1$2'); }
 function makeAdrop(side, koma, position, target) {
     var selector, png = side.toUpperCase() + komatopng(koma);
     if (side.toUpperCase() === 'S') {
@@ -93,8 +94,10 @@ function makeAmove(side, promote, from, to, target) {
     emptyComment(target);
     //if to position is already occupied, then capture that image element to 'side's mochigoma
     //for this we check the lenth of the targeted selector. ie, if $(".c6 .r7").length>0 then there is an element.
-    if (target.find(cordToSelector(to)).length > 0) {
-        captureKoma(side, to, target);
+    if (from !== to) { //if from and to is the same, this is not capturing move
+        if (target.find(cordToSelector(to)).length > 0) {
+            captureKoma(side, to, target);
+        }
     }
     // then set a marker to "to" position
     setMarker(to, target);
@@ -105,34 +108,38 @@ function makeAmove(side, promote, from, to, target) {
 }
 function takeSnapshot(aBoard, target) {
     if (aBoard.history === undefined) {aBoard.history = []; }
-    aBoard.history[aBoard.index] = target.html();
-    ++aBoard.index;
+    aBoard.history.push(target.html());
+    target.closest(".shogiBoard").find('.cButton').removeAttr("disabled");
 }
-function setBoardToHistory(aBoard, i, target) {
+function backOneMove(aBoard, target, self) {
     target.closest(".shogiBoard").find('.aButton').removeAttr("disabled");
-    target.empty().html(aBoard.history[i]);
+    var history = aBoard.history.pop();
+    target.empty().html(history);
+    if (aBoard.history.length === 0) {$(self).attr("disabled", "disabled"); }
 }
-function stepback(aBoard, target) {
-    var f,tesuu, tesuuPattern, rePattern = new RegExp("変化：(\\d+).*");
+function stepback(aBoard, target, self) {
+    var f, sniff, tesuu, tesuuPattern, rePattern = new RegExp("C:(\\d+).*");
     if (aBoard.index > 0) {
         //add instruction to correctly handles branch step back
         --aBoard.index;
-        if (/変化/.test(aBoard.moves[aBoard.index])){
+        sniff = aBoard.index - 1;
+        if (/C:/.test(aBoard.moves[sniff])) {
             //if this test is true then the line contains number that should be matched by "going up" the list
             //get the number
-            tesuu = aBoard.moves[aBoard.index].replace(rePattern,"$1");
-            tesuuPattern = new RegExp("J"+tesuu);
+            tesuu = aBoard.moves[sniff].replace(rePattern, "$1");
+            tesuuPattern = new RegExp("J" + tesuu);
             do {
-            --aBoard.index;
+                --aBoard.index;
                 f = tesuuPattern.test(aBoard.moves[aBoard.index]);
             } while (!f);
-            --aBoard.index; // now the index point to original branch point (jnnn - 1)
+//            --aBoard.index; // now the index point to original branch point (jnnn - 1)
         }
-        setBoardToHistory(aBoard, aBoard.index, target);
+        backOneMove(aBoard, target, self);
         $('select')//attach event handler to selectors if its a part of snapshot retrived.
             .change(function () {
-            aBoard.index = this.options[this.selectedIndex].value;
+                aBoard.index = this.options[this.selectedIndex].value;
             });
+
     }
 }
 function parseAction(aAction, target) {
@@ -141,9 +148,7 @@ function parseAction(aAction, target) {
         postComment(aAction.slice(1), target);
     } else {
         var to = aAction.substr(2, 2);
-        if (parseAction.prevMove === undefined) {parseAction.prevMove = to; } //this is..
-        if (to === "00") { to = parseAction.prevMove; }//a mechanism to..
-        parseAction.prevMove = to; //remember previous move to accomodate 00 notation
+        if (to === "00") { to = getMarkerCord(target); }//if 00 cordinate, then take to cordinate is marker position
         if (aAction.charAt(1) === 'd') {
             makeAdrop(aAction.charAt(0), aAction.charAt(4), to, target);
         } else {
@@ -162,9 +167,9 @@ function setupBranches(aBoard, self) {
     options.push(i);
 loop1:
     do {
-        i++;// now find 変化：　string in the array.
+        i++;// now find C：　string in the array.
         do {
-            f = /変化/.test(aBoard.moves[i++]);
+            f = /C:/.test(aBoard.moves[i++]);
             if (i >= aBoard.moves.length) {
                 break loop1;
             }
@@ -183,13 +188,13 @@ loop1:
             .appendTo(dlist);
     }
 
-    $(self).closest('.shogiBoard').find('.scomment').append(dlist);
+    $(self).closest('.shogiBoard').find('.comment').append(dlist);
   /*  dlist[0].onchange = function () {
         var newvalue = this.options[this.selectedIndex].value;
         alert(newvalue + ' selected');
 
     }; */
-    dlist.change(function () { aBoard.index = this.options[this.selectedIndex].value;});
+    dlist.change(function () { aBoard.index = this.options[this.selectedIndex].value; });
 }
 function forwardOne(aBoard, self) {
     /* aBoard point to an array element of Board[]
@@ -202,9 +207,10 @@ function forwardOne(aBoard, self) {
         zAction = aBoard.moves[aBoard.index];
 
     takeSnapshot(aBoard, target);
+    ++aBoard.index;
     parseAction(zAction, target);
     //   if (aBoard.moves[aBoard.index].charAt(0)=='x')
-    if (/(^[\-a-zA-Z0-9]*(x|X))|(変化)/.test(aBoard.moves[aBoard.index])) {
+    if (/(^[\-a-zA-Z0-9]*[xXC])/.test(aBoard.moves[aBoard.index])) {
         $(self).attr("disabled", "disabled");
     } //once reaches the end...
     if (/[\-\+0-9pPlLnNsSgrRbB]+J/.test(aBoard.moves[aBoard.index])) {setupBranches(aBoard, self); }
@@ -274,8 +280,9 @@ function setupButtons() {
         .attr("class", "cButton")
         .appendTo('.buttonBar')
         .attr("value", "Step Back")
+        .attr("disabled", "disabled")
         .each(function (i) {$(this)
-            .click(function () {stepback(boards[i], $(this).closest('.shogiBoard').find('.forSnapshot')); }
+            .click(function () {stepback(boards[i], $(this).closest('.shogiBoard').find('.forSnapshot'), this); }
                 );
             }
             );

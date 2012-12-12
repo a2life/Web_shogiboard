@@ -76,7 +76,7 @@ if (isset($moves)) {
     $modx->regClientScript("assets/components/shogiboard/js/boardmover.js");
     $src=<<<EOT
     <script type="text/javascript">
-board.push({
+boards.push({
 moves:[$moves],index:0,history:[]});
 </script>
 EOT;
