@@ -63,7 +63,43 @@ but
 s-xxxx,s-xxxx,s-xxxx,g-xxxx
 is allowed. it will be handy for teaching purpose.
 
+Branching is supported.
 
+Piece represntation 
+l : lance
+L : lance promoted
+n : Knight
+N : Knight promoted
+s : silver
+S : silver promoted
+r : Rook
+R : Rook promoted
+b : Bishop
+B : Bishop promoted
+k : King
+
+Move notation
+
+Anything after '*' is considered as a comment and will be displayed in comment window.
+
+first character  ; Either s or g to notate the Side   s = sente(black) and g = gote (white) Note in shogi, the black moves first
+second character :  '-' to indicate normal move, '+' to indicate promotion, 'd'  to indicate drop
+third and fourth chars:  'move to" coordinate.  34 means 3d, 22 means 2b etc.,
+fith and six column : 'move from' coordinate for '-' and '+'. in case of 'd' then only fifthcolumn will be used as piece indicator
+
+example of move
+"s-7677",  : white move a piece from 77 to 76
+"g-3433",  : black moves a piece from 33 to 34
+"sd55g",   : black drops a gold to 5e.
+"g-3534*do you think this is cool?", : white moves a piece from 34 to 35. Comment windows displays"do you think this is cool?"
+s+2228  : piece at the 28 position is moved to 22 and then get promoted.
+"x"   : end of moves indicator
+
+"x" by itself is a special character and denote end of moves.
+
+
+
+[wish list]
 add &size parameter : `small`, `smaller` etc.,
 innn:  i000= go back to the first 局面 and forget the move onward.
 innn*comment : go back to step nnn and replace comment with "comment" if blank, then blank out the
