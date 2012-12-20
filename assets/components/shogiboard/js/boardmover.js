@@ -104,7 +104,7 @@ function takeSnapshot(aBoard, target) {
 }
 function backOneMove(aBoard, target, self) {
     target.closest(".shogiBoard").find('.aButton').removeAttr("disabled");
-    var history = aBoard.history.pop();
+    aBoard.history.pop();
     target.empty().html(history);
     if (aBoard.history.length === 0) {$(self).attr("disabled", "disabled"); }
 }

@@ -12,7 +12,7 @@ size of board and grid image is : 410 x 454. offset (margin) put a 0,0 cordinate
 */
 .forSnapshot {position:relative;}
 .table {display:table;}
-.row {display:table-row;}
+.row {display:table-row; ;}
 .cell {display:table-cell;}
 .empty {height:25px;}
 .hide {display:none;}

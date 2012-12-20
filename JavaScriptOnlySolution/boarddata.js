@@ -4,6 +4,7 @@
  * Date: 5/31/12
  * Time: 6:58 PM
  * To change this template use File | Settings | File Templates.
+ * I inadvertently used Object.create instead of new [object] so this will only work with the browsers that supports ECMA 1.8 and above.
  */
 var protoboard;
 protoboard = {
