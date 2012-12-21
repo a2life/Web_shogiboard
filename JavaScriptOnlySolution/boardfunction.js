@@ -17,19 +17,9 @@
 /*global  $,  boards, setupboard, */
 
 var Sshack  = {
-    //helper functions to mitigate double click async issue of the button:
-    // the button has to be disabled until the animatio is finished. I do not have "click buffer" to handle this.
-    linkEnabled : true,
-
-    isReadyForClick :  function () {
-        setTimeout(this.blockClick, 100);
-        return Sshack.linkEnabled;
-    },
-    blockClick : function () {
-    Sshack.linkEnabled = false;
-    setTimeout(function(){Sshack.linkEnabled=true;}, 450);
-},
-        komatopng : function (koma) {
+    // the button click has to be ignored until the animation is finished. I do not have "click buffer" to handle this.
+    notInAnimation : true,  //needed a static variable to keep track of this.
+    komatopng : function (koma) {
     //convert koma information and return image file name
             if (this.komatopng.partlist === undefined) {
                 this.komatopng.partlist = {
@@ -125,11 +115,14 @@ var Sshack  = {
             // use from to modify ".positioner" class to mimic ".from" class
             var e = elem[0], top = e.offsetTop, left = e.offsetLeft,
                 width = e.offsetWidth, height = e.offsetHeight;
+            Sshack.notInAnimation = false; //set a flag so the button click is ignored during animated move.
             $("#positioner").html(".positioner { position: absolute; left: " + left + "px; top: " + top + "px; height:" + height + "px; width: " + width + "px;}");
-            // use switchClass to animate the move
+            // use jQuery UI's .switchClass() to animate the move
             elem.attr('class', 'positioner').switchClass("positioner", to, "", "",
                 function () { if (promote === '+') {Sshack.promote2Koma(elem, side);
-                     } });
+                     }//after moving the piece, check for promotion and take action if that is the case.
+                    Sshack.notInAnimation = true; //after moving the piece, call back and set the flag to accept another button click
+                });
         },
 
         makeAmove : function (side, promote, from, to, target) {
@@ -231,11 +224,7 @@ loop1:
             }
 
             $(self).closest('.shogiBoard').find('.comment').append(dlist);
-  /*  dlist[0].onchange = function () {
-        var newvalue = this.options[this.selectedIndex].value;
-        alert(newvalue + ' selected');
 
-    }; */
             dlist.change(function () { aBoard.index = this.options[this.selectedIndex].value; });
         },
         forwardOne : function (aBoard, self) {
@@ -244,15 +233,14 @@ loop1:
      *  target is ".forSnapshot" block that is ancestor of button that fires
      *
      */
+            if (this.notInAnimation){ // if the board is in animation mode, then skip this block = ignore button press.
             var target = $(self).closest('.shogiBoard')//scan up from button element to class shogiboard
                 .find('.forSnapshot'),
                 zAction = aBoard.moves[aBoard.index];
- //           this.sleepButtons();
-            if (this.isReadyForClick()){
             this.takeSnapshot(aBoard, target);
             ++aBoard.index;
             this.parseAction(zAction, target);
-    //   if (aBoard.moves[aBoard.index].charAt(0)=='x')
+    //   if (aBoard.moves[aBoard.index].charAt(0)=='x') // more sophsticated code below to do the same and more.
             if (/(^[\-a-zA-Z0-9]*[xXC])/.test(aBoard.moves[aBoard.index])) {
                 $(self).attr("disabled", "disabled");
             } //once reaches the end...
