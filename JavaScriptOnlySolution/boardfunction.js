@@ -27,7 +27,7 @@ var Sshack  = {
     },
     blockClick : function () {
     Sshack.linkEnabled = false;
-    setTimeout(function(){Sshack.linkEnabled=true;}, 400);
+    setTimeout(function(){Sshack.linkEnabled=true;}, 450);
 },
         komatopng : function (koma) {
     //convert koma information and return image file name
