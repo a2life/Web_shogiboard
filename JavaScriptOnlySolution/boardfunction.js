@@ -15,7 +15,20 @@
 
 /*jslint browser: true*/
 /*global  $,  boards, setupboard, */
+
 var Sshack  = {
+    //helper functions to mitigate double click async issue of the button:
+    // the button has to be disabled until the animatio is finished. I do not have "click buffer" to handle this.
+    linkEnabled : true,
+
+    isReadyForClick :  function () {
+        setTimeout(this.blockClick, 100);
+        return Sshack.linkEnabled;
+    },
+    blockClick : function () {
+    Sshack.linkEnabled = false;
+    setTimeout(function(){Sshack.linkEnabled=true;}, 400);
+},
         komatopng : function (koma) {
     //convert koma information and return image file name
             if (this.komatopng.partlist === undefined) {
@@ -116,13 +129,10 @@ var Sshack  = {
             // use switchClass to animate the move
             elem.attr('class', 'positioner').switchClass("positioner", to, "", "",
                 function () { if (promote === '+') {Sshack.promote2Koma(elem, side);
-                    elem.closest(".shogiBoard").find('.aButton').removeAttr("disabled"); } });
+                     } });
         },
-        atTheEnd : function (elem) {
-            elem.closest(".shogiBoard").find('.aButton').removeAttr("disabled");
-        },
-        makeAmove : function (side, promote, from, to, target, atTheEnd) {
-            target.closest(".shogiBoard").find('.aButton').attr("disabled", "disabled");
+
+        makeAmove : function (side, promote, from, to, target) {
             this.emptyComment(target);
     //if to position is already occupied, then capture that image element to 'side's mochigoma
     //for this we check the lenth of the targeted selector. ie, if $(".c6 .r7").length>0 then there is an element.
@@ -135,7 +145,6 @@ var Sshack  = {
             this.setMarker(to, target);
     // then move the piece, it just involves the changing of class
             this.animateMove(target.find(this.cordToSelector(from)), this.cordToClass(to), promote, side);
-            atTheEnd(target);
         },
         takeSnapshot : function (aBoard, target) {
             if (aBoard.history === undefined) {aBoard.history = []; }
@@ -172,6 +181,11 @@ var Sshack  = {
 
             }
         },
+ /*       sleepButtons : function () {
+                $('input').attr("disabled", "disabled");
+                setTimeout(function () {$('input').removeAttr("disabled");},2000);
+                },
+                */
         parseAction : function (aAction, target) {
             if (aAction.charAt(0) === '*') {
                 this.postComment(aAction.slice(1), target);
@@ -181,7 +195,7 @@ var Sshack  = {
                 if (aAction.charAt(1) === 'd') {
                     this.dropKoma(aAction.charAt(0), aAction.charAt(4), to, target);
                 } else {
-                    this.makeAmove(aAction.charAt(0).toUpperCase(), aAction.charAt(1), aAction.substr(4, 2), to, target, this.atTheEnd);
+                    this.makeAmove(aAction.charAt(0).toUpperCase(), aAction.charAt(1), aAction.substr(4, 2), to, target);
                 }
                 if (aAction.indexOf('*') > 0) {this.postComment(aAction.slice(aAction.indexOf('*') + 1), target); }
             }
@@ -233,7 +247,8 @@ loop1:
             var target = $(self).closest('.shogiBoard')//scan up from button element to class shogiboard
                 .find('.forSnapshot'),
                 zAction = aBoard.moves[aBoard.index];
-
+ //           this.sleepButtons();
+            if (this.isReadyForClick()){
             this.takeSnapshot(aBoard, target);
             ++aBoard.index;
             this.parseAction(zAction, target);
@@ -243,7 +258,7 @@ loop1:
             } //once reaches the end...
             if (/[\-\+0-9pPlLnNsSgrRbB]+J/.test(aBoard.moves[aBoard.index])) {this.setupBranches(aBoard, self); }
 //after the move, if next line is a comment, then process it anyway.
-        },
+            } },
 
         initializeBoard : function (j) { //i is a index to board data in boards array, as well as index to selected elem.
 //called from initializeBoards, iterate through the number of array element in boards[];
