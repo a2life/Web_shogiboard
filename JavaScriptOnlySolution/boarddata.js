@@ -4,40 +4,72 @@
  * Date: 5/31/12
  * Time: 6:58 PM
  * To change this template use File | Settings | File Templates.
- * I inadvertently used Object.create instead of new [object] so this will only work with the browsers that supports ECMA 1.8 and above.
+ * sboard.kifList is an array containing kifu data.
  */
-var protoboard;
-protoboard = {
-    /* p=pawn, l=lance, L=promoted lance, s=silver, S=promoted Silver, g=gold, r=rook, R=promoted Rook, b=bishop, B=promoted Bishop
-     k=king 11=1a, 12=1b etc.,
-     */
-    filePathKoma: '../images/shogiboard/koma/pieces_kinki/',
-    filePathGrid: '../images/shogiboard/masu/',
-    filePathBoard: '../images/shogiboard/ban/',
-    filePathFocus: '../images/shogiboard/focus/',
-    banImage: 'ban_kaya_a.png',
-    gridImage: 'masu_dot.png',
-    markerImage: 'focus_trpt_g.png',
-    markerAt: "lostworld",
-    //refer to marker location and pattern "lost world" coordination is off the page
-    onBoard: {G: ['11l', '21n', '31s', '41g', '51k', '61g', '71s', '81n', '91l', '22b', '82r', '13p', '23p', '33p', '43p', '53p', '63p', '73p', '83p', '93p'],
-        S: ['19l', '29n', '39s', '49g', '59k', '69g', '79s', '89n', '99l', '28r', '88b', '17p', '27p', '37p', '47p', '57p', '67p', '77p', '87p', '97p']},
-    // onBoard denotes pieces already on board. G array lists Gote side pieces. S array lists Sente side pieces.
-    onHand: { S: [],  G: [] },
-    // onhand denotes pieces on hand
-    //moves: [],
-    // moves is an array of moves. for first char, * is comment, s or g shows side.
-    // second char is either - (move) or d for drop. cordinateion in /to/from order.
-    index: 0,
+if (typeof Object.create !== 'function') {
+    Object.create = function (o) {
+        var F = function () {};
+        F.prototype = o;
+        return new F();
+    };
+}// define Object.create in case the JS engined does not support the method.
+
+var sBoard = (function() {
+    var board = {}, //temporary variable storage
+        tpl = { //define tpl object
+            /* p=pawn, l=lance, L=promoted lance, s=silver, S=promoted Silver, g=gold, r=rook, R=promoted Rook, b=bishop, B=promoted Bishop
+             k=king 11=1a, 12=1b etc.,
+             */
+            filePathKoma: '../images/shogiboard/koma/pieces_kinki/',
+            filePathGrid: '../images/shogiboard/masu/',
+            filePathBoard: '../images/shogiboard/ban/',
+            filePathFocus: '../images/shogiboard/focus/',
+            banImage: 'ban_kaya_a.png',
+            gridImage: 'masu_dot.png',
+            markerImage: 'focus_trpt_g.png',
+            markerAt: "lostworld",
+            //refer to marker location and pattern "lost world" coordination is off the page
+            onBoard: {G: ['11l', '21n', '31s', '41g', '51k', '61g', '71s', '81n', '91l', '22b', '82r', '13p', '23p', '33p', '43p', '53p', '63p', '73p', '83p', '93p'],
+                S: ['19l', '29n', '39s', '49g', '59k', '69g', '79s', '89n', '99l', '28r', '88b', '17p', '27p', '37p', '47p', '57p', '67p', '77p', '87p', '97p']},
+            // onBoard denotes pieces already on board. G array lists Gote side pieces. S array lists Sente side pieces.
+            onHand: { S: [],  G: [] },
+            // onhand denotes pieces on hand
+            //moves: [],
+            // moves is an array of moves. for first char, * is comment, s or g shows side.
+            // second char is either - (move) or d for drop. cordinateion in /to/from order.
+            index: 0,
 //    history: [] this does not work. better to have it created on the fly.
-    caption: "JSShogiBoard&#0169;"
+            caption: "JSShogiBoard&#0169;"
 
-};
-var boards = [];
+        };
+    return {
+        kifuList : [],
+        addKif : function (args){
+            board = Object.create(tpl);
+            if (args.moves !== undefined){
+                board.moves = args.moves;
+            }
+            if (args.onBoard !== undefined){
+                board.onBoard = args.onBoard;
+            }
+            if (args.onHand !== undefined) {
+                board.onHand = args.onHand;
+            }
+            if (args.caption !== undefined) {
+                board.caption = args.caption;
+            }
+            if (args.initialComment !== undefined) {
+                board.initialComment = args.initialComment;
+            }
+            this.kifuList.push(board);
+        }
+    };
+}());
 
-var board = Object.create(protoboard);
-board.onHand = { S: ['g', 'g', 'l', 'p'], G: ['b', 'l', 'l', 'p'] };
-board.moves = [
+
+sBoard.data = {};
+sBoard.data.onHand = { S: ['g', 'g', 'l', 'p'], G: ['b', 'l', 'l', 'p'] };
+sBoard.data.moves = [
     "*this is a comment that should go to comment line",
     "s-2627 *here, the sente moves a piece from 27 to 26",
     "g-8483",
@@ -53,17 +85,18 @@ board.moves = [
     "g-0031 *capture the same should be treated nicely.",
     "x"
 ];
-board.initialComment = "Don't worry about extra shogi piece.  I am just tyring to ensure the program works.<br>" +
+sBoard.data.initialComment = "Don't worry about extra shogi piece.  I am just tyring to ensure the program works.<br>" +
     "駒の数が多いのはご愛嬌です。";
 
-boards.push(board);
+sBoard.addKif(sBoard.data);
 
-//now create another shogiboard data object
-board = Object.create(protoboard);
-board.caption = "The latest Yagura 3g silver -矢倉３七銀2012年最新型";
-board.initialComment = "The program can show branch moves when available.Main course follows the actual game played by Hirose and Watanabe" +
+
+//now parepare another shogiboard data object
+sBoard.data = {};
+sBoard.data.caption = "The latest Yagura 3g silver -矢倉３七銀2012年最新型";
+sBoard.data.initialComment = "The program can show branch moves when available.Main course follows the actual game played by Hirose and Watanabe" +
     "on October 2012.";
-board.moves = [
+sBoard.data.moves = [
     "*One of the reasons for Yagura's steady popularity is this thanks to Miyata's discovery of  p-65(６五歩).  Let's take a look.",
     "s-7677=1:７六歩",
     "g-8483=2:８四歩",
@@ -364,12 +397,13 @@ board.moves = [
 
 ];
 
-boards.push(board);
+sBoard.addKif(sBoard.data);
 
-board = Object.create(protoboard);
-board.caption = "aigakari";
-board.initialComment = "this one also has a branch move.";
-board.moves = [
+
+sBoard.data = {};
+sBoard.data.caption = "aigakari";
+sBoard.data.initialComment = "this one also has a branch move.";
+sBoard.data.moves = [
     "s-2627=1:２六歩",
     "g-8483=2:８四歩",
     "s-2526=3:２五歩",
@@ -569,5 +603,4 @@ board.moves = [
     "g-6665=74:６六歩",
     "x"
 ];
-
-boards.push(board);
+sBoard.addKif(sBoard.data);

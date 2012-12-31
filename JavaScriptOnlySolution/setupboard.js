@@ -6,21 +6,22 @@
  * setup shogiboard container html. uses jquery
  */
 /*jslint browser: true*/
-/*global  $, boards, setupboard*/
-function setupboard() {
-    "use strict";
+/*global  $, sBoard, setupboard*/
+sBoard.setupboard = function () {
+    var i, contents, l = sBoard.kifuList.length;
+
     function buttonSection(i) {
         var str;
-        if (boards[i].moves !== undefined) {
+        if (sBoard.kifuList[i].moves !== undefined) {
             str = '<div class="buttonBar"></div>';
         } else {
             str = "";
         }
         return str;
     }
-    var i, contents;
-    for (i = 0; i < boards.length; i++) {
-        contents = '<p class="sCaption">' + boards[i].caption + '</p>' +
+
+    for (i = 0; i < l; i++) {
+        contents = '<p class="sCaption">' + sBoard.kifuList[i].caption + '</p>' +
             '<div class="forSnapshot">' +
             '<div class="table" > <!-- outer table -->' +
             '<div class="row">' +
@@ -32,7 +33,7 @@ function setupboard() {
             '<div class="table"><!-- inner table -->' +
             '<div class="row">' +
             '<div class="goteMochigoma komadai cell"> <!-- Gote mochigoma --></div>' +
-             '</div>' +
+            '</div>' +
             '<div class="row">' +
             '<div class="cell empty"></div>' +
             '</div><!-- gap between two komaban -->' +
@@ -44,7 +45,7 @@ function setupboard() {
             '</div><!-- shogirow for the outer css-table-->' +
             '</div><!--shogitable-->' +
             '<article class="scomment comment" >' +
-            boards[i].initialComment +
+            sBoard.kifuList[i].initialComment +
             '</article>';
 
 
@@ -52,4 +53,4 @@ function setupboard() {
         contents += buttonSection(i);
         $($('.shogiBoard')[i]).append(contents);
     }
-}
+};
