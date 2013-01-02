@@ -14,7 +14,7 @@ if (typeof Object.create !== 'function') {
     };
 }// define Object.create in case the JS engined does not support the method.
 
-var sBoard = (function() {
+var sBoard = (function () {
     var board = {}, //temporary variable storage
         tpl = { //define tpl object
             /* p=pawn, l=lance, L=promoted lance, s=silver, S=promoted Silver, g=gold, r=rook, R=promoted Rook, b=bishop, B=promoted Bishop
@@ -44,12 +44,12 @@ var sBoard = (function() {
         };
     return {
         kifuList : [],
-        addKif : function (args){
+        addKif : function (args) {
             board = Object.create(tpl);
-            if (args.moves !== undefined){
+            if (args.moves !== undefined) {
                 board.moves = args.moves;
             }
-            if (args.onBoard !== undefined){
+            if (args.onBoard !== undefined) {
                 board.onBoard = args.onBoard;
             }
             if (args.onHand !== undefined) {

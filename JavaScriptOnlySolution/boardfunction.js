@@ -16,9 +16,9 @@
 /*jslint browser: true*/
 /*global  $,  sBoard */
 
-var Sshack  = (function () { //this is one big object declaration with local variables and functions defined by executing a function call
+var SSHACK  = (function () { //this is one big object declaration with local variables and functions defined by executing a function call
     // and returning a object literals
-        var notInAnimation = true,//needed a static variable to keep track of this.
+        var notInAnimation = true,//needed a private variable to keep track of this.
             partlist = {
                 "p": "fu",
                 "P": "to",
@@ -49,10 +49,8 @@ var Sshack  = (function () { //this is one big object declaration with local var
             getMarkerCord = function (target) {return target.find('.marker').attr("class").replace(/marker c(\d) r(\d)/, '$1$2'); },
             promote2Koma = function (elem, side) {
                 var koma, komaPath;
-                komaPath = '../images/shogiboard/koma/pieces_kinki/';
-                //komapath=board[0].filePathKoma;
-                // komapath=filePathKoma;
-                koma = elem.first().data("koma");
+                komaPath = elem.closest(".forSnapshot").data("komapath");//forSnapshot element has komapath data stored
+                koma = elem.data("koma");
                 if (koma === "hi.png") {
                     koma = "ryu.png";
                 } else if (koma === "kaku.png") {
@@ -62,7 +60,7 @@ var Sshack  = (function () { //this is one big object declaration with local var
                 } else {
                     koma = 'n' + koma;
                 }
-                elem.first().attr("src", komaPath + side + koma);
+                elem.attr("src", komaPath + side + koma);
             },
             animateMove = function (elem, to, promote, side) { // this is animation code for moving operation
                 // it needs from Class consists of .from and .to cordinate in form of class.
@@ -73,10 +71,13 @@ var Sshack  = (function () { //this is one big object declaration with local var
                     width = e.offsetWidth, height = e.offsetHeight;
                 notInAnimation = false; //set a flag so the button click is ignored during animated move.
                 $("#positioner").html(".positioner { position: absolute; left: " + left + "px; top: " + top + "px; height:" + height + "px; width: " + width + "px;}");
+                // inline style tag called "positioner" is already set up in the html header //
                 // use jQuery UI's .switchClass() to animate the move
-                elem.attr('class', 'positioner').switchClass("positioner", to, "", "",
+                // "onMove" class ensures the target elemenet have high value z-index
+                elem.attr('class', 'positioner onMove').switchClass("positioner", to, "", "",
                     function () { if (promote === '+') {promote2Koma(elem, side);
                         }//after moving the piece, check for promotion and take action if that is the case.
+                        elem.removeClass("onMove");
                         notInAnimation = true; //after moving the piece, call back and set the flag to accept another button click
                         });
             },
@@ -315,6 +316,6 @@ loop1:
     }()); // end of Sshack object declaration. Sshack has two methods that is accessible from outside.
 $(function () {
     sBoard.setupboard();
-    Sshack.initializeBoards();
-    Sshack.setupButtons();
+    SSHACK.initializeBoards();
+    SSHACK.setupButtons();
 });

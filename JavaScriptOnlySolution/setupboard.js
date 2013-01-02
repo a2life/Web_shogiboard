@@ -8,7 +8,7 @@
 /*jslint browser: true*/
 /*global  $, sBoard, setupboard*/
 sBoard.setupboard = function () {
-    var i, contents, l = sBoard.kifuList.length;
+    var i, contents, board, boards = sBoard.kifuList, l = boards.length, embedDatakomapath = 'data-komapath="';
 
     function buttonSection(i) {
         var str;
@@ -21,13 +21,14 @@ sBoard.setupboard = function () {
     }
 
     for (i = 0; i < l; i++) {
-        contents = '<p class="sCaption">' + sBoard.kifuList[i].caption + '</p>' +
-            '<div class="forSnapshot">' +
+        board = boards[i];
+        contents = '<p class="sCaption">' + board.caption + '</p>' +
+            '<div class="forSnapshot"' + embedDatakomapath + board.filePathKoma + '">' +
             '<div class="table" > <!-- outer table -->' +
             '<div class="row">' +
             '<div class="boardbase cell">' +
-            '<img class="board" src="../images/shogiboard/ban/ban_kaya_a.png"  alt=""/>' +
-            '<img class="board" src="../images/shogiboard/masu/masu_dot_xy.png" alt=""/>' +
+            '<img class="board" src="' + board.filePathBoard + board.banImage + '"  alt=""/>' +
+            '<img class="board" src="' + board.filePathGrid + board.gridImage + '"  alt=""/>' +
             '</div>' +
             '<div class="cell">' +
             '<div class="table"><!-- inner table -->' +
@@ -45,7 +46,7 @@ sBoard.setupboard = function () {
             '</div><!-- shogirow for the outer css-table-->' +
             '</div><!--shogitable-->' +
             '<article class="scomment comment" >' +
-            sBoard.kifuList[i].initialComment +
+            board.initialComment +
             '</article>';
 
 
