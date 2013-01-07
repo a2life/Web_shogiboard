@@ -39,7 +39,8 @@ var sBoard = (function () {
             // second char is either - (move) or d for drop. cordinateion in /to/from order.
             index: 0,
 //    history: [] this does not work. better to have it created on the fly.
-            caption: "JSShogiBoard&#0169;"
+            caption: "JSShogiBoard&#0169;",
+            smooth: 0 //if set to one, then animation is smooth.
 
         };
     return {
@@ -61,10 +62,16 @@ var sBoard = (function () {
             if (args.initialComment !== undefined) {
                 board.initialComment = args.initialComment;
             }
+            if (args.smooth !== undefined) {
+                board.smooth = args.smooth;
+            }
+            if (args.markerAt !== undefined) {
+                board.markerAt = args.markerAt;
+            }
             this.kifuList.push(board);
         }
     };
-}());
+}()); // this 'returns' object literal with private variables.
 
 
 sBoard.data = {};

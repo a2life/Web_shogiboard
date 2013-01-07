@@ -6,7 +6,7 @@
  * setup shogiboard container html. uses jquery
  */
 /*jslint browser: true*/
-/*global  $, sBoard, setupboard*/
+/*global  $, sBoard */
 sBoard.setupboard = function () {
     var i, contents, board, boards = sBoard.kifuList, l = boards.length, embedDatakomapath = 'data-komapath="';
 

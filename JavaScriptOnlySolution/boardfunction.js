@@ -41,97 +41,15 @@ var SSHACK  = (function () { //this is one big object declaration with local var
                 return png;
 
             },
-            postComment = function (comment, target) {target.find('.comment').empty().append(comment); },
             emptyComment = function (target) {target.find('.comment').empty(); },
             cordToClass = function (cord) { return cord.replace(/(\d)(\d)/, 'koma c$1 r$2'); },//turn cordination info into .class info
-            cordToSelector = function (cord) {return cord.replace(/(\d)(\d)/, '.koma.c$1.r$2'); },//turn .class info into css selector
-            setMarker = function (cord, target) { target.find('.marker').attr("class", cord.replace(/(\d)(\d)/, 'marker c$1 r$2')); },//marker class info
-            getMarkerCord = function (target) {return target.find('.marker').attr("class").replace(/marker c(\d) r(\d)/, '$1$2'); },
-            promote2Koma = function (elem, side) {
-                var koma, komaPath;
-                komaPath = elem.closest(".forSnapshot").data("komapath");//forSnapshot element has komapath data stored
-                koma = elem.data("koma");
-                if (koma === "hi.png") {
-                    koma = "ryu.png";
-                } else if (koma === "kaku.png") {
-                    koma = "uma.png";
-                } else if (koma === "fu.png") {
-                    koma = "to.png";
-                } else {
-                    koma = 'n' + koma;
-                }
-                elem.attr("src", komaPath + side + koma);
-            },
-            animateMove = function (elem, to, promote, side) { // this is animation code for moving operation
-                // it needs from Class consists of .from and .to cordinate in form of class.
-                // we are going to use jquery UI's switchClass.  this  API will eat out .from cordinate Class if .from
-                // is the same as .to.   Therefore,
-                // use from to modify ".positioner" class to mimic ".from" class
-                var e = elem[0], top = e.offsetTop, left = e.offsetLeft,
-                    width = e.offsetWidth, height = e.offsetHeight;
-                notInAnimation = false; //set a flag so the button click is ignored during animated move.
-                $("#positioner").html(".positioner { position: absolute; left: " + left + "px; top: " + top + "px; height:" + height + "px; width: " + width + "px;}");
-                // inline style tag called "positioner" is already set up in the html header //
-                // use jQuery UI's .switchClass() to animate the move
-                // "onMove" class ensures the target elemenet have high value z-index
-                elem.attr('class', 'positioner onMove').switchClass("positioner", to, "", "",
-                    function () { if (promote === '+') {promote2Koma(elem, side);
-                        }//after moving the piece, check for promotion and take action if that is the case.
-                        elem.removeClass("onMove");
-                        notInAnimation = true; //after moving the piece, call back and set the flag to accept another button click
-                        });
-            },
-            dropKoma = function (side, koma, position, target) {
-                var selector, elem, png = side.toUpperCase() + komaToPng(koma);
-                if (side.toUpperCase() === 'S') {
-                    side = '.senteMochigoma';
-                } else {
-                    side = '.goteMochigoma';
-                }
-                setMarker(position, target);
-                position = cordToClass(position);
-                emptyComment(target);
-                selector = side + ' [src$="' + png + '"]';
-                elem = target.find(selector).first();
-                animateMove(elem, position, "d", side);
-                elem.addClass(position).appendTo(target.find('.boardbase'));
-            },
-            captureKoma = function (side, cord, target) {
-                var komaban, koma, komapath;
-        //komapath=target.data("komapath");
-                komapath = '../images/shogiboard/koma/pieces_kinki/';
-                komaban = (side === 'S') ? '.senteMochigoma' : '.goteMochigoma';
-                koma = target.find(cordToSelector(cord)).data("koma");
-                target.find(cordToSelector(cord)).first()
-                    .attr("class", "").attr("src", komapath + side + koma)
-                    .appendTo(target.find(komaban));
-            },
-            makeAmove = function (side, promote, from, to, target) {
-                emptyComment(target);
-        //if to position is already occupied, then capture that image element to 'side's mochigoma
-        //for this we check the lenth of the targeted selector. ie, if $(".c6 .r7").length>0 then there is an element.
-                if (from !== to) {  //if from and to is the same, this is not capturing move
-                    if (target.find(cordToSelector(to)).length > 0) { //otherwise check if capture is required
-                        captureKoma(side, to, target);
-                    }
-                }
-        // then set a marker to "to" position
-                setMarker(to, target);
-        // then move the piece, it just involves the changing of class
-                animateMove(target.find(cordToSelector(from)), cordToClass(to), promote, side);
-            },
-            takeSnapshot = function (aBoard, target) {
-                if (aBoard.history === undefined) {aBoard.history = []; }
-                aBoard.history.push(target.html());
-                target.closest(".shogiBoard").find('.cButton').removeAttr("disabled");
-            },
-            backOneMove = function (aBoard, target, self) {
-                target.closest(".shogiBoard").find('.aButton').removeAttr("disabled");
-                target.empty().html(aBoard.history.pop());
-                if (aBoard.history.length === 0) {$(self).attr("disabled", "disabled"); }
-            },
             stepBack = function (aBoard, target, self) {
-                var f, sniff, tesuu, tesuuPattern, rePattern = new RegExp("C:(\\d+).*");
+                var f, sniff, tesuu, tesuuPattern, rePattern = new RegExp("C:(\\d+).*"),
+                    backOneMove = function () {
+                        target.closest(".shogiBoard").find('.aButton').removeAttr("disabled");
+                        target.empty().html(aBoard.history.pop());
+                        if (aBoard.history.length === 0) {$(self).attr("disabled", "disabled"); }
+                    };
                 if (aBoard.index > 0) {
             //add instruction to correctly handles branch step back
                     --aBoard.index;
@@ -147,26 +65,12 @@ var SSHACK  = (function () { //this is one big object declaration with local var
                         } while (!f);
 //            --aBoard.index; // now the index point to original branch point (jnnn - 1)
                     }
-                    backOneMove(aBoard, target, self);
+                    backOneMove();
                     $('select')//attach event handler to selectors if its a part of snapshot retrieved.
                         .change(function () {
                             aBoard.index = this.options[this.selectedIndex].value;
                         });
 
-                }
-            },
-            parseAction = function (aAction, target) {
-                if (aAction.charAt(0) === '*') {
-                    postComment(aAction.slice(1), target);
-                } else {
-                    var to = aAction.substr(2, 2);
-                    if (to === "00") { to = getMarkerCord(target); }//if 00 cordinate, then take to cordinate is marker position
-                    if (aAction.charAt(1) === 'd') {
-                        dropKoma(aAction.charAt(0), aAction.charAt(4), to, target);
-                    } else {
-                        makeAmove(aAction.charAt(0).toUpperCase(), aAction.charAt(1), aAction.substr(4, 2), to, target);
-                    }
-                    if (aAction.indexOf('*') > 0) {postComment(aAction.slice(aAction.indexOf('*') + 1), target); }
                 }
             },
             setupBranches = function (aBoard, self) {
@@ -209,10 +113,110 @@ loop1:
          *  target is ".forSnapshot" block that is ancestor of button that fires
          *
          */
+
                 if (notInAnimation) { // if the board is in animation mode, then skip this block = ignore button press.
-                    var target = $(self).closest('.shogiBoard')//scan up from button element to class shogiboard
-                        .find('.forSnapshot'),
-                        zAction = aBoard.moves[aBoard.index];
+                    var parseAction = function (aAction, target) {
+                            var to,
+                                setMarker = function (cord, target) { target.find('.marker').attr("class", cord.replace(/(\d)(\d)/, 'marker c$1 r$2')); },//marker class info
+                                getMarkerCord = function (target) {return target.find('.marker').attr("class").replace(/marker c(\d) r(\d)/, '$1$2'); },
+                                promote2Koma = function (elem, side) {
+                                    var koma, komaPath;
+                                    komaPath = elem.closest(".forSnapshot").data("komapath");//forSnapshot element has komapath data stored
+                                    koma = elem.data("koma");
+                                    if (koma === "hi.png") {
+                                        koma = "ryu.png";
+                                    } else if (koma === "kaku.png") {
+                                        koma = "uma.png";
+                                    } else if (koma === "fu.png") {
+                                        koma = "to.png";
+                                    } else {
+                                        koma = 'n' + koma;
+                                    }
+                                    elem.attr("src", komaPath + side + koma);
+                                },
+                                animateMove = function (elem, to, promote, side) { // this is animation code for moving operation
+                                    // it needs from Class consists of .from and .to cordinate in form of class.
+                                    // we are going to use jquery UI's switchClass.  this  API will eat out .from cordinate Class if .from
+                                    // is the same as .to.   Therefore,
+                                    // use from to modify ".positioner" class to mimic ".from" class
+                                    var e = elem[0], top = e.offsetTop, left = e.offsetLeft,
+                                        width = e.offsetWidth, height = e.offsetHeight;
+                                    notInAnimation = false;//set a flag so the button click is ignored during animated move.
+                                    $("#positioner").html(".positioner { position: absolute; left: " + left + "px; top: " + top + "px; height:" + height + "px; width: " + width + "px;}");
+                                    // inline style tag called "positioner" is already set up in the html header //
+                                    // use jQuery UI's .switchClass() to animate the move
+                                    // "onMove" class ensures the target elemenet have high value z-index
+                                    elem.attr('class', 'positioner onMove').switchClass("positioner", to, 400, "",
+                                        function () { if (promote === '+') {promote2Koma(elem, side);
+                                            }//after moving the piece, check for promotion and take action if that is the case.
+                                            elem.removeClass("onMove");
+                                            notInAnimation = true; //after moving the piece, call back and set the flag to accept another button click
+                                            });
+                                },
+                                makeAmove = function (side, promote, from, to, target) {
+                                    var cordToSelector = function (cord) {return cord.replace(/(\d)(\d)/, '.koma.c$1.r$2'); },//turn .class info into css selector
+                                        captureKoma = function () {
+                                            var komaban, koma, komapath;
+                                            //komapath=target.data("komapath");
+                                            komapath = '../images/shogiboard/koma/pieces_kinki/';
+                                            komaban = (side === 'S') ? '.senteMochigoma' : '.goteMochigoma';
+                                            koma = target.find(cordToSelector(to)).data("koma");
+                                            target.find(cordToSelector(to)).first()
+                                                .attr("class", "").attr("src", komapath + side + koma)
+                                                .appendTo(target.find(komaban));
+                                        };
+                                    emptyComment(target);
+                                    //if to position is already occupied, then capture that image element to 'side's mochigoma
+                                    //for this we check the lenth of the targeted selector. ie, if $(".c6 .r7").length>0 then there is an element.
+                                    if (from !== to) {  //if from and to is the same, this is not capturing move
+                                        if (target.find(cordToSelector(to)).length > 0) { //otherwise check if capture is required
+                                            captureKoma();
+                                        }
+                                    }
+                                    // then set a marker to "to" position
+                                    setMarker(to, target);
+                                    // then move the piece, it just involves the changing of class
+                                    animateMove(target.find(cordToSelector(from)), cordToClass(to), promote, side);
+                                },
+                                dropKoma = function (side, koma, position, target) {
+                                    var selector, elem, png = side.toUpperCase() + komaToPng(koma);
+                                    if (side.toUpperCase() === 'S') {
+                                        side = '.senteMochigoma';
+                                    } else {
+                                        side = '.goteMochigoma';
+                                    }
+                                    setMarker(position, target);
+                                    position = cordToClass(position);
+                                    emptyComment(target);
+                                    selector = side + ' [src$="' + png + '"]';
+                                    elem = target.find(selector).first();
+                                    animateMove(elem, position, "d", side);
+                                    elem.addClass(position).appendTo(target.find('.boardbase'));
+                                },
+                                postComment = function (comment, target) {
+                                    target.find('.comment').empty().append(comment);
+                                };
+                            if (aAction.charAt(0) === '*') {
+                                postComment(aAction.slice(1), target);
+                            } else {
+                                to = aAction.substr(2, 2);
+                                if (to === "00") { to = getMarkerCord(target); }//if 00 cordinate, then take to cordinate is marker position
+                                if (aAction.charAt(1) === 'd') {
+                                    dropKoma(aAction.charAt(0), aAction.charAt(4), to, target);
+                                } else {
+                                    makeAmove(aAction.charAt(0).toUpperCase(), aAction.charAt(1), aAction.substr(4, 2), to, target);
+                                }
+                                if (aAction.indexOf('*') > 0) {postComment(aAction.slice(aAction.indexOf('*') + 1), target); }
+                            }
+                        },
+                        target = $(self).closest('.shogiBoard')//scan up from button element to class shogiboard
+                            .find('.forSnapshot'),
+                        zAction = aBoard.moves[aBoard.index],
+                        takeSnapshot = function (aBoard, target) {
+                            if (aBoard.history === undefined) {aBoard.history = []; }
+                            aBoard.history.push(target.html());
+                            target.closest(".shogiBoard").find('.cButton').removeAttr("disabled");
+                        };
                     takeSnapshot(aBoard, target);
                     ++aBoard.index;
                     parseAction(zAction, target);
