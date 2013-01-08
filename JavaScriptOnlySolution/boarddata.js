@@ -40,7 +40,7 @@ var sBoard = (function () {
             index: 0,
 //    history: [] this does not work. better to have it created on the fly.
             caption: "JSShogiBoard&#0169;",
-            smooth: 0 //if set to one, then animation is smooth.
+            smooth: 0 //delay in miliseconds.  normally 400 or 0
 
         };
     return {
@@ -403,7 +403,8 @@ sBoard.data.moves = [
     "x"
 
 ];
-
+sBoard.data.smooth = true;
+sBoard.data.initialComment = "this and the board below has slower movement of pieces";
 sBoard.addKif(sBoard.data);
 
 
@@ -610,4 +611,5 @@ sBoard.data.moves = [
     "g-6665=74:６六歩",
     "x"
 ];
+sBoard.data.smooth = 1;
 sBoard.addKif(sBoard.data);

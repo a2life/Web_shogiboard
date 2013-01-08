@@ -5,13 +5,6 @@
  * Time: 3:01 PM
  * To change this template use File | Settings | File Templates.
  */
-/**
- * Created with JetBrains WebStorm.
- * User: shared
- * Date: 6/3/12
- * Time: 10:51 PM
- * To change this template use File | Settings | File Templates.
- */
 
 /*jslint browser: true*/
 /*global  $,  sBoard */
@@ -140,13 +133,14 @@ loop1:
                                     // is the same as .to.   Therefore,
                                     // use from to modify ".positioner" class to mimic ".from" class
                                     var e = elem[0], top = e.offsetTop, left = e.offsetLeft,
-                                        width = e.offsetWidth, height = e.offsetHeight;
+                                        width = e.offsetWidth, height = e.offsetHeight,
+                                        smooth = (aBoard.smooth === 0 ? 0 : 400);
                                     notInAnimation = false;//set a flag so the button click is ignored during animated move.
                                     $("#positioner").html(".positioner { position: absolute; left: " + left + "px; top: " + top + "px; height:" + height + "px; width: " + width + "px;}");
                                     // inline style tag called "positioner" is already set up in the html header //
                                     // use jQuery UI's .switchClass() to animate the move
                                     // "onMove" class ensures the target elemenet have high value z-index
-                                    elem.attr('class', 'positioner onMove').switchClass("positioner", to, 400, "",
+                                    elem.attr('class', 'positioner onMove').switchClass("positioner", to, smooth, "",
                                         function () { if (promote === '+') {promote2Koma(elem, side);
                                             }//after moving the piece, check for promotion and take action if that is the case.
                                             elem.removeClass("onMove");
