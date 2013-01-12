@@ -9,7 +9,7 @@
 /*jslint browser: true*/
 /*global  $, SSHACK */
 $(function () {
-    SSHACK.board.setupboard();
+    SSHACK.board.setupBoard();
     SSHACK.mover.initializeBoards();
     SSHACK.mover.setupButtons();
 });

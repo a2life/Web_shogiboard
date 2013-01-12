@@ -6,20 +6,25 @@
  * setup shogiboard container html. uses jquery
  */
 /*
-* SSHACK.Board.setupboard module for all JS solutioin
+* SSHACK.Board.setupBoard module for JS solutioin
  */
 /*jslint browser: true*/
 /*global  $, SSHACK */
 SSHACK.namespace('SSHACK.board');
-SSHACK.board.setupboard = function () {
+SSHACK.board.setupBoard = function () {
     var i, contents, board, boards = SSHACK.board.kifuList, l = boards.length, embedDatakomapath = 'data-komapath="';
-
+    function addstyletag(i) {
+        if (SSHACK.board.kifuList[i].moves !== undefined) {
+            if ($('#positioner').length === 0) { //if not defined, then add a style tag with #positioner id
+                $('<style type="text/css" id="positioner"></style>')
+                    .appendTo('head');// this tag needed to manupulate sliding piece move, used on switchClass() call
+            }
+        }
+    }
     function buttonSection(i) {
-        var str;
+        var str = '';
         if (SSHACK.board.kifuList[i].moves !== undefined) {
             str = '<div class="buttonBar"></div>';
-        } else {
-            str = "";
         }
         return str;
     }
@@ -56,6 +61,7 @@ SSHACK.board.setupboard = function () {
 
         contents += '</div>';
         contents += buttonSection(i);
+        addstyletag(i);
         $($('.shogiBoard')[i]).append(contents);
     }
 };
