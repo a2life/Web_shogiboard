@@ -22,25 +22,17 @@
  * markerAt: usually blank.
  * noComment: hide comment section
  */
-
+/* @var $modx modX */
 require_once "assets/components/shogiboard/shBoard.php";
 
 
 /*
  * Add CSS for shogiboard. these calls will register CSS files only once.
- * change resource ids for particular modx install
  */
-/* @var $modx modX */
+
 
 $modx->regClientCSS("assets/components/shogiboard/css/shogiboard.css");
 $modx->regClientCSS("assets/components/shogiboard/css/shogiboard-small.css");
-$src = <<<EOT
-    <style type="text/css" id="positioner">
-        .positioner {left: 290px; top: 212px; }
-    </style>
-EOT;
-$modx->regClientCSS($src);
-
 
 
 /*
@@ -78,16 +70,25 @@ if (isset($type)){
 
 
 if (isset($moves)) {
+    if (!isset($smooth)){ $smooth = 0;}//default is no slide animation
+//helper style which will be directly manipulated by animation script -left,top will be dynamic
+    $src = <<<EOT
+    <style type="text/css" id="positioner">
+        .positioner {left: 290px; top: 212px; }
+    </style>
+EOT;
+
+    $modx->regClientCSS($src);
     $buttonBarBlock='<div class="buttonBar"></div>';
     $modx->regClientScript("http://code.jquery.com/jquery-1.7.2.min.js");
     $modx->regClientScript("assets/components/shogiboard/js/jquery-ui-1.9.2.custom.min.js");
-    $modx->regClientScript("assets/components/shogiboard/js/namespacehandler.js");
+    $modx->regClientScript("assets/components/shogiboard/js/namespace.js");
     $modx->regClientScript("assets/components/shogiboard/js/boardfunction.js");
     $modx->regClientScript("assets/components/shogiboard/js/starter.js");
     $src=<<<EOT
     <script type="text/javascript">
 SSHACK.board.kifuList.push({
-moves:[$moves],index:0,history:[]});
+moves:[$moves],index:0,history:[],smooth:$smooth});
 </script>
 EOT;
     $modx->regClientScript($src);

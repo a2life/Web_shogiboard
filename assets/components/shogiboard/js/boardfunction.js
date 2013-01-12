@@ -8,7 +8,6 @@
 
 /*jslint browser: true*/
 /*global  $,  sBoard */
-// todo -PHP solution takes smooth as a default. How to add "quick" option?
 var SSHACK = SSHACK || {};
 SSHACK.mover  = (function () { //this is one big object declaration with local variables and functions defined by executing a function call
     // and returning a object literals
