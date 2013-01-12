@@ -5,6 +5,9 @@
  * Time: 10:59 AM
  * setup shogiboard container html. uses jquery
  */
+/*
+* SSHACK.Board.setupboard module for all JS solutioin
+ */
 /*jslint browser: true*/
 /*global  $, SSHACK */
 SSHACK.namespace('SSHACK.board');
