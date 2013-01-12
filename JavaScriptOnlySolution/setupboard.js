@@ -6,13 +6,14 @@
  * setup shogiboard container html. uses jquery
  */
 /*jslint browser: true*/
-/*global  $, sBoard */
-sBoard.setupboard = function () {
-    var i, contents, board, boards = sBoard.kifuList, l = boards.length, embedDatakomapath = 'data-komapath="';
+/*global  $, SSHACK */
+SSHACK.namespace('SSHACK.board');
+SSHACK.board.setupboard = function () {
+    var i, contents, board, boards = SSHACK.board.kifuList, l = boards.length, embedDatakomapath = 'data-komapath="';
 
     function buttonSection(i) {
         var str;
-        if (sBoard.kifuList[i].moves !== undefined) {
+        if (SSHACK.board.kifuList[i].moves !== undefined) {
             str = '<div class="buttonBar"></div>';
         } else {
             str = "";

@@ -13,9 +13,9 @@ if (typeof Object.create !== 'function') {
         return new F();
     };
 }// define Object.create in case the JS engined does not support the method.
-
-var sBoard = (function () {
-    var board = {}, //temporary variable storage
+var SSHACK = SSHACK || {};
+SSHACK.board = (function () {
+    var theBoard = {}, //temporary variable storage
         tpl = { //define tpl object
             /* p=pawn, l=lance, L=promoted lance, s=silver, S=promoted Silver, g=gold, r=rook, R=promoted Rook, b=bishop, B=promoted Bishop
              k=king 11=1a, 12=1b etc.,
@@ -38,45 +38,50 @@ var sBoard = (function () {
             // moves is an array of moves. for first char, * is comment, s or g shows side.
             // second char is either - (move) or d for drop. cordinateion in /to/from order.
             index: 0,
-//    history: [] this does not work. better to have it created on the fly.
             caption: "JSShogiBoard&#0169;",
             smooth: 0 //delay in miliseconds.  normally 400 or 0
+
 
         };
     return {
         kifuList : [],
+
         addKif : function (args) {
-            board = Object.create(tpl);
-            if (args.moves !== undefined) {
-                board.moves = args.moves;
-            }
+
+            theBoard = Object.create(tpl);
+
             if (args.onBoard !== undefined) {
-                board.onBoard = args.onBoard;
+                theBoard.onBoard = args.onBoard;
             }
             if (args.onHand !== undefined) {
-                board.onHand = args.onHand;
+                theBoard.onHand = args.onHand;
             }
             if (args.caption !== undefined) {
-                board.caption = args.caption;
+                theBoard.caption = args.caption;
             }
             if (args.initialComment !== undefined) {
-                board.initialComment = args.initialComment;
-            }
-            if (args.smooth !== undefined) {
-                board.smooth = args.smooth;
+                theBoard.initialComment = args.initialComment;
             }
             if (args.markerAt !== undefined) {
-                board.markerAt = args.markerAt;
+                theBoard.markerAt = args.markerAt;
             }
-            this.kifuList.push(board);
+
+
+            if (args.moves !== undefined) {
+                theBoard.moves = args.moves;
+            }
+            if (args.smooth !== undefined) {
+                theBoard.smooth = args.smooth;
+            }
+            this.kifuList.push(theBoard);
         }
     };
 }()); // this 'returns' object literal with private variables.
 
 
-sBoard.data = {};
-sBoard.data.onHand = { S: ['g', 'g', 'l', 'p'], G: ['b', 'l', 'l', 'p'] };
-sBoard.data.moves = [
+SSHACK.board.data = {};
+SSHACK.board.data.onHand = { S: ['g', 'g', 'l', 'p'], G: ['b', 'l', 'l', 'p'] };
+SSHACK.board.data.moves = [
     "*this is a comment that should go to comment line",
     "s-2627 *here, the sente moves a piece from 27 to 26",
     "g-8483",
@@ -92,18 +97,18 @@ sBoard.data.moves = [
     "g-0031 *capture the same should be treated nicely.",
     "x"
 ];
-sBoard.data.initialComment = "Don't worry about extra shogi piece.  I am just tyring to ensure the program works.<br>" +
+SSHACK.board.data.initialComment = "Don't worry about extra shogi piece.  I am just tyring to ensure the program works.<br>" +
     "駒の数が多いのはご愛嬌です。";
 
-sBoard.addKif(sBoard.data);
+SSHACK.board.addKif(SSHACK.board.data);
 
 
 //now parepare another shogiboard data object
-sBoard.data = {};
-sBoard.data.caption = "The latest Yagura 3g silver -矢倉３七銀2012年最新型";
-sBoard.data.initialComment = "The program can show branch moves when available.Main course follows the actual game played by Hirose and Watanabe" +
+SSHACK.board.data = {};
+SSHACK.board.data.caption = "The latest Yagura 3g silver -矢倉３七銀2012年最新型";
+SSHACK.board.data.initialComment = "The program can show branch moves when available.Main course follows the actual game played by Hirose and Watanabe" +
     "on October 2012.";
-sBoard.data.moves = [
+SSHACK.board.data.moves = [
     "*One of the reasons for Yagura's steady popularity is this thanks to Miyata's discovery of  p-65(６五歩).  Let's take a look.",
     "s-7677=1:７六歩",
     "g-8483=2:８四歩",
@@ -403,15 +408,15 @@ sBoard.data.moves = [
     "x"
 
 ];
-sBoard.data.smooth = true;
-sBoard.data.initialComment = "this and the board below has slower movement of pieces";
-sBoard.addKif(sBoard.data);
+SSHACK.board.data.smooth = true;
+SSHACK.board.data.initialComment = "this and the board below has slower movement of pieces";
+SSHACK.board.addKif(SSHACK.board.data);
 
 
-sBoard.data = {};
-sBoard.data.caption = "aigakari";
-sBoard.data.initialComment = "this one also has a branch move.";
-sBoard.data.moves = [
+SSHACK.board.data = {};
+SSHACK.board.data.caption = "aigakari";
+SSHACK.board.data.initialComment = "this one also has a branch move.";
+SSHACK.board.data.moves = [
     "s-2627=1:２六歩",
     "g-8483=2:８四歩",
     "s-2526=3:２五歩",
@@ -611,5 +616,5 @@ sBoard.data.moves = [
     "g-6665=74:６六歩",
     "x"
 ];
-sBoard.data.smooth = 1;
-sBoard.addKif(sBoard.data);
+SSHACK.board.data.smooth = 1;
+SSHACK.board.addKif(SSHACK.board.data);

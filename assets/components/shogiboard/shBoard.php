@@ -12,9 +12,9 @@
 
 class shBoard
 {
-    private  $filePathKoma;
-    private  $filePathGrid;
-    private  $filePathFocus;
+    public  $filePathKoma;
+    public  $filePathGrid;
+    public  $filePathFocus;
     private  $filePathBoard;
     private  $sOnBoard='';
     private  $gOnBoard='';
