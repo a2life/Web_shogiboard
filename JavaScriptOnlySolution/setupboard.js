@@ -12,25 +12,19 @@
 /*global  $, SSHACK */
 SSHACK.namespace('SSHACK.board');
 SSHACK.board.setupBoard = function () {
-    var i, contents, board, boards = SSHACK.board.kifuList, l = boards.length, embedDatakomapath = 'data-komapath="';
-    function addstyletag(i) {
-        if (SSHACK.board.kifuList[i].moves !== undefined) {
-            if ($('#positioner').length === 0) { //if not defined, then add a style tag with #positioner id
-                $('<style type="text/css" id="positioner"></style>')
-                    .appendTo('head');// this tag needed to manupulate sliding piece move, used on switchClass() call
-            }
+    var i, moveExists, contents, board, boards = SSHACK.board.kifuList, l = boards.length, embedDatakomapath = 'data-komapath="';
+    function addstyletag() {
+        if ($('#positioner').length === 0) { //if not defined, then add a style tag with #positioner id
+            $('<style type="text/css" id="positioner"></style>')
+                .appendTo('head');// this tag needed to manupulate sliding piece move, used on switchClass() call
         }
-    }
-    function buttonSection(i) {
-        var str = '';
-        if (SSHACK.board.kifuList[i].moves !== undefined) {
-            str = '<div class="buttonBar"></div>';
-        }
-        return str;
+
     }
 
     for (i = 0; i < l; i++) {
         board = boards[i];
+        moveExists = (SSHACK.board.kifuList[i].moves !== undefined);
+
         contents = '<p class="sCaption">' + board.caption + '</p>' +
             '<div class="forSnapshot"' + embedDatakomapath + board.filePathKoma + '">' +
             '<div class="table" > <!-- outer table -->' +
@@ -54,14 +48,13 @@ SSHACK.board.setupBoard = function () {
             '</div><!-- cell-->' +
             '</div><!-- shogirow for the outer css-table-->' +
             '</div><!--shogitable-->' +
+            (moveExists ? '<div class="bbBox"></div>' : '') +
             '<article class="scomment comment" >' +
             board.initialComment +
-            '</article>';
-
-
-        contents += '</div>';
-        contents += buttonSection(i);
-        addstyletag(i);
+            '</article>' +
+            '</div>' +
+            (moveExists ? '<div class="buttonBar"></div>' : '');
+        if (moveExists) { addstyletag(); }
         $($('.shogiBoard')[i]).append(contents);
     }
 };
