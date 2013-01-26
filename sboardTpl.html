@@ -1,6 +1,7 @@
-[[-This is a shogiboard html Template, to be used in modx with a lot of placeholders]]
-[[-11/09/12]]
+[[- This is a shogiboard html Template, to be used in modx with a lot of placeholders]]
+[[-1/24/2013]]
 <section class="shogiBoard">
+    [[+buttonBarBlock]] [[-outside of Snapshot, positioned absolutely outside of document flow]]
     [[+captionBlock]]
     <div class="forSnapshot" data-komapath="[[+komaPath]]" > <!-- outer table -->
         <div class="table">
@@ -31,7 +32,7 @@
                 </div><!-- cell-->
             </div><!-- shogirow for the outer css-table-->
         </div><!-- outer css-table -->
-        [[+buttonBarBlock]]
+        <div class="bbBox [[+bbBox]]"></div> [[-placeholder for buttonblock ]]
         <article class="comment [[+displayComment]]">
             [[+initialComment]]
         </article>

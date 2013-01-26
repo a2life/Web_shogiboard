@@ -11,7 +11,7 @@
 var SSHACK = SSHACK || {};
 SSHACK.mover  = (function () { //this is one big object declaration with local variables and functions defined by executing a function call
     // and returning a object literals
-    var notInAnimation = true,//needed a private variable to keep track of this. if false, button click wont do anything.
+    var notInAnimation = true, //private variable to indicate piece is not in animation. if false, button click wont start another move
         partlist = {
             "p": "fu",
             "P": "to",
@@ -34,7 +34,7 @@ SSHACK.mover  = (function () { //this is one big object declaration with local v
             return png;
 
         },
-        emptyComment = function (target) {target.find('.comment').empty(); },
+        emptyComment = function (target) {target.find('.comment').empty(); target.find('.bbBox').empty(); },
         cordToClass = function (cord) { return cord.replace(/(\d)(\d)/, 'koma c$1 r$2'); },//turn cordination info into .class info
         stepBack = function (aBoard, target, self) {
             var f, sniff, tesuu, tesuuPattern, rePattern = new RegExp("C:(\\d+).*"),
@@ -96,7 +96,7 @@ loop1:
                     .appendTo(dlist);
             }
 
-            $(self).closest('.shogiBoard').find('.comment').append(dlist);
+            $(self).closest('.shogiBoard').find('.bbBox').append(dlist);
 
             dlist.change(function () { aBoard.index = this.options[this.selectedIndex].value; });
         },
@@ -132,8 +132,9 @@ loop1:
                                 // we are going to use jquery UI's switchClass.  this  API will eat out .from cordinate Class if .from
                                 // is the same as .to.   Therefore,
                                 // use from to modify ".positioner" class to mimic ".from" class
-                                var e = elem[0], top = e.offsetTop, left = e.offsetLeft,
-                                    width = e.offsetWidth, height = e.offsetHeight,
+                                // var e = elem[0], top = e.offsetTop, left = e.offsetLeft,
+                                var e = elem.position(), top = e.top, left = e.left,
+                                    width = elem.width(), height = elem.height(),
                                     smooth = (aBoard.smooth === 0 ? 0 : 400);
                                 notInAnimation = false;//set a flag so the button click is ignored during animated move.
                                 $("#positioner").html(".positioner { position: absolute; left: " + left + "px; top: " + top + "px; height:" + height + "px; width: " + width + "px;}");

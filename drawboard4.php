@@ -92,8 +92,12 @@ moves:[$moves],index:0,history:[],smooth:$smooth});
 </script>
 EOT;
     $modx->regClientScript($src);
+    $bbBox="";
 
-} else $buttonBarBlock="";
+} else {
+    $buttonBarBlock="";
+    $bbBox="hide";
+}
 /*
  * Put the relevant information for class library into array $a
  */
@@ -129,7 +133,8 @@ $b=array(
     "captionBlock"=>$captionBlock,
     "initialComment"=>$initialComment,
     "hide"=>$hide,
-    "displayComment"=>$displayComment
+    "displayComment"=>$displayComment,
+    "bbBox"=>$bbBox
 );
 
 
