@@ -2,6 +2,7 @@
 /**
  * Created by JetBrains PhpStorm.
  * User: 10032268
+ * Update : 1/31/13 - added kifu class to directly read kifu file.
  * Date: 8/1/12
  * Time: 7:52 PM
  * start from drawboard3 and then add the part to insert boardmover javascript and boarddata javascript source
@@ -24,6 +25,7 @@
  */
 /* @var $modx modX */
 require_once "assets/components/shogiboard/shBoard.php";
+require_once "assets/components/shogiboard/kifu.php";
 
 
 /*
@@ -34,10 +36,36 @@ require_once "assets/components/shogiboard/shBoard.php";
 $modx->regClientCSS("assets/components/shogiboard/css/shogiboard.css");
 $modx->regClientCSS("assets/components/shogiboard/css/shogiboard-small.css");
 
+if (isset($file)){ // todo does this work with modx resource content? if not parameter 'kifuID' or something is needed.
+    $string = file_get_contents("assets/Resources/kifu/".$file);
+    if (!mb_check_encoding($string, "UTF-8")) {
 
+        $string = mb_convert_encoding($string, "UTF-8",
+            "Shift-JIS, EUC-JP, JIS, SJIS, JIS-ms, eucJP-win, SJIS-win, ISO-2022-JP,
+       ISO-2022-JP-MS, SJIS-mac, SJIS-Mobile#DOCOMO, SJIS-Mobile#KDDI,
+       SJIS-Mobile#SOFTBANK, UTF-8-Mobile#DOCOMO, UTF-8-Mobile#KDDI-A,
+       UTF-8-Mobile#KDDI-B, UTF-8-Mobile#SOFTBANK, ISO-2022-JP-MOBILE#KDDI");
+    }
+
+    $string= htmlspecialchars($string,ENT_QUOTES);
+
+    $akifu = new kifu($string);
+    if ($akifu->getMoves()) {$moves = $akifu->getMoves();}
+    if ($akifu->getEndDate()){$endDate =$akifu->getEndDate();}
+    if ($akifu->getStartDate()){$startDate =$akifu->getStartDate();}
+    if ($akifu->getsOnBoard()){$sOnBoard =$akifu->getsOnBoard();}
+    if ($akifu->getgOnBoard()){$gOnBoard =$akifu->getgOnBoard();}
+    if ($akifu->getsOnHand()){$sOnHand =$akifu->getsOnhand();}
+    if ($akifu->getgOnHand()){$gOnHand =$akifu->getsOnhand();}
+    if ($akifu->getSenteName()){$sName =$akifu->getSenteName();}
+    if ($akifu->getGoteName()){$gOnHand =$akifu->getGoteName();}
+    if ($akifu->getTeai()){$teai =$akifu->getTeai();}
+
+}
 /*
  * If there is initial comment, then set it to placeholder
  */
+
 if (isset($comment)){
     $initialComment=$comment;
 } else $initialComment="";
