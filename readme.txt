@@ -5,8 +5,7 @@ This was primarily conceived to be used on my shogi learning site to show variou
 The program works on MODX Revolution CMS.  the coding is in PHP and javascript.  PHP utilizes several MODX APIs and
 utilities available through its manager screen. 
 
-(JavaScriptOnlySolutin contains demo.html  and other helper js files to render this board without a need of modx nor PHP. Current solution is fairly comparable with modx/PHP solution but it is not guaranteed if the same hold true in the future. )
-
+(JavaScriptOnlySolutin contains demo.html  and other helper js files to render this board without a need of modx nor PHP. Current solution is fairly comparable with modx/PHP solution however, it lacks kifufile parser, which means you need to hand code moves as illustrated below)
 In modx environment, the program can be invoked by a tag syntax on content page like so.
 
 [[]!drawboard4 ? parameters]
@@ -29,7 +28,7 @@ gOnHand : string indicating on hand pieces for gote. default is none ex. "l,l,p"
 sOnBoard: string indicating on board pieces for sente. default is initial setup for sente for no handicap game. ex. "11l,21n,31s,41g,51k,13p,22b"
 gOnBoard: string indicating on board pieces for sente. default is initial setup for gote for no handicap game. ex. "99l,28r"
 markerAt: string Indicating the grid that is highlighted. default is "out of the way", ex., "24" for position ２四
-
+file : when specified, the engine will parse the file and fill 'moves','sOnHand','gOnHand','sOnBoard','gOnBoard' parameters if they exists.
 
 Shogiboard layout is all in html and css.
 the general structural idea is
