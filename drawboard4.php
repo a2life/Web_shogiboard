@@ -22,11 +22,13 @@
  * type : only support "1" at this time. in this case, the board arrangement is for tsume shogi.
  * markerAt: usually blank.
  * noComment: hide comment section
+ * todo add more parameter handling /show player names or at least "sente""gote"
  */
 /* @var $modx modX */
-require_once "assets/components/shogiboard/shBoard.php";
-require_once "assets/components/shogiboard/kifu.php";
 
+spl_autoload_register(function ($class) {
+    include 'assets/components/shogiboard/' . $class . '.php';
+});
 
 /*
  * Add CSS for shogiboard. these calls will register CSS files only once.
@@ -36,8 +38,14 @@ require_once "assets/components/shogiboard/kifu.php";
 $modx->regClientCSS("assets/components/shogiboard/css/shogiboard.css");
 $modx->regClientCSS("assets/components/shogiboard/css/shogiboard-small.css");
 
-if (isset($file)){ // todo does this work with modx resource content? if not parameter 'kifuID' or something is needed.
-    $string = file_get_contents("assets/Resources/kifu/".$file);
+if (isset($file)||isset($kifuID)){ //handle $file or $kifuID.  $file takes precedence
+    if (isset($file)){
+        $string = file_get_contents("assets/Resources/kifu/".$file);
+    } else {
+        $obj =$modx->getObject('modResource',$kifuID);
+        $string = $obj->content;
+    }
+
     if (!mb_check_encoding($string, "UTF-8")) {
 
         $string = mb_convert_encoding($string, "UTF-8",

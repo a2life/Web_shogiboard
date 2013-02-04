@@ -5,8 +5,10 @@
  * Time: 3:01 PM
  * To change this template use File | Settings | File Templates.
  */
-
+//todo add jump to branch button if jump is there.
+//todo show tesuu indicator
 /*jslint browser: true*/
+
 /*global  $,  sBoard */
 var SSHACK = SSHACK || {};
 SSHACK.mover  = (function () { //this is one big object declaration with local variables and functions defined by executing a function call
