@@ -13,13 +13,13 @@
  * getgOnHand
  * getsOnboard()
  * getgOnboard()
- * todo add flipboard detection
+ * getFlip()
  */
 /* @var $modx modX */
 
 class kifu
 {
-    private $moves, $sOnHand, $gOnHand,$senteName,$goteName,$teai,$startDate,$endDate,
+    private $moves, $sOnHand, $gOnHand,$senteName,$goteName,$teai,$startDate,$endDate,$boardFlip,
         $sOnBoard,
         $gOnBoard,
         $mightyPattern = array("10"=>"＋\s","1"=>"[１一]",  "2"=>"[二２]","3"=>"[三３]","4"=>"[四４]",
@@ -38,41 +38,44 @@ class kifu
         if ($i<$c)  return --$i;
         else return $f;
     }
-    private function
-    parsedata($init_data){
-        function parseRepeat($onHand){
-            $regs=array();
-            $hands="";
-            $pattern="([plnsgrb])(\d*)";
-            mb_ereg_search_init($onHand,$pattern);
-            while (mb_ereg_search()){
-                $regs=mb_ereg_search_getregs();
-                $hands.=($regs[2]?str_repeat($regs[1],$regs[2]):$regs[1]);//if more than one, pieces are multiplied here.
-            }
-            $regs=str_split($hands);
-            $onHand=implode(",",$regs);
-            return $onHand;
+    private
+    function parseRepeat($onHand){
+        $regs=array();
+        $hands="";
+        $pattern="([plnsgrb])(\d*)";
+        mb_ereg_search_init($onHand,$pattern);
+        while (mb_ereg_search()){
+            $regs=mb_ereg_search_getregs();
+            $hands.=($regs[2]?str_repeat($regs[1],$regs[2]):$regs[1]);//if more than one, pieces are multiplied here.
         }
+        $regs=str_split($hands);
+        $onHand=implode(",",$regs);
+        return $onHand;
+    }
+    private function parsedata($init_data){
+
         $xarrays=$this->mightyPattern;
         $boardMarker="９ ８ ７ ６ ５ ４ ３ ２ １";
-        $senteOnHandPattern="\n先手の持駒：([\w\/\s\:]*)\r";
-        $goteOnHandPattern= "\n後手の持駒：([\w\/\s\:]*)\r";
-        $startDatePattern="\n開始日時：([\w\/\s\:]*)\r";
-        $endDatePattern="\n終了日時：([\w\/\s\:]*)\r";
-        $teaiPattern="\n手合割：([\w\s]*)\r";
-        $senteNamePattern="先手：([\w\s]*)\r";
-        $goteNamePattern="後手：([\w\s]*)\r";
+        $senteOnHandPattern="\n先手の持駒：([^\n]*)[\r\n$]";
+        $goteOnHandPattern= "\n後手の持駒：([^\n]*)[\r\n$]";
+        $startDatePattern="\n開始日時：([^\n]*)[\r\n$]";
+        $endDatePattern="\n終了日時：([^\n]*)[\r\n$]";
+        $teaiPattern="\n手合割：([^\n]*)[\r\n$]";
+        $senteNamePattern="先手：([^\n]*)[\r\n$]";
+        $goteNamePattern="後手：([^\n]*)[\r\n$]";
+        $boardFlipPattern="盤面回転";
         $senteOnHand=null;
         $goteOnHand=null;
         $onHands=array();
-        if(mb_ereg($senteOnHandPattern,$init_data,$onHands)!=false)$senteOnHand=$onHands[1];
-        if(mb_ereg($goteOnHandPattern,$init_data,$onHands)!=false)$goteOnHand=$onHands[1];
+        if(mb_ereg($senteOnHandPattern,$init_data,$onHands)!=false)$senteOnHand=trim($onHands[1]);
+        if(mb_ereg($goteOnHandPattern,$init_data,$onHands)!=false)$goteOnHand=trim($onHands[1]);
         if(mb_ereg($startDatePattern,$init_data,$onHands)!=false) $startDate=$onHands[1];
         if(mb_ereg($endDatePattern,$init_data,$onHands)!=false) $endDate=$onHands[1];
         if(mb_ereg($teaiPattern,$init_data,$onHands)!=false)$teai=$onHands[1];
         if(mb_ereg($senteNamePattern,$init_data,$onHands)!=false)$senteName=$onHands[1];
         if(mb_ereg($goteNamePattern,$init_data,$onHands)!=false )$goteName=$onHands[1];
-        $init_array=explode("\r\n",$init_data);
+        $boardFlipped = mb_ereg_match($boardFlipPattern,$init_data);
+        $init_array=explode("\n",$init_data);
         $i= $this->findline($boardMarker,$init_array);
         if ($i!==false){ //the string contains board chart
 
@@ -86,7 +89,7 @@ class kifu
                 }
                 echo "\n";
             }
-            */
+*/
             $senteOnBoard=""; $goteOnBoard="";
             for ($row=$i;$row<$j;$row++){
                 //$columnLength=mb_strlen($init_array[$row]);
@@ -122,8 +125,8 @@ class kifu
             }
 
 //spell out pieces and not numbers. ie., s3 -> s,s,s
-            $senteOnHand = parseRepeat($senteOnHand);
-            $goteOnHand = parseRepeat($goteOnHand);
+            $senteOnHand = $this->parseRepeat($senteOnHand);
+            $goteOnHand = $this->parseRepeat($goteOnHand);
             //format onboard string
             $senteOnBoard=mb_ereg_replace(" ",",",$senteOnBoard);
             $goteOnBoard=mb_ereg_replace(" ",",",$goteOnBoard);
@@ -137,7 +140,7 @@ class kifu
         if (isset($endDate)) $this->endDate = $endDate;
         if (isset($teai)) $this->teai = $teai;
 
-
+        $this->boardFlip = $boardFlipped;
         $this->sOnHand = $senteOnHand;
         $this->gOnHand = $goteOnHand;
 
@@ -151,7 +154,7 @@ class kifu
         $match=array();
 //$pattern="(?:(\d+)\s+([\w\s]+)(?:\((\d+)\))?[ /():0-9]*(\+?))";
         $header="手数----指手";
-        $pattern='(?:(\d+)\s+([\w\s]+)(?:\((\d+)\))?[ /():0-9]*(\+?))|(?:\r\n(?:\*)(.*?)\r\n)|(?:変化：([\w]+))';
+        $pattern='(?:(\d+)\s+([\w\s]+)(?:\((\d+)\))?[ /():0-9]*(\+?))|(?:\n(?:\*)([^\n]*)\n)|(?:変化：([\w]+))';
         $parsed="";//todo handling of comment line when multiple lines are entered is a little goofy.
         $movesLines="";
         mb_ereg_search_init($src,$header); // does move exists?
@@ -168,7 +171,7 @@ class kifu
                         $parsed=mb_ereg_replace($pat,$key,$parsed);
                     }
                     $parsed.=(":".trim($match[2]));
-                } else if ($match[5]) $parsed="*".$match[5];//regex is matching *comment line, the second alternate
+                } else if ($match[5]) $parsed="*".trim($match[5]);//regex is matching *comment line, the second alternate
                 else if ($match[6]) $parsed="\nC:".$match[6];
                 else $parsed="\n".$match[0];//regex is matching the last catch all alternate so spit out as is
 
@@ -201,9 +204,7 @@ class kifu
     public function getSenteName()  { return (isset($this->senteName)?$this->senteName:false);}
     public function getGoteName()   { return (isset($this->goteName)?$this->goteName:false);}
     public function getTeai()       { return (isset($this->teai)?$this->teai:false);}
-    public function getFlip()       { return false;}
+    public function getFlip()       { return $this->boardFlip;}
 
 
 }
-
-

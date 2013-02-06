@@ -38,7 +38,7 @@ spl_autoload_register(function ($class) {
 $modx->regClientCSS("assets/components/shogiboard/css/shogiboard.css");
 $modx->regClientCSS("assets/components/shogiboard/css/shogiboard-small.css");
 
-if (isset($file)||isset($kifuID)){ //handle $file or $kifuID.  $file takes precedence
+if (isset($file)||isset($kifuID)){ // todo does this method  work with modx resource content? if not parameter 'kifuID' or something is needed.
     if (isset($file)){
         $string = file_get_contents("assets/Resources/kifu/".$file);
     } else {
@@ -64,9 +64,9 @@ if (isset($file)||isset($kifuID)){ //handle $file or $kifuID.  $file takes prece
     if ($akifu->getsOnBoard()){$sOnBoard =$akifu->getsOnBoard();}
     if ($akifu->getgOnBoard()){$gOnBoard =$akifu->getgOnBoard();}
     if ($akifu->getsOnHand()){$sOnHand =$akifu->getsOnhand();}
-    if ($akifu->getgOnHand()){$gOnHand =$akifu->getsOnhand();}
+    if ($akifu->getgOnHand()){$gOnHand =$akifu->getgOnhand();}
     if ($akifu->getSenteName()){$sName =$akifu->getSenteName();}
-    if ($akifu->getGoteName()){$gOnHand =$akifu->getGoteName();}
+    if ($akifu->getGoteName()){$gName =$akifu->getGoteName();}
     if ($akifu->getTeai()){$teai =$akifu->getTeai();}
 
 }
@@ -146,7 +146,7 @@ $a=array(
     "gOnBoard"=>$gOnBoard,
     "sOnHand"=>$sOnHand,
     "gOnHand"=>$gOnHand,
-    "markerAt"=>$markerAt,
+    "markerAt"=>(isset($markerAt)?$markerAt:""),
     "banImage"=>$banImage,
     "gridImage"=>$gridImage,
     "markerImage"=>$markerImage
@@ -169,7 +169,7 @@ $b=array(
     "captionBlock"=>$captionBlock,
     "initialComment"=>$initialComment,
     "hide"=>$hide,
-    "displayComment"=>$displayComment,
+    "displayComment"=>(isset($displayComment)?$displayComment:""),
     "bbBox"=>$bbBox
 );
 
