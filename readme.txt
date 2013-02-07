@@ -5,7 +5,10 @@ This was primarily conceived to be used on my shogi learning site to show variou
 The program works on MODX Revolution CMS.  the coding is in PHP and javascript.  PHP utilizes several MODX APIs and
 utilities available through its manager screen. 
 
-(JavaScriptOnlySolutin contains demo.html  and other helper js files to render this board without a need of modx nor PHP. Current solution is fairly comparable with modx/PHP solution however, it lacks kifufile parser, which means you need to hand code moves as illustrated below)
+(JavaScriptOnlySolutin contains demo.html  and other helper js files to render this board without a need of modx nor PHP.
+ Current solution is fairly comparable with modx/PHP solution however, it lacks kifufile parser, which means you need to
+  hand code moves as illustrated below)
+
 In modx environment, the program can be invoked by a tag syntax on content page like so.
 
 [[]!drawboard4 ? parameters]
@@ -13,7 +16,8 @@ In modx environment, the program can be invoked by a tag syntax on content page 
  parameters grammer follows modx rule. ie.,  &parameter1=`foo1` &parameter2=`foo2` etc.,
 
 If no parameters are specified, then initial board setup (no handycap or Hirate) will be rendered.
-If "moves" parameter is specified, then it will also add two buttons (for now) on the page to move pieces one move forward and one move backwards  according to "moves" data.
+If "moves" parameter is specified, then it will also add two buttons (for now) on the page to move pieces one move
+forward and one move backwards  according to "moves" data.
 Initial board setup is totally configurable via following parameters
   sOnHand, gOnHand, sOnBoard,gOnBoard
 

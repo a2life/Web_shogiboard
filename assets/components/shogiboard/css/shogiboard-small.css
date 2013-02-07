@@ -5,7 +5,7 @@
 .komadai {width:100px; height:150px;}
 .komadai img,.koma, .marker {width:30px; height:33px;}
 .comment {padding-left:7px; width:409px;height:100px; overflow:auto;}
-.buttonBar {position: absolute;  bottom: 106px; left: 74px; height: 20px; z-index: 10;}
+.buttonBar {position: absolute;  top: 326px; left: 74px; height: 20px; z-index: 10;}
 .bbBox {height: 25px; width:409px;}
 
 .c1 {left:258px;} .c2 {left: 228px;} .c3 {left:198px;}

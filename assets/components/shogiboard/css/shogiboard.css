@@ -11,6 +11,7 @@ size of board and grid image is : 410 x 454. offset (margin) put a 0,0 cordinate
 .boardbase includes
 */
 .shogiBoard {position: relative;}
+.buttonAnchor {position: relative;}
 .forSnapshot {position:relative;}
 .table {display:table;}
 .row {display:table-row; ;}
@@ -24,9 +25,9 @@ size of board and grid image is : 410 x 454. offset (margin) put a 0,0 cordinate
 .onMove { z-index : 100;}
 .komadai {height:220px; width:160px; background-image:url(../../../../images/shogiboard/ban/ban_kaya_a.png);}
 .board {position: absolute; left:10px; top:9px; }
-.buttonBar {position: absolute;  bottom: 145px; left: 10px; height: 20px; z-index: 10;}
+.buttonBar {position: absolute;  top: 490px; left: 10px; height: 20px; z-index: 10;}
 .bbBox {height: 25px; width:440px;}
-.comment {padding-left:10px; width:590px; height:120px; overflow: auto;}
+.comment {padding-left:10px; width:590px;height:120px; overflow: auto;}
 .koma {position: absolute ; width:43px; height:48px;}
 .marker {position:absolute; width:43px; height:48px;}
 .lostworld {left:-20000px; top: -20000px;}

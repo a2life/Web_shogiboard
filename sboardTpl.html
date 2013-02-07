@@ -1,43 +1,46 @@
-[[- This is a shogiboard html Template, to be used in modx with a lot of placeholders]]
+[[-This is a shogiboard html Template, to be used in modx with a lot of placeholders]]
 [[-1/24/2013]]
 <section class="shogiBoard">
-    [[+buttonBarBlock]] [[-outside of Snapshot, positioned absolutely outside of document flow]]
     [[+captionBlock]]
-    <div class="forSnapshot" data-komapath="[[+komaPath]]" > <!-- outer table -->
-        <div class="table">
-            <div class="row" >
-                <div class="boardbase cell">
-                    <img class="board" src="[[+sBoard]]"  alt=""/>
-                    <img class="board" src="[[+sGrid]]" alt=""/>
-                    [[+onBoardImgs]]
-                </div>
-                <div class="cell" >
-                    <div class="table"><!-- inner table -->
-                        <div class="row">
-                            <div class="goteMochigoma komadai cell [[+hide]]">
-                                [[+gOnHandImgs]]
-                                <!-- Gote mochigoma -->
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="cell empty" ></div> <!-- gap between two komaban -->
-                        </div>
-                        <div class="row">
-                            <div class="senteMochigoma komadai cell">
-                                [[+sOnHandImgs]]
-                                <!-- Sente komaban -->
-                            </div>
-                        </div><!-- row -->
-                    </div><!-- innter table -->
-                </div><!-- cell-->
-            </div><!-- shogirow for the outer css-table-->
-        </div><!-- outer css-table -->
-        <div class="bbBox [[+bbBox]]"></div> [[-placeholder for buttonblock ]]
-        <article class="comment [[+displayComment]]">
-            [[+initialComment]]
-        </article>
-        <section class="cell"></section>
+    <div class="buttonAnchor">
+        [[+buttonBarBlock]] [[-outside of Snapshot, positioned absolutely outside of document flow]]
 
-    </div>
+        <div class="forSnapshot" data-komapath="[[+komaPath]]" > <!-- outer table -->
+            <div class="table">
+                <div class="row" >
+                    <div class="boardbase cell">
+                        <img class="board" src="[[+sBoard]]"  alt=""/>
+                        <img class="board" src="[[+sGrid]]" alt=""/>
+                        [[+onBoardImgs]]
+                    </div>
+                    <div class="cell" >
+                        <div class="table"><!-- inner table -->
+                            <div class="row">
+                                <div class="goteMochigoma komadai cell [[+hide]]">
+                                    [[+gOnHandImgs]]
+                                    <!-- Gote mochigoma -->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="cell empty" ></div> <!-- gap between two komaban -->
+                            </div>
+                            <div class="row">
+                                <div class="senteMochigoma komadai cell">
+                                    [[+sOnHandImgs]]
+                                    <!-- Sente komaban -->
+                                </div>
+                            </div><!-- row -->
+                        </div><!-- innter table -->
+                    </div><!-- cell-->
+                </div><!-- shogirow for the outer css-table-->
+            </div><!-- outer css-table -->
+            <div class="bbBox [[+bbBox]]"></div> [[-placeholder for buttonblock ]]
+            <article class="comment [[+displayComment]]">
+                [[+initialComment]]
+            </article>
+            <section class="cell"></section>
+
+        </div>
+    </div><!--button anchor-->
 
 </section> <!-- shogiboard section -->
