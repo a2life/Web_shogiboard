@@ -70,7 +70,7 @@ SSHACK.mover  = (function () { //this is one big object declaration with local v
         },
         setupBranches = function (aBoard, self) {
             var i = aBoard.index, options = [], htesuu = "", f = false,
-                rePattern = new RegExp('^[\\-\\+0-9a-z]+[J=](\\d+)(.*)'),
+                rePattern = new RegExp('^[\\-\\+0-9a-z]+J(\\d+):(.*)'),
                 tesuu = Number(aBoard.moves[i].replace(rePattern, "$1")),
                 dlist = $('<select></select>'),
                 str;
@@ -91,7 +91,7 @@ loop1:
             // do this until end of array or henkatesu is less than tesuu
             } while ((htesuu >= tesuu));
             for (i = 0; i < options.length; i++) { //stuff a dropdown list with alternative moves
-                str = aBoard.moves[options[i]].replace(rePattern, "$2");
+                str = aBoard.moves[options[i]].match(/:[^*]*/)[0];
                 $('<option></option>')
                     .attr("value", options[i])
                     .text(str)
@@ -263,7 +263,6 @@ loop1:
                     .attr('src', board.filePathKoma + 'G' + png)
                     .attr('data-koma', kpng).appendTo(boardbase);
             }
-
             for (i = 0; i < board.onHand.S.length; i++) {
                 png = komaToPng(board.onHand.S[i]);
                 $('<img class="" alt=""/>')
@@ -278,16 +277,18 @@ loop1:
                     .attr('data-koma', png)
                     .appendTo(goteMochigoma);
             }
+
         };
     return {
         setupButtons : function () {
+            var target = SSHACK.board.kifuList, i;
             $('<input type="button">')
                 .attr("class", "aButton")
                 .appendTo('.buttonBar')
                 .attr("value", "Forward for solution")
                 .each(function (i) {$(this)
                     .click(function () {
-                        forwardOne(SSHACK.board.kifuList[i], this);
+                        forwardOne(target[i], this);
                     }
                              );
                         }
@@ -299,13 +300,18 @@ loop1:
                     .attr("value", "Step Back")
                     .attr("disabled", "disabled")
                     .each(function (i) {$(this)
-                        .click(function () {stepBack(SSHACK.board.kifuList[i], $(this)
+                        .click(function () {stepBack(target[i], $(this)
                             .closest('.shogiBoard')
                             .find('.forSnapshot'), this); }
                             );
                         }
                         );
-
+//   I also need to read the first line for possible branch. if (/[\-\+0-9pPlLnNsSgrRbB]+J/.test(board.moves[0])) {setupBranches(boardlist.move[0],this); }
+            for (i = 0; i < target.length; i++) {
+                if (/[\-\+0-9pPlLnNsSgrRbB]+J/.test(target[i].moves[target[i].index])) {
+                    setupBranches(target[i], $('.aButton')[i]);
+                }
+            }
         },
         initializeBoards : function () {
             var i, l = SSHACK.board.kifuList.length;
