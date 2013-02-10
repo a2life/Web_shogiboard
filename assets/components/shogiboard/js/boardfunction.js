@@ -68,13 +68,13 @@ SSHACK.mover  = (function () { //this is one big object declaration with local v
 
             }
         },
-        setupBranches = function (aBoard, self) {
+        setupBranches = function (aBoard, self) {//aBoard is board object, self is html element location. this routine is called if J is encounterd.
             var i = aBoard.index, options = [], htesuu = "", f = false,
-                rePattern = new RegExp('^[\\-\\+0-9a-z]+J(\\d+):(.*)'),
+                rePattern = new RegExp('^[\\-\\+0-9a-z]+[J=](\\d+):(.*)'),
                 tesuu = Number(aBoard.moves[i].replace(rePattern, "$1")),
                 dlist = $('<select></select>'),
                 str;
-            options.push(i);
+            options.push(i); //options is an array that hold index for branch moves.
 loop1:
             do {
                 i++;// now find C：　string in the array.
@@ -91,7 +91,8 @@ loop1:
             // do this until end of array or henkatesu is less than tesuu
             } while ((htesuu >= tesuu));
             for (i = 0; i < options.length; i++) { //stuff a dropdown list with alternative moves
-                str = aBoard.moves[options[i]].match(/:[^*]*/)[0];
+                str =  aBoard.moves[options[i]].replace(rePattern, "$2");
+                str = str.split('*')[0]; // dont need comment part for the list.
                 $('<option></option>')
                     .attr("value", options[i])
                     .text(str)
@@ -221,7 +222,7 @@ loop1:
                 if (/(^[\-a-zA-Z0-9]*[xXC])/.test(aBoard.moves[aBoard.index])) {
                     $(self).attr("disabled", "disabled");
                 } //once reaches the end...
-                if (/[\-\+0-9pPlLnNsSgrRbB]+J/.test(aBoard.moves[aBoard.index])) {setupBranches(aBoard, self); }
+                if (/[\-\+0-9pPlLnNsSgrRbBk]+J/.test(aBoard.moves[aBoard.index])) {setupBranches(aBoard, self); }
 //after the move, if next line is a comment, then process it anyway.
             }
         },
@@ -308,7 +309,7 @@ loop1:
                         );
 //   I also need to read the first line for possible branch. if (/[\-\+0-9pPlLnNsSgrRbB]+J/.test(board.moves[0])) {setupBranches(boardlist.move[0],this); }
             for (i = 0; i < target.length; i++) {
-                if (/[\-\+0-9pPlLnNsSgrRbB]+J/.test(target[i].moves[target[i].index])) {
+                if (/[\-\+0-9pPlLnNsSgrRbBk]+J/.test(target[i].moves[target[i].index])) {
                     setupBranches(target[i], $('.aButton')[i]);
                 }
             }

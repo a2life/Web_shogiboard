@@ -25,7 +25,7 @@ class kifu
         $mightyPattern = array("10"=>"＋\s","1"=>"[１一]",  "2"=>"[二２]","3"=>"[三３]","4"=>"[四４]",
         "5"=>"[五５]","6"=>"[六６]","7"=>"[七７]","8"=>"[八８]","9"=>"[九９]","p"=>"歩","P"=>"と",
         'L'=>"成香","l"=>"香",'N'=>'成桂','n'=>'桂','S'=>'成銀','s'=>'銀','r'=>'飛',"R"=>'[竜龍]',
-        "b"=>'角',"B"=>'馬',"k"=>'玉',"g"=>"金","00"=>"同　","d"=>"打","J"=>"\+","+"=>"成","x"=>"(投了|中断)");
+        "b"=>'角',"B"=>'馬',"k"=>"[玉王]","g"=>"金","00"=>"同　","d"=>"打","J"=>"\+","+"=>"成","x"=>"(投了|中断)");
 
     private function
     findline($mbstring,$array){
@@ -154,8 +154,8 @@ class kifu
         $match=array();
 //$pattern="(?:(\d+)\s+([\w\s]+)(?:\((\d+)\))?[ /():0-9]*(\+?))";
         $header="手数----指手";
-        $pattern='(?:(\d+)\s+([\w\s]+)(?:\((\d+)\))?[ /():0-9]*(\+?))|(?:\n(?:\*)([^\n]*)\n)|(?:変化：([\w]+))';
-        $parsed="";//todo handling of comment line when multiple lines are entered is a little goofy.
+        $pattern='(?:(\d+)\s+([\w\s]+)(?:\((\d+)\))?[ /():0-9]*(\+?))|(?:\n(?:\*)([^\n]*))|(?:変化：([\w]+))';
+        $parsed="";//
         $movesLines="";
         mb_ereg_search_init($src,$header); // does move exists?
         if (mb_ereg_search()) { //forward to the start of move list
@@ -184,6 +184,8 @@ class kifu
             $movesLines=mb_ereg_replace('(?<=\d\d)[pPlLnNsSgkrRbB](?=.?\d\d)',"",$movesLines); //remove piece info as they are not needed for drawboard
             $movesLines=mb_ereg_replace('-(..)\+','+\1',$movesLines); // s-nn+ => s+nn
             $movesLines=mb_ereg_replace('-(...)d','d\1',$movesLines); // s-68sd => sd68s
+            $movesLines=mb_ereg_replace("<br/>\*","<br/>",$movesLines);// process multiple comment lines.
+            $movesLines=mb_ereg_replace("<br/>\n","\n",$movesLines);// remove <br> from the end of comment lines.
             $movesLines=trim($movesLines);
             $movesLines.="\nx"; // terminate the end with x to indicate the EOF.
             $moves = explode("\n",$movesLines); // this sequence will
