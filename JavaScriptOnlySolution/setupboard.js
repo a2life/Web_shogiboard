@@ -26,6 +26,7 @@ SSHACK.board.setupBoard = function () {
         moveExists = (SSHACK.board.kifuList[i].moves !== undefined);
 
         contents = '<p class="sCaption">' + board.caption + '</p>' +
+            (moveExists ? '<div class="buttonAnchor">':'') +
             '<div class="forSnapshot"' + embedDatakomapath + board.filePathKoma + '">' +
             '<div class="table" > <!-- outer table -->' +
             '<div class="row">' +
@@ -53,7 +54,7 @@ SSHACK.board.setupBoard = function () {
             board.initialComment +
             '</article>' +
             '</div>' +
-            (moveExists ? '<div class="buttonBar"></div>' : '');
+            (moveExists ? '<div class="buttonBar"></div></div>' : '');
         if (moveExists) { addstyletag(); }
         $($('.shogiBoard')[i]).append(contents);
     }
