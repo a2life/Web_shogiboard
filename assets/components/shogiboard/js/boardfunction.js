@@ -5,15 +5,20 @@
  * Time: 3:01 PM
  * To change this template use File | Settings | File Templates.
  */
-//todo add jump to branch button if jump is there.
-//todo show tesuu indicator
+/*
+ 2/12/2013
+ Adding..
+ - function branchForward()
+ - function branchBarckward()
+ todo show tesuu indicator
+ */
 /*jslint browser: true*/
-
 /*global  $,  sBoard */
 var SSHACK = SSHACK || {};
-SSHACK.mover  = (function () { //this is one big object declaration with local variables and functions defined by executing a function call
+SSHACK.mover = (function () { //this is one big object declaration with local variables and functions defined by executing a function call
     // and returning a object literals
     var notInAnimation = true, //private variable to indicate piece is not in animation. if false, button click wont start another move
+        nextIsBranch = false,
         partlist = {
             "p": "fu",
             "P": "to",
@@ -31,27 +36,36 @@ SSHACK.mover  = (function () { //this is one big object declaration with local v
             "k": "ou"
         },
         komaToPng = function (koma) {
-    //convert koma information and return image file name
+            //convert koma information and return image file name
             var png = partlist[koma] + '.png';
             return png;
 
         },
-        emptyComment = function (target) {target.find('.comment').empty(); target.find('.bbBox').empty(); },
-        cordToClass = function (cord) { return cord.replace(/(\d)(\d)/, 'koma c$1 r$2'); },//turn cordination info into .class info
-        stepBack = function (aBoard, target, self) {
-            var f, sniff, tesuu, tesuuPattern, rePattern = new RegExp("C:(\\d+).*"),
+        emptyComment = function (target) {
+            target.find('.comment').empty();
+            target.find('.bbBox').empty();
+        },
+        cordToClass = function (cord) {
+            return cord.replace(/(\d)(\d)/, 'koma c$1 r$2');
+        }, //turn cordination info into .class info
+        stepBack = function (aBoard, target) {
+            var f, sniff, tesuu, tesuuPattern, rePattern = new RegExp("C:(\\d+).*"), branchSelect,
                 backOneMove = function () {
-                    target.closest(".shogiBoard").find('.aButton').removeAttr("disabled");
+                    target.closest(".shogiBoard").find('.forward').removeAttr("disabled");
                     target.empty().html(aBoard.history.pop());
-                    if (aBoard.history.length === 0) {$(self).attr("disabled", "disabled"); }
+                    if (aBoard.history.length === 0) {
+                        target.closest('.shogiBoard').find('.backward').attr("disabled", "disabled");
+                        nextIsBranch = true;
+                    }
                 };
+            nextIsBranch = false;
             if (aBoard.index > 0) {
-        //add instruction to correctly handles branch step back
+                //add instruction to correctly handles branch step back
                 --aBoard.index;
                 sniff = aBoard.index - 1;
                 if (/C:/.test(aBoard.moves[sniff])) {
-            //if this test is true then the line contains number that should be matched by "going up" the list
-            //get the number
+                    //if this test is true then the line contains number that should be matched by "going up" the list
+                    //get the number
                     tesuu = aBoard.moves[sniff].replace(rePattern, "$1");
                     tesuuPattern = new RegExp("J" + tesuu);
                     do {
@@ -61,10 +75,14 @@ SSHACK.mover  = (function () { //this is one big object declaration with local v
 //            --aBoard.index; // now the index point to original branch point (jnnn - 1)
                 }
                 backOneMove();
-                $('select')//attach event handler to selectors if its a part of snapshot retrieved.
-                    .change(function () {
-                        aBoard.index = this.options[this.selectedIndex].value;
-                    });
+                branchSelect = target.find('select');
+                if (branchSelect.length === 1) {
+                    branchSelect//attach event handler to selectors if its a part of snapshot retrieved.
+                        .change(function () {
+                            aBoard.index = this.options[this.selectedIndex].value;
+                        });
+                    nextIsBranch = true;
+                }
 
             }
         },
@@ -84,14 +102,16 @@ loop1:
                         break loop1;
                     }
                 } while (!f);
-            //from i, find henkatesuu using regex.
+                    //from i, find henkatesuu using regex.
                 htesuu = +(aBoard.moves[i].replace(rePattern, "$1"));
-            // then if tesu == henkatesuu then push i to options array.
-                if (tesuu === htesuu) {options.push(i); }
-            // do this until end of array or henkatesu is less than tesuu
+                // then if tesu == henkatesuu then push i to options array.
+                if (tesuu === htesuu) {
+                    options.push(i);
+                }
+                // do this until end of array or henkatesu is less than tesuu
             } while ((htesuu >= tesuu));
             for (i = 0; i < options.length; i++) { //stuff a dropdown list with alternative moves
-                str =  aBoard.moves[options[i]].replace(rePattern, "$2");
+                str = aBoard.moves[options[i]].replace(rePattern, "$2");
                 str = str.split('*')[0]; // dont need comment part for the list.
                 $('<option></option>')
                     .attr("value", options[i])
@@ -100,21 +120,28 @@ loop1:
             }
 
             $(self).closest('.shogiBoard').find('.bbBox').append(dlist);
+            nextIsBranch = true;
 
-            dlist.change(function () { aBoard.index = this.options[this.selectedIndex].value; });
+            dlist.change(function () {
+                aBoard.index = this.options[this.selectedIndex].value;
+            });
         },
         forwardOne = function (aBoard, self) {
-    /* aBoard point to an array element of Board[]
-     *  self point to button entity
-     *  target is ".forSnapshot" block that is ancestor of button that fires
-     *
-     */
+            /* aBoard point to an array element of Board[]
+             *  self point to button entity
+             *  target is ".forSnapshot" block that is ancestor of button that fires
+             *
+             */
 
             if (notInAnimation) { // if the board is in animation mode, then skip this block = ignore button press.
                 var parseAction = function (aAction, target) {
                         var to,
-                            setMarker = function (cord, target) { target.find('.marker').attr("class", cord.replace(/(\d)(\d)/, 'marker c$1 r$2')); },//marker class info
-                            getMarkerCord = function (target) {return target.find('.marker').attr("class").replace(/marker c(\d) r(\d)/, '$1$2'); },
+                            setMarker = function (cord, target) {
+                                target.find('.marker').attr("class", cord.replace(/(\d)(\d)/, 'marker c$1 r$2'));
+                            }, //marker class info
+                            getMarkerCord = function (target) {
+                                return target.find('.marker').attr("class").replace(/marker c(\d) r(\d)/, '$1$2');
+                            },
                             promote2Koma = function (elem, side) {
                                 var koma, komaPath;
                                 komaPath = elem.closest(".forSnapshot").data("komapath");//forSnapshot element has komapath data stored
@@ -145,14 +172,18 @@ loop1:
                                 // use jQuery UI's .switchClass() to animate the move
                                 // "onMove" class ensures the target elemenet have high value z-index
                                 elem.attr('class', 'positioner onMove').switchClass("positioner", to, smooth, "",
-                                    function () { if (promote === '+') {promote2Koma(elem, side);
+                                    function () {
+                                        if (promote === '+') {
+                                            promote2Koma(elem, side);
                                         }//after moving the piece, check for promotion and take action if that is the case.
                                         elem.removeClass("onMove");
                                         notInAnimation = true; //after moving the piece, call back and set the flag to accept another button click
-                                        });
+                                    });
                             },
                             makeAmove = function (side, promote, from, to, target) {
-                                var cordToSelector = function (cord) {return cord.replace(/(\d)(\d)/, '.koma.c$1.r$2'); },//turn .class info into css selector
+                                var cordToSelector = function (cord) {
+                                        return cord.replace(/(\d)(\d)/, '.koma.c$1.r$2');
+                                    }, //turn .class info into css selector
                                     captureKoma = function () {
                                         var komaban, koma, komapath;
                                         komapath = target.data("komapath");
@@ -198,33 +229,62 @@ loop1:
                             postComment(aAction.slice(1), target);
                         } else {
                             to = aAction.substr(2, 2);
-                            if (to === "00") { to = getMarkerCord(target); }//if 00 cordinate, then take to cordinate is marker position
+                            if (to === "00") {
+                                to = getMarkerCord(target);
+                            }//if 00 cordinate, then take to cordinate is marker position
                             if (aAction.charAt(1) === 'd') {
                                 dropKoma(aAction.charAt(0), aAction.charAt(4), to, target);
                             } else {
                                 makeAmove(aAction.charAt(0).toUpperCase(), aAction.charAt(1), aAction.substr(4, 2), to, target);
                             }
-                            if (aAction.indexOf('*') > 0) {postComment(aAction.slice(aAction.indexOf('*') + 1), target); }
+                            if (aAction.indexOf('*') > 0) {
+                                postComment(aAction.slice(aAction.indexOf('*') + 1), target);
+                            }
                         }
                     },
                     target = $(self).closest('.shogiBoard')//scan up from button element to class shogiboard
                         .find('.forSnapshot'),
                     zAction = aBoard.moves[aBoard.index],
                     takeSnapshot = function (aBoard, target) {
-                        if (aBoard.history === undefined) {aBoard.history = []; }
+                        if (aBoard.history === undefined) {
+                            aBoard.history = [];
+                        }
                         aBoard.history.push(target.html());
-                        target.closest(".shogiBoard").find('.cButton').removeAttr("disabled");
+                        target.closest(".shogiBoard").find('.backward').removeAttr("disabled");
                     };
                 takeSnapshot(aBoard, target);
                 ++aBoard.index;
                 parseAction(zAction, target);
-        //   if (aBoard.moves[aBoard.index].charAt(0)=='x') // more sophsticated code below to do the same and more.
+                //   if (aBoard.moves[aBoard.index].charAt(0)=='x') // more sophsticated code below to do the same and more.
                 if (/(^[\-a-zA-Z0-9]*[xXC])/.test(aBoard.moves[aBoard.index])) {
-                    $(self).attr("disabled", "disabled");
-                } //once reaches the end...
-                if (/[\-\+0-9pPlLnNsSgrRbBk]+J/.test(aBoard.moves[aBoard.index])) {setupBranches(aBoard, self); }
-//after the move, if next line is a comment, then process it anyway.
+                    $(self).closest('.buttonBar').find('.forward').attr("disabled", "disabled");
+                    nextIsBranch = true;
+                } else if (/[\-\+0-9pPlLnNsSgrRbBk]{5,}J/.test(aBoard.moves[aBoard.index])) {
+                    setupBranches(aBoard, self);
+                    nextIsBranch = true;
+                } else {
+                    nextIsBranch = false;
+                }
             }
+        },
+        branchForward = function (aBoard, self) {
+            var tempSmooth;
+            tempSmooth = aBoard.smooth;
+            aBoard.smooth = 0;
+            do {
+                forwardOne(aBoard, self);
+            } while (nextIsBranch === false);
+            aBoard.smooth = tempSmooth;
+        },
+        branchBackward = function (aBoard, self) {
+            var tempSmooth = aBoard.smooth, target = $(self).closest('.shogiBoard').find('.forSnapshot');
+            aBoard.smooth = 0;
+
+            do {
+
+                stepBack(aBoard, target);
+            } while (nextIsBranch === false);
+            aBoard.smooth = tempSmooth;
         },
         initializeBoard = function (j) { //i is a index to board data in boards array, as well as index to selected elem.
 //called from initializeBoards, iterate through the number of array element in boards[];
@@ -232,16 +292,16 @@ loop1:
                 boardbase = $(target).find('.boardbase'), senteMochigoma = $(target).find('.senteMochigoma'),
                 goteMochigoma = $(target).find('goteMochigoma');
 
-    //attach board marker to the boardbase. initially it is out of site
+            //attach board marker to the boardbase. initially it is out of site
 
-            $('<img class="marker lostworld" id="marker" alt=""/>')
-                .addClass(board.marker)
-                .attr('src', board.filePathFocus  + board.markerImage)
+            $('<img class="marker" id="marker" alt=""/>')
+                .addClass(board.markerAt)
+                .attr('src', board.filePathFocus + board.markerImage)
                 .appendTo(boardbase);
 
-    /*  for (var index in board.Positions) {$('<img class="koma" alt=""/>')
-     .addClass(index).attr('src', pathname + board.Positions[index] + '.png').appendTo('#boardbase')};
-     */
+            /*  for (var index in board.Positions) {$('<img class="koma" alt=""/>')
+             .addClass(index).attr('src', pathname + board.Positions[index] + '.png').appendTo('#boardbase')};
+             */
 //create image elements with appropriate image and class information attached. also attach koma property with jquery.data()
             for (i = 0; i < board.onBoard.S.length; i++) {
 
@@ -249,7 +309,7 @@ loop1:
                 kpng = komaToPng((board.onBoard.S[i].charAt(2)).toLowerCase());
                 cord = board.onBoard.S[i].substr(0, 2);
 
-                $('<img alt=""/>')
+                $('<img alt="" src = "' + board.filePathKoma + 'S' + png + '" />')
                     .addClass(cordToClass(cord))
                     .attr('src', board.filePathKoma + 'S' + png)
                     .attr('data-koma', kpng).appendTo(boardbase);
@@ -259,62 +319,94 @@ loop1:
                 kpng = komaToPng(board.onBoard.G[i].charAt(2).toLowerCase());
                 cord = board.onBoard.G[i].substr(0, 2);
 
-                $('<img alt=""/>')
+                $('<img  src = "' + board.filePathKoma + 'G' + png + '" alt=""/>')
                     .addClass(cordToClass(cord))
-                    .attr('src', board.filePathKoma + 'G' + png)
                     .attr('data-koma', kpng).appendTo(boardbase);
             }
             for (i = 0; i < board.onHand.S.length; i++) {
                 png = komaToPng(board.onHand.S[i]);
-                $('<img class="" alt=""/>')
+                $('<img class="" src = "' + board.filePathKoma + 'S' + png + '" alt=""/>')
                     .attr('src', board.filePathKoma + 'S' + png)
                     .attr('data-koma', png)
                     .appendTo(senteMochigoma);
             }
             for (i = 0; i < board.onHand.G.length; i++) {
                 png = komaToPng(board.onHand.G[i]);
-                $('<img class="" alt=""/>')
-                    .attr('src', board.filePathKoma + 'G' + png)
+                $('<img class="" src ="' + board.filePathKoma + 'G' + png + '" alt=""/>')
                     .attr('data-koma', png)
                     .appendTo(goteMochigoma);
             }
 
         };
     return {
-        setupButtons : function () {
-            var target = SSHACK.board.kifuList, i;
-            $('<input type="button">')
-                .attr("class", "aButton")
+        setupButtons: function () {
+            var target = SSHACK.board.kifuList, i, bigString, bList = [],
+                targetButtons,
+                testPattern = new RegExp("[\\-\\+0-9pPlLnNsSgrRbBk]{5,}J");
+            $('<input type="button" class="aButton forward" />')
                 .appendTo('.buttonBar')
                 .attr("value", "Forward for solution")
-                .each(function (i) {$(this)
-                    .click(function () {
-                        forwardOne(target[i], this);
-                    }
-                             );
+                .each(function (i) {
+                    $(this)
+                        .click(function () {
+                            forwardOne(target[i], this);
                         }
-                        );
-
-            $('<input type="button">')
-                    .attr("class", "cButton")
-                    .appendTo('.buttonBar')
-                    .attr("value", "Step Back")
-                    .attr("disabled", "disabled")
-                    .each(function (i) {$(this)
-                        .click(function () {stepBack(target[i], $(this)
-                            .closest('.shogiBoard')
-                            .find('.forSnapshot'), this); }
                             );
+                }
+                    );
+
+            $('<input type="button" class="cButton backward"/>')
+                .appendTo('.buttonBar')
+                .attr("value", "Step Back")
+                .attr("disabled", "disabled")
+                .each(function (i) {
+                    $(this)
+                        .click(function () {
+                            stepBack(target[i], $(this)
+                                .closest('.shogiBoard')
+                                .find('.forSnapshot'));
                         }
-                        );
+                            );
+                }
+                    );
 //   I also need to read the first line for possible branch. if (/[\-\+0-9pPlLnNsSgrRbB]+J/.test(board.moves[0])) {setupBranches(boardlist.move[0],this); }
             for (i = 0; i < target.length; i++) {
-                if (/[\-\+0-9pPlLnNsSgrRbBk]+J/.test(target[i].moves[target[i].index])) {
+                if (testPattern.test(target[i].moves[target[i].index])) {
                     setupBranches(target[i], $('.aButton')[i]);
                 }
+                bigString = target[i].moves.join(",");
+                if (testPattern.test(bigString)) {
+                    bList.push(i);
+
+                    $('<input type="button" class= "sfButton forward"/>')
+                        .appendTo('.buttonBar:eq(' + i + ')')
+                        .attr("value", ">>");
+
+                    $('<input type="button" class ="sbButton backward"/>')
+                        .appendTo('.buttonBar:eq(' + i + ')')
+                        .attr("value", "<<");
+                }
+            }
+            targetButtons = $('.sfButton');
+            if (targetButtons.length !== 0) {
+                targetButtons.each(function (i) {
+                    $(this)
+                        .click(function () {
+                            branchForward(target[bList[i]], this);
+                        });
+                });
+            }
+            targetButtons = $('.sbButton');
+            if (targetButtons.length !== 0) {
+                targetButtons.each(function (i) {
+                    $(this)
+                        .click(function () {
+                            branchBackward(target[bList[i]], this);
+                        });
+                });
             }
         },
-        initializeBoards : function () {
+        initializeBoards: function () {
             var i, l = SSHACK.board.kifuList.length;
             for (i = 0; i < l; i++) {
                 initializeBoard(i);
