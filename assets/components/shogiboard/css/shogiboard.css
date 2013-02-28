@@ -26,11 +26,12 @@ size of board and grid image is : 410 x 454. offset (margin) put a 0,0 cordinate
 .komadai {height:220px; width:160px; background-image:url(../../../../images/shogiboard/ban/ban_kaya_a.png);}
 .board {position: absolute; left:10px; top:9px; }
 .buttonBar {position: absolute;  top: 490px; left: 10px; height: 20px; z-index: 10;}
-.bbBox {height: 25px; width:440px;}
-.comment {padding-left:10px; width:590px;height:120px; overflow: auto;}
+.bbBox {height: 25px; width:100%;}
+.comment {padding-left:10px; width:100%;height:120px; overflow: auto;}
 .koma {position: absolute ; width:43px; height:48px;}
 .marker {position:absolute; width:43px; height:48px;}
 .lostworld {left:-20000px; top: -20000px;}
+.caption {text-align: center;}
 .c0 {left:-20000px}
 .r0 {top:-20000px}
 .c1 {left:365px;} .c2 {left: 322px;} .c3 {left:279px;}
