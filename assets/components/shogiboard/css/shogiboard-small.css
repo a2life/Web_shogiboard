@@ -4,9 +4,10 @@
 .board {width:286px; height: 312px;}
 .komadai {width:100px; height:150px;}
 .komadai img,.koma, .marker {width:30px; height:33px;}
-.comment {padding-left:7px;height:100px; overflow:auto;}
+.comment {padding-left:7px;height:100px;}
 .buttonBar {position: absolute;  top: 326px; left: 80px; height: 20px; z-index: 10;}
-
+.type0width {width: 409px;}
+.type3width {width: 309px;}
 
 .c1 {left:258px;} .c2 {left: 228px;} .c3 {left:198px;}
 .c4 {left:168px;} .c5 {left: 138px;} .c6 {left:108px;}

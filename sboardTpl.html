@@ -1,11 +1,11 @@
 [[-This is a shogiboard html Template, to be used in modx with a lot of placeholders]]
-[[-1/24/2013]]
+[[-1/24/2013]] -->
 <section class="shogiBoard">
     [[+captionBlock]]
     <div class="buttonAnchor">
         [[+buttonBarBlock]] [[-outside of Snapshot, positioned absolutely outside of document flow]]
 
-        <div class="forSnapshot" data-komapath="[[+komaPath]]" > <!-- outer table -->
+        <div class="forSnapshot [[+widthSetter]]" data-komapath="[[+komaPath]]" > <!-- outer table -->
             <div class="table">
                 <div class="row" >
                     <div class="boardbase cell">
@@ -13,7 +13,7 @@
                         <img class="board" src="[[+sGrid]]" alt=""/>
                         [[+onBoardImgs]]
                     </div>
-                    <div class="cell" >
+                    <div class="cell [[+komadai]]" >
                         <div class="table"><!-- inner table -->
                             <div class="row">
                                 <div class="goteMochigoma komadai cell [[+hide]]">

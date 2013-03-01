@@ -27,7 +27,12 @@ size of board and grid image is : 410 x 454. offset (margin) put a 0,0 cordinate
 .board {position: absolute; left:10px; top:9px; }
 .buttonBar {position: absolute;  top: 490px; left: 10px; height: 20px; z-index: 10;}
 .bbBox {height: 25px; width:100%;}
-.comment {padding-left:10px; width:100%;height:120px; overflow: auto;}
+.comment {padding:0 ; width:inherit;height:120px; overflow: auto; font-size: 0.8em;
+    border-style:dotted;
+    border-width: 1px;
+    box-sizing: border-box;
+    -moz-box-sizing:border-box; /* Firefox */
+    -webkit-box-sizing:border-box; /* Safari */}
 .koma {position: absolute ; width:43px; height:48px;}
 .marker {position:absolute; width:43px; height:48px;}
 .lostworld {left:-20000px; top: -20000px;}

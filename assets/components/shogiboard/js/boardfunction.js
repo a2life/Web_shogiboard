@@ -102,7 +102,7 @@ loop1:
                         break loop1;
                     }
                 } while (!f);
-                    //from i, find henkatesuu using regex.
+                //from i, find henkatesuu using regex.
                 htesuu = +(aBoard.moves[i].replace(rePattern, "$1"));
                 // then if tesu == henkatesuu then push i to options array.
                 if (tesuu === htesuu) {
@@ -345,7 +345,7 @@ loop1:
                 testPattern = new RegExp("[\\-\\+0-9pPlLnNsSgrRbBk]{5,}J");
             $('<input type="button" class="aButton forward" />')
                 .appendTo('.buttonBar')
-                .attr("value", "Forward for solution")
+                .attr("value", " ▶ ")
                 .each(function (i) {
                     $(this)
                         .click(function () {
@@ -357,7 +357,7 @@ loop1:
 
             $('<input type="button" class="cButton backward"/>')
                 .appendTo('.buttonBar')
-                .attr("value", "Step Back")
+                .attr("value", " ◀ ")
                 .attr("disabled", "disabled")
                 .each(function (i) {
                     $(this)
@@ -380,11 +380,12 @@ loop1:
 
                     $('<input type="button" class= "sfButton forward"/>')
                         .appendTo('.buttonBar:eq(' + i + ')')
-                        .attr("value", ">>");
+                        .attr("value", " ▶▏");
 
                     $('<input type="button" class ="sbButton backward"/>')
                         .appendTo('.buttonBar:eq(' + i + ')')
-                        .attr("value", "<<");
+                        .attr("value", "▕◀ ")
+                        .attr("disabled", "disabled");
                 }
             }
             targetButtons = $('.sfButton');

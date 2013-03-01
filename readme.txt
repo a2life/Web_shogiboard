@@ -22,8 +22,9 @@ Multiple rendering of the board on the same page is possible by calling the prog
 
 call by
 [[!drawboard4? &parameter....]]
-type :  if set to 1, board is for tsume shogi and default onHand data will not load
-smooth : if set to 1, piece move is a sliding move.parameters:
+parameters--
+type :  if set to 1, board is for tsume shogi and default onHand data will not load. if set to 3 then komadai will not display.
+smooth : if set to 1, piece move is a sliding move
 sOnHand : string indicating on hand pieces for sente. default is none. ex. "l,l,p" (see below)
 gOnHand : string indicating on hand pieces for gote. default is none ex. "l,l,p" (see below)
 sOnBoard: string indicating on board pieces for sente. default is initial setup for sente for no handicap game. ex. "11l,21n,31s,41g,51k,13p,22b"
@@ -131,7 +132,6 @@ above format.
 
 [wish list]
 add &size parameter : `small`, `smaller` etc., currently it is fixed to "small" size.
-Add Kifu parser so that the snippet can directly read the Kifu file resources.
 
 Create "modx" transport package to make modx installation as one button click, rather than copying over many files manually.
 

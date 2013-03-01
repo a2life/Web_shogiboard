@@ -171,7 +171,7 @@ class kifu
                         $parsed=mb_ereg_replace($pat,$key,$parsed);
                     }
                     $parsed.=(":".trim($match[2]));
-                } else if ($match[5]) $parsed="*".trim($match[5]);//regex is matching *comment line, the second alternate
+                } else if ($match[5]) $parsed="*".trim($match[5])."<br/>";//regex is matching *comment line, the second alternate
                 else if ($match[6]) $parsed="\nC:".$match[6];
                 else $parsed="\n".$match[0];//regex is matching the last catch all alternate so spit out as is
 

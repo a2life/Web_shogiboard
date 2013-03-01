@@ -38,7 +38,7 @@ spl_autoload_register(function ($class) {
 $modx->regClientCSS("assets/components/shogiboard/css/shogiboard.css");
 $modx->regClientCSS("assets/components/shogiboard/css/shogiboard-small.css");
 
-if (isset($file)||isset($kifuID)){
+if (isset($file)||isset($kifuID)){ // todo does this method  work with modx resource content? if not parameter 'kifuID' or something is needed.
     if (isset($file)){
         $string = file_get_contents("assets/Resources/kifu/".$file);
     } else {
@@ -92,10 +92,10 @@ if (isset($caption)){
  * if $type is defined and is set to 1, then the board is used for Tsume shogi.
  * hide the goteMochigoma by use of placeholder for template .
 */
-$hide="";$komadai="";
+$hide="";$komadai="";$widthSetter="type0width";
 if (isset($type)){
     if ($type=="1"){$hide="hide";}
-    if ($type=="3"){$komadai="hide";}
+    if ($type=="3"){$komadai="hide";$widthSetter="type3width";}
 }
 /*
  * if $moves exist,
@@ -172,7 +172,8 @@ $b=array(
     "hide"=>$hide,
     "displayComment"=>(isset($displayComment)?$displayComment:""),
     "bbBox"=>$bbBox,
-    "komadai"=>$komadai
+    "komadai"=>$komadai,
+    "widthSetter"=>$widthSetter
 );
 
 
