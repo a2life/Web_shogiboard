@@ -32,7 +32,7 @@ gOnBoard: string indicating on board pieces for sente. default is initial setup 
 markerAt: string Indicating the grid that is highlighted. default is "out of the way", ex., "24" for position ２四
 file : when specified, the engine will parse the file and fill 'moves','sOnHand','gOnHand','sOnBoard','gOnBoard' parameters if they exists.
 kifuID : when specified, the engine will parse the modx resource identified by KiuID. if file and kifuID is both specified, kifuID will be ignored.
-
+file and kifuID supports kakinoki kif format, including branch and initial board setting. However it does not support komaochi setting.
 Shogiboard layout is all in html and css.
 the general structural idea is
 
@@ -132,7 +132,7 @@ above format.
 
 [wish list]
 add &size parameter : `small`, `smaller` etc., currently it is fixed to "small" size.
-
+flip board option -- this probably will never be supported.
 Create "modx" transport package to make modx installation as one button click, rather than copying over many files manually.
 
 mixed size in the same page => need to change class name in the template chunk.
