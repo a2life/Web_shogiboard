@@ -25,7 +25,7 @@ SSHACK.board.setupBoard = function () {
         board = boards[i];
         moveExists = (SSHACK.board.kifuList[i].moves !== undefined);
 
-        contents = '<p class="sCaption">' + board.caption + '</p>' +
+        contents = '<p class="caption">' + board.caption + '</p>' +
             (moveExists ? '<div class="buttonAnchor">' : '') +
             '<div class="forSnapshot type0width"' + embedDatakomapath + board.filePathKoma + '">' +
             '<div class="table" > <!-- outer table -->' +

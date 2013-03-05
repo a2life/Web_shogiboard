@@ -19,6 +19,7 @@ SSHACK.mover = (function () { //this is one big object declaration with local va
     // and returning a object literals
     var notInAnimation = true, //private variable to indicate piece is not in animation. if false, button click wont start another move
         nextIsBranch = false,
+        endOfMoves = false,
         partlist = {
             "p": "fu",
             "P": "to",
@@ -259,11 +260,14 @@ loop1:
                 if (/(^[\-a-zA-Z0-9]*[xXC])/.test(aBoard.moves[aBoard.index])) {
                     $(self).closest('.buttonBar').find('.forward').attr("disabled", "disabled");
                     nextIsBranch = true;
+                    endOfMoves = true;
                 } else if (/[\-\+0-9pPlLnNsSgrRbBk]{5,}J/.test(aBoard.moves[aBoard.index])) {
                     setupBranches(aBoard, self);
                     nextIsBranch = true;
+                    endOfMoves = false;
                 } else {
                     nextIsBranch = false;
+                    endOfMoves = false;
                 }
             }
         },
@@ -286,8 +290,39 @@ loop1:
             } while (nextIsBranch === false);
             aBoard.smooth = tempSmooth;
         },
+        fastForward = function (aBoard, self) {
+            var tempSmooth;
+            tempSmooth = aBoard.smooth;
+            aBoard.smooth = 0;
+            do {
+                forwardOne(aBoard, self);
+            } while (endOfMoves === false);
+            aBoard.smooth = tempSmooth;
+        },
+        resetBoard = function (aBoard, self) {
+            var bTarget = $(self).closest(".buttonBar"),
+                target = $(self).closest(".shogiBoard"),
+                branchSelect;
+            bTarget.find('.forward').removeAttr("disabled");
+            target.find(".forSnapshot").empty().html(aBoard.history[0]);
+            aBoard.history = [];
+            aBoard.index = 0;
+            bTarget.find('.backward').attr("disabled", "disabled");
+            branchSelect = target.find('select');
+            if (branchSelect.length === 1) {
+                branchSelect//attach event handler to selectors if its a part of snapshot retrieved.
+                    .change(function () {
+                        aBoard.index = this.options[this.selectedIndex].value;
+                    });
+                nextIsBranch = true;
+            } else {
+                nextIsBranch = false;
+            }
+            endOfMoves = false;
+        },
         initializeBoard = function (j) { //i is a index to board data in boards array, as well as index to selected elem.
 //called from initializeBoards, iterate through the number of array element in boards[];
+            //in PHP/modx implementation, this function is not used.
             var i, cord, png, kpng, board = SSHACK.board.kifuList[j], target = $(".shogiBoard")[j],
                 boardbase = $(target).find('.boardbase'), senteMochigoma = $(target).find('.senteMochigoma'),
                 goteMochigoma = $(target).find('goteMochigoma');
@@ -345,19 +380,21 @@ loop1:
                 testPattern = new RegExp("[\\-\\+0-9pPlLnNsSgrRbBk]{5,}J");
             $('<input type="button" class="aButton forward" />')
                 .appendTo('.buttonBar')
-                .attr("value", " ▶ ")
+                .attr("value", "▶ ")
+                .attr("title", "Forward for solution")
                 .each(function (i) {
                     $(this)
                         .click(function () {
                             forwardOne(target[i], this);
                         }
-                            );
+                             );
                 }
-                    );
+                        );
 
             $('<input type="button" class="cButton backward"/>')
-                .appendTo('.buttonBar')
-                .attr("value", " ◀ ")
+                .prependTo('.buttonBar')
+                .attr("value", "◀")
+                .attr("title", "Step Back")
                 .attr("disabled", "disabled")
                 .each(function (i) {
                     $(this)
@@ -366,9 +403,9 @@ loop1:
                                 .closest('.shogiBoard')
                                 .find('.forSnapshot'));
                         }
-                            );
+                             );
                 }
-                    );
+                        );
 //   I also need to read the first line for possible branch. if (/[\-\+0-9pPlLnNsSgrRbB]+J/.test(board.moves[0])) {setupBranches(boardlist.move[0],this); }
             for (i = 0; i < target.length; i++) {
                 if (testPattern.test(target[i].moves[target[i].index])) {
@@ -380,11 +417,13 @@ loop1:
 
                     $('<input type="button" class= "sfButton forward"/>')
                         .appendTo('.buttonBar:eq(' + i + ')')
-                        .attr("value", " ▶▏");
+                        .attr("value", "▷")
+                        .attr("title", "Next Branch Point");
 
                     $('<input type="button" class ="sbButton backward"/>')
-                        .appendTo('.buttonBar:eq(' + i + ')')
-                        .attr("value", "▕◀ ")
+                        .prependTo('.buttonBar:eq(' + i + ')')
+                        .attr("value", "◁")
+                        .attr("title", "Previous Branch Point")
                         .attr("disabled", "disabled");
                 }
             }
@@ -406,6 +445,31 @@ loop1:
                         });
                 });
             }
+            $('<input type="button" class="ffButton forward" />')
+                .appendTo('.buttonBar')
+                .attr("value", "▶▶")
+                .attr("title", "Fastforward to the End")
+                .each(function (i) {
+                    $(this)
+                        .click(function () {
+                            fastForward(target[i], this);
+                        }
+                            );
+                }
+                    );
+            $('<input type="button" class="rrButton backward" />')
+                .prependTo('.buttonBar')
+                .attr("value", "◀◀")
+                .attr("title", "Reset to the Start")
+                .attr("disabled", "disabled")
+                .each(function (i) {
+                    $(this)
+                        .click(function () {
+                            resetBoard(target[i], this);
+                        }
+                            );
+                }
+                     );
         },
         initializeBoards: function () {
             var i, l = SSHACK.board.kifuList.length;
