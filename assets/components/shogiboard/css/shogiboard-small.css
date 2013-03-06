@@ -2,10 +2,12 @@
 .boardbase {width: 309px; height:326px;}
 #boardbase {width:323px; height:337px;}
 .board {width:286px; height: 312px;}
-.komadai {width:100px; height:150px;}
+.komadai {width:100px; height:150px; line-height: 15px;}
 .komadai img,.koma, .marker {width:30px; height:33px;}
 .comment {padding-left:7px;height:100px;}
-.buttonBar {position: absolute;  top: 326px; left: 80px; height: 20px; z-index: 10;}
+.buttonBar {top: 326px; left: 80px; height: 20px;}
+.player2 {top: 135px; height:15px; left:309px; width:100px;}
+.player1 {top: 174px; height:15px; left:309px; width:100px;}
 .type0width {width: 409px;}
 .type3width {width: 309px;}
 

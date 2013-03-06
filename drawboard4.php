@@ -87,7 +87,13 @@ if (isset($noComment)){
 if (isset($caption)){
     $captionBlock='<div class="caption">'.$caption.'</div>';
 }else $captionBlock="";
-
+$players = "";
+if (isset($sName)) {
+    $players .='<span class="player1">▲ '.$sName.'</span>';
+}
+if (isset($gName)) {
+    $players .='<span class="player2">△ '.$gName.'</span>';
+}
 /*
  * if $type is defined and is set to 1, then the board is used for Tsume shogi.
  * hide the goteMochigoma by use of placeholder for template .
@@ -117,7 +123,7 @@ EOT;
 
     $modx->regClientCSS($src);
     $buttonBarBlock='<div class="buttonBar"></div>';
-    $modx->regClientScript("http://code.jquery.com/jquery-1.7.2.min.js");
+    $modx->regClientScript("http://code.jquery.com/jquery-latest.min.js");
     $modx->regClientScript("assets/components/shogiboard/js/jquery-ui-1.9.2.custom.min.js");
     $modx->regClientScript("assets/components/shogiboard/js/namespace.js");
     $modx->regClientScript("assets/components/shogiboard/js/boardfunction.js");
@@ -173,7 +179,8 @@ $b=array(
     "displayComment"=>(isset($displayComment)?$displayComment:""),
     "bbBox"=>$bbBox,
     "komadai"=>$komadai,
-    "widthSetter"=>$widthSetter
+    "widthSetter"=>$widthSetter,
+    "players"=>$players
 );
 
 

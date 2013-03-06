@@ -10,7 +10,7 @@
  Adding..
  - function branchForward()
  - function branchBarckward()
- todo show tesuu indicator
+
  */
 /*jslint browser: true*/
 /*global  $,  sBoard */
@@ -20,6 +20,7 @@ SSHACK.mover = (function () { //this is one big object declaration with local va
     var notInAnimation = true, //private variable to indicate piece is not in animation. if false, button click wont start another move
         nextIsBranch = false,
         endOfMoves = false,
+        rePattern = new RegExp('^[\\-\\+0-9a-z]+[J=](\\d+):(.*)'),
         partlist = {
             "p": "fu",
             "P": "to",
@@ -89,28 +90,27 @@ SSHACK.mover = (function () { //this is one big object declaration with local va
         },
         setupBranches = function (aBoard, self) {//aBoard is board object, self is html element location. this routine is called if J is encounterd.
             var i = aBoard.index, options = [], htesuu = "", f = false,
-                rePattern = new RegExp('^[\\-\\+0-9a-z]+[J=](\\d+):(.*)'),
                 tesuu = Number(aBoard.moves[i].replace(rePattern, "$1")),
                 dlist = $('<select></select>'),
                 str;
             options.push(i); //options is an array that hold index for branch moves.
-loop1:
-            do {
-                i++;// now find C：　string in the array.
+            loop1:
                 do {
-                    f = /C:/.test(aBoard.moves[i++]);
-                    if (i >= aBoard.moves.length) {
-                        break loop1;
+                    i++;// now find C：　string in the array.
+                    do {
+                        f = /C:/.test(aBoard.moves[i++]);
+                        if (i >= aBoard.moves.length) {
+                            break loop1;
+                        }
+                    } while (!f);
+                    //from i, find henkatesuu using regex.
+                    htesuu = +(aBoard.moves[i].replace(rePattern, "$1"));
+                    // then if tesu == henkatesuu then push i to options array.
+                    if (tesuu === htesuu) {
+                        options.push(i);
                     }
-                } while (!f);
-                //from i, find henkatesuu using regex.
-                htesuu = +(aBoard.moves[i].replace(rePattern, "$1"));
-                // then if tesu == henkatesuu then push i to options array.
-                if (tesuu === htesuu) {
-                    options.push(i);
-                }
-                // do this until end of array or henkatesu is less than tesuu
-            } while ((htesuu >= tesuu));
+                    // do this until end of array or henkatesu is less than tesuu
+                } while ((htesuu >= tesuu));
             for (i = 0; i < options.length; i++) { //stuff a dropdown list with alternative moves
                 str = aBoard.moves[options[i]].replace(rePattern, "$2");
                 str = str.split('*')[0]; // dont need comment part for the list.
@@ -225,6 +225,14 @@ loop1:
                             },
                             postComment = function (comment, target) {
                                 target.find('.comment').empty().append(comment);
+                            },
+                            updateStatusDisplay = function () {
+                                if (rePattern.test(aAction)){
+                                    target.find(".statusLine")
+                                        .html( aAction.replace(rePattern,"$1")+ ". "
+                                        + (aAction.charAt(0)=== "s"?"▲":"△")
+                                        + aAction.replace(rePattern, "$2").split('*')[0]);
+                                }
                             };
                         if (aAction.charAt(0) === '*') {
                             postComment(aAction.slice(1), target);
@@ -242,14 +250,13 @@ loop1:
                                 postComment(aAction.slice(aAction.indexOf('*') + 1), target);
                             }
                         }
+                        updateStatusDisplay();
                     },
                     target = $(self).closest('.shogiBoard')//scan up from button element to class shogiboard
                         .find('.forSnapshot'),
                     zAction = aBoard.moves[aBoard.index],
                     takeSnapshot = function (aBoard, target) {
-                        if (aBoard.history === undefined) {
-                            aBoard.history = [];
-                        }
+                        aBoard.history = aBoard.history || []; //if the array does not exisist, then create one
                         aBoard.history.push(target.html());
                         target.closest(".shogiBoard").find('.backward').removeAttr("disabled");
                     };
@@ -387,9 +394,9 @@ loop1:
                         .click(function () {
                             forwardOne(target[i], this);
                         }
-                             );
+                    );
                 }
-                        );
+            );
 
             $('<input type="button" class="cButton backward"/>')
                 .prependTo('.buttonBar')
@@ -403,9 +410,9 @@ loop1:
                                 .closest('.shogiBoard')
                                 .find('.forSnapshot'));
                         }
-                             );
+                    );
                 }
-                        );
+            );
 //   I also need to read the first line for possible branch. if (/[\-\+0-9pPlLnNsSgrRbB]+J/.test(board.moves[0])) {setupBranches(boardlist.move[0],this); }
             for (i = 0; i < target.length; i++) {
                 if (testPattern.test(target[i].moves[target[i].index])) {
@@ -454,9 +461,9 @@ loop1:
                         .click(function () {
                             fastForward(target[i], this);
                         }
-                            );
-                }
                     );
+                }
+            );
             $('<input type="button" class="rrButton backward" />')
                 .prependTo('.buttonBar')
                 .attr("value", "◀◀")
@@ -467,9 +474,9 @@ loop1:
                         .click(function () {
                             resetBoard(target[i], this);
                         }
-                            );
+                    );
                 }
-                     );
+            );
         },
         initializeBoards: function () {
             var i, l = SSHACK.board.kifuList.length;

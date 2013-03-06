@@ -28,6 +28,8 @@ SSHACK.board.setupBoard = function () {
         contents = '<p class="caption">' + board.caption + '</p>' +
             (moveExists ? '<div class="buttonAnchor">' : '') +
             '<div class="forSnapshot type0width"' + embedDatakomapath + board.filePathKoma + '">' +
+            '<span class="player1">▲Sente</span>' +
+            '<span class="player2">△Gote</span>' +
             '<div class="table" > <!-- outer table -->' +
             '<div class="row">' +
             '<div class="boardbase cell">' +
@@ -40,7 +42,7 @@ SSHACK.board.setupBoard = function () {
             '<div class="goteMochigoma komadai cell"> <!-- Gote mochigoma --></div>' +
             '</div>' +
             '<div class="row">' +
-            '<div class="cell empty"></div>' +
+            '<div class="cell statusLine"></div>' +
             '</div><!-- gap between two komaban -->' +
             '<div class="row">' +
             '<div class="senteMochigoma komadai cell"><!-- Sente komaban --></div>' +
