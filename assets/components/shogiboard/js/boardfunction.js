@@ -5,6 +5,7 @@
  * Time: 3:01 PM
  * To change this template use File | Settings | File Templates.
  */
+/* 3/5/2013 fixed IE8 issue with stylesheet injection */
 /*
  2/12/2013
  Adding..
@@ -94,23 +95,23 @@ SSHACK.mover = (function () { //this is one big object declaration with local va
                 dlist = $('<select></select>'),
                 str;
             options.push(i); //options is an array that hold index for branch moves.
-            loop1:
+loop1:
+            do {
+                i++;// now find C：　string in the array.
                 do {
-                    i++;// now find C：　string in the array.
-                    do {
-                        f = /C:/.test(aBoard.moves[i++]);
-                        if (i >= aBoard.moves.length) {
-                            break loop1;
-                        }
-                    } while (!f);
-                    //from i, find henkatesuu using regex.
-                    htesuu = +(aBoard.moves[i].replace(rePattern, "$1"));
-                    // then if tesu == henkatesuu then push i to options array.
-                    if (tesuu === htesuu) {
-                        options.push(i);
+                    f = /C:/.test(aBoard.moves[i++]);
+                    if (i >= aBoard.moves.length) {
+                        break loop1;
                     }
-                    // do this until end of array or henkatesu is less than tesuu
-                } while ((htesuu >= tesuu));
+                } while (!f);
+                //from i, find henkatesuu using regex.
+                htesuu = +(aBoard.moves[i].replace(rePattern, "$1"));
+                // then if tesu == henkatesuu then push i to options array.
+                if (tesuu === htesuu) {
+                    options.push(i);
+                }
+                // do this until end of array or henkatesu is less than tesuu
+            } while ((htesuu >= tesuu));
             for (i = 0; i < options.length; i++) { //stuff a dropdown list with alternative moves
                 str = aBoard.moves[options[i]].replace(rePattern, "$2");
                 str = str.split('*')[0]; // dont need comment part for the list.
@@ -166,9 +167,17 @@ SSHACK.mover = (function () { //this is one big object declaration with local va
                                 // var e = elem[0], top = e.offsetTop, left = e.offsetLeft,
                                 var e = elem.position(), top = e.top, left = e.left,
                                     width = elem.width(), height = elem.height(),
-                                    smooth = (aBoard.smooth === 0 ? 0 : 400);
-                                notInAnimation = false;//set a flag so the button click is ignored during animated move.
-                                $("#positioner").html(".positioner { position: absolute; left: " + left + "px; top: " + top + "px; height:" + height + "px; width: " + width + "px;}");
+                                    positioner = $("#positioner"),
+                                    smooth = (aBoard.smooth === 0 ? 0 : 400),
+                                    notInAnimation = false,//set a flag so the button click is ignored during animated move.
+                                    positionString = '.positioner { position: absolute; left: ' + left + 'px; top: ' + top + 'px; height:' + height + 'px; width: ' + width + 'px;}';
+                                if ($.support.leadingWhitespace) {//IE 6~8 fails this test.
+                                    positioner.empty().html(positionString);
+                                } else {
+                                    positioner.prop('styleSheet').cssText = positionString;
+                                }
+
+
                                 // inline style tag called "positioner" is already set up in the html header //
                                 // use jQuery UI's .switchClass() to animate the move
                                 // "onMove" class ensures the target elemenet have high value z-index
@@ -227,11 +236,11 @@ SSHACK.mover = (function () { //this is one big object declaration with local va
                                 target.find('.comment').empty().append(comment);
                             },
                             updateStatusDisplay = function () {
-                                if (rePattern.test(aAction)){
+                                if (rePattern.test(aAction)) {
                                     target.find(".statusLine")
-                                        .html( aAction.replace(rePattern,"$1")+ ". "
-                                        + (aAction.charAt(0)=== "s"?"▲":"△")
-                                        + aAction.replace(rePattern, "$2").split('*')[0]);
+                                        .html(aAction.replace(rePattern, "$1") + ". "
+                                            + (aAction.charAt(0) === "s" ? "▲" : "△")
+                                            + aAction.replace(rePattern, "$2").split('*')[0]);
                                 }
                             };
                         if (aAction.charAt(0) === '*') {
@@ -394,9 +403,9 @@ SSHACK.mover = (function () { //this is one big object declaration with local va
                         .click(function () {
                             forwardOne(target[i], this);
                         }
-                    );
+                            );
                 }
-            );
+                            );
 
             $('<input type="button" class="cButton backward"/>')
                 .prependTo('.buttonBar')
@@ -410,9 +419,9 @@ SSHACK.mover = (function () { //this is one big object declaration with local va
                                 .closest('.shogiBoard')
                                 .find('.forSnapshot'));
                         }
-                    );
+                            );
                 }
-            );
+                    );
 //   I also need to read the first line for possible branch. if (/[\-\+0-9pPlLnNsSgrRbB]+J/.test(board.moves[0])) {setupBranches(boardlist.move[0],this); }
             for (i = 0; i < target.length; i++) {
                 if (testPattern.test(target[i].moves[target[i].index])) {
@@ -461,9 +470,9 @@ SSHACK.mover = (function () { //this is one big object declaration with local va
                         .click(function () {
                             fastForward(target[i], this);
                         }
-                    );
+                            );
                 }
-            );
+                    );
             $('<input type="button" class="rrButton backward" />')
                 .prependTo('.buttonBar')
                 .attr("value", "◀◀")
@@ -474,9 +483,9 @@ SSHACK.mover = (function () { //this is one big object declaration with local va
                         .click(function () {
                             resetBoard(target[i], this);
                         }
-                    );
+                            );
                 }
-            );
+                    );
         },
         initializeBoards: function () {
             var i, l = SSHACK.board.kifuList.length;

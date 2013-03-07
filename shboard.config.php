@@ -246,7 +246,7 @@ $components = array(
                 'category' => 'shogishack',
                 'description' => 'shogiboard animator',
                 'static' => false,
-                'filename' => 'drawboard4.php',
+                'filename' => 'renderShogiBoard.php',
                 'propertySets' => array(
                     'PropertySet1',
                     'PropertySet2'
