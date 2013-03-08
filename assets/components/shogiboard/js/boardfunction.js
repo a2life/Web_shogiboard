@@ -5,7 +5,6 @@
  * Time: 3:01 PM
  * To change this template use File | Settings | File Templates.
  */
-/* 3/5/2013 fixed IE8 issue with stylesheet injection */
 /*
  2/12/2013
  Adding..
@@ -92,6 +91,7 @@ SSHACK.mover = (function () { //this is one big object declaration with local va
         setupBranches = function (aBoard, self) {//aBoard is board object, self is html element location. this routine is called if J is encounterd.
             var i = aBoard.index, options = [], htesuu = "", f = false,
                 tesuu = Number(aBoard.moves[i].replace(rePattern, "$1")),
+                mystery = aBoard.mysteryMoves,
                 dlist = $('<select></select>'),
                 str;
             options.push(i); //options is an array that hold index for branch moves.
@@ -112,6 +112,13 @@ loop1:
                 }
                 // do this until end of array or henkatesu is less than tesuu
             } while ((htesuu >= tesuu));
+            if (mystery) {
+                str = "Select";
+                $('<option></option>')
+                    .attr("value", options[0])//if user does not select, it defaults to the first move
+                    .text(str)
+                    .appendTo(dlist);
+            }
             for (i = 0; i < options.length; i++) { //stuff a dropdown list with alternative moves
                 str = aBoard.moves[options[i]].replace(rePattern, "$2");
                 str = str.split('*')[0]; // dont need comment part for the list.
@@ -403,9 +410,9 @@ loop1:
                         .click(function () {
                             forwardOne(target[i], this);
                         }
-                            );
+                             );
                 }
-                            );
+                     );
 
             $('<input type="button" class="cButton backward"/>')
                 .prependTo('.buttonBar')

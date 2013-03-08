@@ -20,10 +20,10 @@ SSHACK.board = (function () {
             /* p=pawn, l=lance, L=promoted lance, s=silver, S=promoted Silver, g=gold, r=rook, R=promoted Rook, b=bishop, B=promoted Bishop
              k=king 11=1a, 12=1b etc.,
              */
-            filePathKoma: '../images/shogiboard/koma/pieces_kinki/',
-            filePathGrid: '../images/shogiboard/masu/',
-            filePathBoard: '../images/shogiboard/ban/',
-            filePathFocus: '../images/shogiboard/focus/',
+            filePathKoma: '../assets/components/shogiboard/images/koma/koma_ryoko_1/',
+            filePathGrid: '../assets/components/shogiboard/images/masu/',
+            filePathBoard: '../assets/components/shogiboard/images/ban/',
+            filePathFocus: '../assets/components/shogiboard/images/focus/',
             banImage: 'ban_kaya_a.png',
             gridImage: 'masu_dot.png',
             markerImage: 'focus_trpt_g.png',
@@ -39,7 +39,8 @@ SSHACK.board = (function () {
             // second char is either - (move) or d for drop. cordinateion in /to/from order.
             index: 0,
             caption: "JSShogiBoard&#0169;",
-            smooth: 0 //delay in miliseconds.  normally 400 or 0
+            smooth: 0, //delay in miliseconds.  normally 400 or 0
+            mysteryMoves: 0
 
 
         };
@@ -72,6 +73,9 @@ SSHACK.board = (function () {
             }
             if (args.smooth !== undefined) {
                 theBoard.smooth = args.smooth;
+            }
+            if (args.mysteryMoves !== undefined) {
+                theBoard.mysteryMoves = args.mysteryMoves;
             }
             this.kifuList.push(theBoard);
         }
@@ -416,6 +420,7 @@ SSHACK.board.addKif(SSHACK.board.data);
 SSHACK.board.data = {};
 SSHACK.board.data.caption = "aigakari";
 SSHACK.board.data.initialComment = "this one also has a branch move.";
+SSHACK.board.data.mysteryMoves = true;
 SSHACK.board.data.moves = [
     "s-2627=1:２六歩",
     "g-8483=2:８四歩",

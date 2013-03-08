@@ -22,7 +22,7 @@
  * type : only support "1" at this time. in this case, the board arrangement is for tsume shogi.
  * markerAt: usually blank.
  * noComment: hide comment section
- * todo add more parameter handling /show player names or at least "sente""gote"
+ * todo add more parameter handling
  */
 /* @var $modx modX */
 
@@ -38,7 +38,7 @@ spl_autoload_register(function ($class) {
 $modx->regClientCSS("assets/components/shogiboard/css/shogiboard.css");
 $modx->regClientCSS("assets/components/shogiboard/css/shogiboard-small.css");
 
-if (isset($file)||isset($kifuID)){ // todo does this method  work with modx resource content? if not parameter 'kifuID' or something is needed.
+if (isset($file)||isset($kifuID)){
     if (isset($file)){
         $string = file_get_contents("assets/Resources/kifu/".$file);
     } else {
@@ -100,7 +100,7 @@ if (isset($gName)) {
 */
 $hide="";$komadai="";$widthSetter="type0width";
 if (isset($type)){
-    if ($type=="1"){$hide="hide";}
+    if ($type=="1"){$hide="hide"; $players = '<span class="player1">On Hand</span>';}
     if ($type=="3"){$komadai="hide";$widthSetter="type3width";}
 }
 /*
@@ -113,6 +113,7 @@ if (isset($type)){
 
 
 if (isset($moves)) {
+    if (!isset($mysteryMoves)){$mysteryMoves = 0;}
     if (!isset($smooth)){ $smooth = 0;}//default is no slide animation
 //helper style which will be directly manipulated by animation script -left,top will be dynamic
     $src = <<<EOT
@@ -131,7 +132,7 @@ EOT;
     $src=<<<EOT
     <script type="text/javascript">
 SSHACK.board.kifuList.push({
-moves:[$moves],index:0,history:[],smooth:$smooth});
+moves:[$moves],index:0,history:[],smooth:$smooth,mysteryMoves:$mysteryMoves});
 </script>
 EOT;
     $modx->regClientScript($src);
