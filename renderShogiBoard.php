@@ -74,7 +74,7 @@ if (isset($file)||isset($kifuID)){
  * If there is initial comment, then set it to placeholder
  */
 if (!issest($size)) { $size = "";} else {
-   switch (strtoupper($size)) {
+   switch (strtolower($size)) {
     case "large":$size = "large"; break;
     case "small":$size = "small"; break;
     case "1":    $size ="large"; break;
