@@ -6,17 +6,16 @@
 *  410 x 454.
 * board-width and height with this scaling will be 246 x 272
 */
-.board {width:246px; height: 273px;}
-.komadai {width:100px; height:133px;}
-.komadai img,.koma, .marker {width:26px; height:29px;}
-.comment {padding-left:7px; width:450px;min-height:100px;}
-.boardbase {width:266px; height:292px;}
-#boardbase {width:266px; height:292px;}
-.buttonBar {position: absolute;  top: 273px; left: 74px; height: 20px; z-index: 10;}
-.bbBox {height: 25px; width:350px;}
-.c1 {left:224px;} .c2 {left: 198px;} .c3 {left:172px;}
-.c4 {left:146px;} .c5 {left: 120px;} .c6 {left:94px;}
-.c7 {left:68px;} .c8 {left: 42px;}  .c9 {left: 16px;}
-.r1 {top:15px;}   .r2 {top:44px;}    .r3 {top:73px;}
-.r4{top:102px;}   .r5{top:131px;}    .r6 {top:160px;}
-.r7{top:189px;}   .r8{top:218px;}    .r9{top:247px;}
+.small .board {width:246px; height: 273px;}
+.small .komadai {width:100px; height:133px;}
+.small .komadai img,.koma, .marker {width:26px; height:29px;}
+.small .comment {padding-left:7px; width:450px;min-height:100px;}
+.small .boardbase {width:266px; height:292px;}
+.small .buttonBar {position: absolute;  top: 273px; left: 74px; height: 20px; z-index: 10;}
+.small .bbBox {height: 25px; width:350px;}
+.small.c1 {left:224px;} .small.c2 {left: 198px;} .small.c3 {left:172px;}
+.small.c4 {left:146px;} .small.c5 {left: 120px;} .small.c6 {left:94px;}
+.small .c7 {left:68px;} .small.c8 {left: 42px;}  .small.c9 {left: 16px;}
+.small.r1 {top:15px;}   .small.r2 {top:44px;}    .small.r3 {top:73px;}
+.small.r4{top:102px;}   .small.r5{top:131px;}    .small.r6 {top:160px;}
+.small.r7{top:189px;}   .small.r8{top:218px;}    .small.r9{top:247px;}
