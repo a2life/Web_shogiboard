@@ -36,7 +36,7 @@ spl_autoload_register(function ($class) {
 
 
 $modx->regClientCSS("assets/components/shogiboard/css/shogiboard.css");
-$modx->regClientCSS("assets/components/shogiboard/css/shogiboard-small.css");
+
 
 if (isset($file)||isset($kifuID)){
     if (isset($file)){
@@ -73,7 +73,16 @@ if (isset($file)||isset($kifuID)){
 /*
  * If there is initial comment, then set it to placeholder
  */
-
+if (!issest($size)) { $size = "";} else {
+   switch (strtoupper($size)) {
+    case "large":$size = "large"; break;
+    case "small":$size = "small"; break;
+    case "1":    $size ="large"; break;
+    case "2":    $size ="small"; break;
+    default :    $size = "";
+    }
+}
+(isset($size))?(($size === 1)?"large":"small"):"";
 if (isset($comment)){
     $initialComment=$comment;
 } else $initialComment="";
@@ -181,7 +190,8 @@ $b=array(
     "bbBox"=>$bbBox,
     "komadai"=>$komadai,
     "widthSetter"=>$widthSetter,
-    "players"=>$players
+    "players"=>$players,
+    "size"=>$size
 );
 
 

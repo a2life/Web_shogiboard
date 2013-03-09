@@ -176,8 +176,10 @@ loop1:
                                     width = elem.width(), height = elem.height(),
                                     positioner = $("#positioner"),
                                     smooth = (aBoard.smooth === 0 ? 0 : 400),
-                                    notInAnimation = false,//set a flag so the button click is ignored during animated move.
                                     positionString = '.positioner { position: absolute; left: ' + left + 'px; top: ' + top + 'px; height:' + height + 'px; width: ' + width + 'px;}';
+
+                                notInAnimation = false//set the namespace flag so the button click is ignored during animated move.
+
                                 if ($.support.leadingWhitespace) {//IE 6~8 fails this test.
                                     positioner.empty().html(positionString);
                                 } else {
