@@ -49,7 +49,7 @@ kifu file. Currently, the program will read kakinoki style kif file.
 kifuID : when specified, the engine will parse the modx resource identified by KiuID. if file and kifuID is both specified, kifuID will be ignored.
 file and kifuID supports kakinoki kif format, including branch and initial board setting. However it does not support komaochi setting.
 moves : data representing piece moves. ex. "s-2627","g-8687","s-2526","g-8586" (this represents ２六歩、８四歩、２五歩、８五歩)
-
+size : if "large" or "small" is defined then the board will be rendred in different size.
 Shogiboard layout is all in html and css.
 the general structural idea is
 
