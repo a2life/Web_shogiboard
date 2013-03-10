@@ -20,7 +20,7 @@ small size uses the following calculations
 * board-width and height with this scaling will be 246 x 272
 */
 .onMove { z-index : 100;}
-.hide {display:none;}
+
 .lostworld {left:-20000px; top: -20000px;}
 .caption {text-align: center;}
 .c0 {left:-20000px}/* move elements out of the way */
@@ -29,6 +29,7 @@ small size uses the following calculations
 .table {display:table;}
 .row {display:table-row; ;}
 .cell {display:table-cell; vertical-align:top;}
+.hide {display:none;}
 .bbBox {height: 25px; width:100%;} .small .bbBox {height: 23px;} .large .bbBox {height: 26px;}
 .senteMochigoma {vertical-align:bottom;}
 .statusLine {height:25px; vertical-align:middle; font-size: 0.8em;}

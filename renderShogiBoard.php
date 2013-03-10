@@ -45,6 +45,7 @@ if (isset($file)||isset($kifuID)){
         $obj =$modx->getObject('modResource',$kifuID);
         $string = $obj->content;
     }
+}
 
     if (!mb_check_encoding($string, "UTF-8")) {
 
@@ -69,10 +70,11 @@ if (isset($file)||isset($kifuID)){
     if ($akifu->getGoteName()){$gName =$akifu->getGoteName();}
     if ($akifu->getTeai()){$teai =$akifu->getTeai();}
 
-}
+
 /*
  * If there is initial comment, then set it to placeholder
  */
+/*
 if (!issest($size)) { $size = "";} else {
    switch (strtolower($size)) {
     case "large":$size = "large"; break;
@@ -82,6 +84,7 @@ if (!issest($size)) { $size = "";} else {
     default :    $size = "";
     }
 }
+*/
 (isset($size))?(($size === 1)?"large":"small"):"";
 if (isset($comment)){
     $initialComment=$comment;
