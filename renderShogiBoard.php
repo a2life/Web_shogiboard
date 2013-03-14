@@ -26,6 +26,8 @@
  */
 /* @var $modx modX */
 
+
+
 spl_autoload_register(function ($class) {
     include 'assets/components/shogiboard/' . $class . '.php';
 });
@@ -45,47 +47,49 @@ if (isset($file)||isset($kifuID)){
         $obj =$modx->getObject('modResource',$kifuID);
         $string = $obj->content;
     }
-}
 
-    if (!mb_check_encoding($string, "UTF-8")) {
 
-        $string = mb_convert_encoding($string, "UTF-8",
-            "Shift-JIS, EUC-JP, JIS, SJIS, JIS-ms, eucJP-win, SJIS-win, ISO-2022-JP,
+if (!mb_check_encoding($string, "UTF-8")) {
+
+    $string = mb_convert_encoding($string, "UTF-8",
+        "Shift-JIS, EUC-JP, JIS, SJIS, JIS-ms, eucJP-win, SJIS-win, ISO-2022-JP,
        ISO-2022-JP-MS, SJIS-mac, SJIS-Mobile#DOCOMO, SJIS-Mobile#KDDI,
        SJIS-Mobile#SOFTBANK, UTF-8-Mobile#DOCOMO, UTF-8-Mobile#KDDI-A,
        UTF-8-Mobile#KDDI-B, UTF-8-Mobile#SOFTBANK, ISO-2022-JP-MOBILE#KDDI");
-    }
+}
 
-    $string= htmlspecialchars($string,ENT_QUOTES);
+$string= htmlspecialchars($string,ENT_QUOTES);
 
-    $akifu = new kifu($string);
-    if ($akifu->getMoves()) {$moves = $akifu->getMoves();}
-    if ($akifu->getEndDate()){$endDate =$akifu->getEndDate();}
-    if ($akifu->getStartDate()){$startDate =$akifu->getStartDate();}
-    if ($akifu->getsOnBoard()){$sOnBoard =$akifu->getsOnBoard();}
-    if ($akifu->getgOnBoard()){$gOnBoard =$akifu->getgOnBoard();}
-    if ($akifu->getsOnHand()){$sOnHand =$akifu->getsOnhand();}
-    if ($akifu->getgOnHand()){$gOnHand =$akifu->getgOnhand();}
-    if ($akifu->getSenteName()){$sName =$akifu->getSenteName();}
-    if ($akifu->getGoteName()){$gName =$akifu->getGoteName();}
-    if ($akifu->getTeai()){$teai =$akifu->getTeai();}
-
+$akifu = new kifu($string);
+if ($akifu->getMoves()) {$moves = $akifu->getMoves();}
+if ($akifu->getEndDate()){$endDate =$akifu->getEndDate();}
+if ($akifu->getStartDate()){$startDate =$akifu->getStartDate();}
+if ($akifu->getsOnBoard()){$sOnBoard =$akifu->getsOnBoard();}
+if ($akifu->getgOnBoard()){$gOnBoard =$akifu->getgOnBoard();}
+if ($akifu->getsOnHand()){$sOnHand =$akifu->getsOnhand();}
+if ($akifu->getgOnHand()){$gOnHand =$akifu->getgOnhand();}
+if ($akifu->getSenteName()){$sName =$akifu->getSenteName();}
+if ($akifu->getGoteName()){$gName =$akifu->getGoteName();}
+if ($akifu->getTeai()){$teai =$akifu->getTeai();}
+}
 
 /*
  * If there is initial comment, then set it to placeholder
  */
-/*
-if (!issest($size)) { $size = "";} else {
-   switch (strtolower($size)) {
-    case "large":$size = "large"; break;
-    case "small":$size = "small"; break;
-    case "1":    $size ="large"; break;
-    case "2":    $size ="small"; break;
-    default :    $size = "";
+
+if (!isset($size)) { $size = "";} else {
+    $size = strtolower($size);
+    switch ($size) {
+        case "large":
+        case "1"    :
+            $size = "large"; break;
+        case "small":
+        case "2"    :
+            $size ="small"; break;
+        default     :
+            $size = "";
     }
 }
-*/
-(isset($size))?(($size === 1)?"large":"small"):"";
 if (isset($comment)){
     $initialComment=$comment;
 } else $initialComment="";
