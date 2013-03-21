@@ -20,7 +20,7 @@ In modx environment, the program can be invoked by a tag syntax on content page 
 [[!renderShogiBoard ? parameters]
 
  parameters grammer follows modx rule. ie.,  &parameter1=`foo1` &parameter2=`foo2` etc.,
-
+See the shogishack.net page referenced above for actual usage examples.
 If no parameters are specified, then initial board setup (no handycap or Hirate) will be rendered.
 If "moves","kifuID" or "file"  parameter is specified, then it will also add four to six buttons at the bottom of 
 the board to move pieces.

@@ -1,0 +1,9 @@
+graphics file that been used have following restriction
+
+1. koma_ryoko1 : appears to be public domain. This is a default image files that is used
+2. koma_hidetchi :  copy righted by Hidetchi, used under permission from Mr. Kawasaki. If you want to use this file on your site, please write a nice letter to him.
+3. other koma graphics : Licencesed under Creative Common 2.2, by koma syokunin1.  However, the link to his e-mail address seems broken
+
+4. Uses jQuerry extensively for javascript routine
+
+Rest of the code, I will not put any restrictions. Consider them as public domain and usual usage etiquette applies.
