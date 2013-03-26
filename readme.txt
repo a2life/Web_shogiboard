@@ -152,10 +152,8 @@ above format.
 
 
 [wish list]
-add &size parameter : `small`, `smaller` etc., currently it is fixed to "small" size.
-flip board option -- this probably will never be supported.
-Create "modx" transport package to make modx installation as one button click, rather than copying over many files manually.
 
-mixed size in the same page => need to change class name in the template chunk.
+flip board option -- this probably may never be supported. I will just sit and wait for CSS to support easily doing this.
+
 
 
