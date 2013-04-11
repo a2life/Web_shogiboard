@@ -30,7 +30,7 @@ small size uses the following calculations
 .row {display:table-row; ;}
 .cell {display:table-cell; vertical-align:top;}
 .hide {display:none;}
-.bbBox {height: 25px; width:100%;} .small .bbBox {height: 23px;} .large .bbBox {height: 26px;}
+.bbBox {height: 25px; width:100%;} .small .bbBox {height: 23px;} .large .bbBox {height: 35px;}
 .senteMochigoma {vertical-align:bottom;}
 .statusLine {height:25px; vertical-align:middle; font-size: 0.8em;}
 .large .statusLine {font-size: 1em;}
