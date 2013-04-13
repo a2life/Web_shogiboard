@@ -40,7 +40,8 @@ SSHACK.board = (function () {
             index: 0,
             caption: "JSShogiBoard&#0169;",
             smooth: 0, //delay in miliseconds.  normally 400 or 0
-            mysteryMoves: 0
+            mysteryMoves: 0,
+            tesuu: 0 //indicate where the display index should be.
 
 
         };
@@ -77,6 +78,9 @@ SSHACK.board = (function () {
             if (args.mysteryMoves !== undefined) {
                 theBoard.mysteryMoves = args.mysteryMoves;
             }
+            if (args.tesuu !== undefined) {
+                theBoard.tesuu = args.tesuu;
+            }
             this.kifuList.push(theBoard);
         }
     };
@@ -84,6 +88,7 @@ SSHACK.board = (function () {
 
 
 SSHACK.board.data = {};
+SSHACK.board.data.tesuu = 12;
 SSHACK.board.data.onHand = { S: ['g', 'g', 'l', 'p'], G: ['b', 'l', 'l', 'p'] };
 SSHACK.board.data.moves = [
     "*this is a comment that should go to comment line",
@@ -413,6 +418,7 @@ SSHACK.board.data.moves = [
 
 ];
 SSHACK.board.data.smooth = true;
+SSHACK.board.data.tesuu = 12;
 SSHACK.board.data.initialComment = "this and the board below has slower movement of pieces";
 SSHACK.board.addKif(SSHACK.board.data);
 
@@ -622,4 +628,5 @@ SSHACK.board.data.moves = [
     "x"
 ];
 SSHACK.board.data.smooth = 1;
+SSHACK.board.data.tesuu = 45;
 SSHACK.board.addKif(SSHACK.board.data);

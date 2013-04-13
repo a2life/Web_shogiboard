@@ -11,6 +11,6 @@
 $(function () {
     SSHACK.board.setupBoard();
     SSHACK.mover.initializeBoards();
-    SSHACK.mover.setupButtons();
+    SSHACK.mover.prepAnimation();
 });
 

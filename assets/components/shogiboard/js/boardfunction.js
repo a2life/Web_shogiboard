@@ -15,7 +15,7 @@
 /*jslint browser: true*/
 /*global  $,  sBoard */
 var SSHACK = SSHACK || {};
-SSHACK.mover = (function () { //this is one big object declaration with local variables and functions defined by executing a function call
+SSHACK.mover = function () { //this is one big object declaration with local variables and functions defined by executing a function call
     // and returning a object literals
     var notInAnimation = true, //private variable to indicate piece is not in animation. if false, button click wont start another move
         nextIsBranch = false,
@@ -95,23 +95,23 @@ SSHACK.mover = (function () { //this is one big object declaration with local va
                 dlist = $('<select></select>'),
                 str;
             options.push(i); //options is an array that hold index for branch moves.
-loop1:
-            do {
-                i++;// now find C：　string in the array.
+            loop1:
                 do {
-                    f = /C:/.test(aBoard.moves[i++]);
-                    if (i >= aBoard.moves.length) {
-                        break loop1;
+                    i++;// now find C??string in the array.
+                    do {
+                        f = /C:/.test(aBoard.moves[i++]);
+                        if (i >= aBoard.moves.length) {
+                            break loop1;
+                        }
+                    } while (!f);
+                    //from i, find henkatesuu using regex.
+                    htesuu = +(aBoard.moves[i].replace(rePattern, "$1"));
+                    // then if tesu == henkatesuu then push i to options array.
+                    if (tesuu === htesuu) {
+                        options.push(i);
                     }
-                } while (!f);
-                //from i, find henkatesuu using regex.
-                htesuu = +(aBoard.moves[i].replace(rePattern, "$1"));
-                // then if tesu == henkatesuu then push i to options array.
-                if (tesuu === htesuu) {
-                    options.push(i);
-                }
-                // do this until end of array or henkatesu is less than tesuu
-            } while ((htesuu >= tesuu));
+                    // do this until end of array or henkatesu is less than tesuu
+                } while ((htesuu >= tesuu));
             if (mystery) {
                 str = "Select";
                 $('<option></option>')
@@ -178,7 +178,7 @@ loop1:
                                     smooth = (aBoard.smooth === 0 ? 0 : 400),
                                     positionString = '.positioner { position: absolute; left: ' + left + 'px; top: ' + top + 'px; height:' + height + 'px; width: ' + width + 'px;}';
 
-                                notInAnimation = false//set the namespace flag so the button click is ignored during animated move.
+                                notInAnimation = false;//set the namespace flag so the button click is ignored during animated move.
 
                                 if ($.support.leadingWhitespace) {//IE 6~8 fails this test.
                                     positioner.empty().html(positionString);
@@ -345,6 +345,19 @@ loop1:
             }
             endOfMoves = false;
         },
+        setBoardtoTesuu = function (aBoard, self) {
+            var tesuu = aBoard.tesuu, tempSmooth, moveString;
+            if (tesuu > 0) {
+                moveString = aBoard.moves[aBoard.index];
+                tempSmooth=aBoard.smooth;
+                aBoard.smooth=0;
+                while (/^\*/.test(moveString) || tesuu >= moveString.replace(rePattern, "$1")) {
+                    forwardOne(aBoard, self);
+                    moveString = aBoard.moves[aBoard.index];
+                }
+                aBoard.smooth=tempSmooth;
+            }
+},
         initializeBoard = function (j) { //i is a index to board data in boards array, as well as index to selected elem.
 //called from initializeBoards, iterate through the number of array element in boards[];
             //in PHP/modx implementation, this function is not used.
@@ -399,7 +412,7 @@ loop1:
 
         };
     return {
-        setupButtons: function () {
+        prepAnimation: function () {
             var target = SSHACK.board.kifuList, i, bigString, bList = [],
                 targetButtons,
                 testPattern = new RegExp("[\\-\\+0-9pPlLnNsSgrRbBk]{5,}J");
@@ -412,9 +425,9 @@ loop1:
                         .click(function () {
                             forwardOne(target[i], this);
                         }
-                             );
+                    );
                 }
-                     );
+            );
 
             $('<input type="button" class="cButton backward"/>')
                 .prependTo('.buttonBar')
@@ -428,11 +441,11 @@ loop1:
                                 .closest('.shogiBoard')
                                 .find('.forSnapshot'));
                         }
-                            );
-                }
                     );
+                }
+            );
 //   I also need to read the first line for possible branch. if (/[\-\+0-9pPlLnNsSgrRbB]+J/.test(board.moves[0])) {setupBranches(boardlist.move[0],this); }
-            for (i = 0; i < target.length; i++) {
+            for (i = 0; i < target.length; i++) { //adding branch forward and back buttons
                 if (testPattern.test(target[i].moves[target[i].index])) {
                     setupBranches(target[i], $('.aButton')[i]);
                 }
@@ -479,9 +492,9 @@ loop1:
                         .click(function () {
                             fastForward(target[i], this);
                         }
-                            );
-                }
                     );
+                }
+            );
             $('<input type="button" class="rrButton backward" />')
                 .prependTo('.buttonBar')
                 .attr("value", "◀◀")
@@ -492,15 +505,20 @@ loop1:
                         .click(function () {
                             resetBoard(target[i], this);
                         }
-                            );
-                }
                     );
+                }
+            );
+         /* if tesuu is specified, the next call will take care of that */
+            for (i = 0; i < target.length; i++) {
+                setBoardtoTesuu(target[i], $('.forSnapshot').eq(i));
+            }
+
         },
-        initializeBoards: function () {
+        initializeBoards: function () { //this only used for javascript only solution.
             var i, l = SSHACK.board.kifuList.length;
             for (i = 0; i < l; i++) {
                 initializeBoard(i);
             }
         }
     };
-}()); // end of Sshack.mover object declaration. SSHACK has two methods that is accessible from outside.
+}(); // end of Sshack.mover object declaration. SSHACK has two methods {prepAnimation, initializeBoard} that is accessible from outside.

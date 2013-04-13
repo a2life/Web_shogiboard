@@ -12,6 +12,6 @@
 SSHACK.namespace("SSHACK.board");  // create SSHACK.board property
 SSHACK.board.kifuList = [];  // prepare the empty kifulist array
 $(function () {
-    SSHACK.mover.setupButtons();
+    SSHACK.mover.prepAnimation();
 });
 

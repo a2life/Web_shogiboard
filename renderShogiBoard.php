@@ -1,3 +1,4 @@
+<?php
 /**
 * Created by JetBrains PhpStorm.
 * User: 10032268
@@ -146,6 +147,7 @@ if ($type=="3"){$komadai="hide";$widthSetter="type3width";}
 
 if (isset($moves)) {
 if (!isset($mysteryMoves)){$mysteryMoves = 0;}
+if (!isset($tesuu)){$tesuu = 0;} // default is start at the first move.
 if (!isset($smooth)){ $smooth = 0;}//default is no slide animation
 //helper style which will be directly manipulated by animation script -left,top will be dynamic
 $src = <<<EOT
@@ -164,7 +166,7 @@ $modx->regClientScript("assets/components/shogiboard/js/starter.js");
 $src=<<<EOT
 <script type="text/javascript">
     SSHACK.board.kifuList.push({
-        moves:[$moves],index:0,history:[],smooth:$smooth,mysteryMoves:$mysteryMoves});
+        moves:[$moves],index:0,history:[],smooth:$smooth,mysteryMoves:$mysteryMoves,tesuu:$tesuu});
 </script>
 EOT;
 $modx->regClientScript($src);
