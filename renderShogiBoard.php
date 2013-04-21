@@ -23,7 +23,6 @@
 * type : only support "1" at this time. in this case, the board arrangement is for tsume shogi.
 * markerAt: usually blank.
 * noComment: hide comment section
-* todo add more parameter handling
 */
 /* @var $modx modX */
 /* recovery section in case default property set is missing */
@@ -97,6 +96,8 @@ if ($akifu->getTeai()){$teai =$akifu->getTeai();}
 if (!isset($size)) { $size = "";} else {
 $size = strtolower($size);
 switch ($size) {
+case "xlarge":
+$size="xlarge"; break;
 case "large":
 case "1"    :
 $size = "large"; break;

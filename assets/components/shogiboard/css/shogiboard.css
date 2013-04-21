@@ -18,6 +18,7 @@ small size uses the following calculations
 * y=29x(r-1)+10+7
 *  410 x 454.
 * board-width and height with this scaling will be 246 x 272
+*large -> xlarge.  new large created. 4/20/2013
 */
 .onMove { z-index : 100;}
 
@@ -30,34 +31,41 @@ small size uses the following calculations
 .row {display:table-row; ;}
 .cell {display:table-cell; vertical-align:top;}
 .hide {display:none;}
-.bbBox {height: 25px; width:100%;} .small .bbBox {height: 23px;} .large .bbBox {height: 35px;}
+.bbBox {height: 25px; width:100%;} .small .bbBox {height: 23px;} .large .bbBox {height: 27px;} .xlarge .bbBox {height: 35px;}
 .senteMochigoma {vertical-align:bottom;}
 .statusLine {height:25px; vertical-align:middle; font-size: 0.8em;}
 .large .statusLine {font-size: 1em;}
+.xlarge .statusLine {font-size: 1em;}
 .player2 {top: 135px; height:15px; left:309px; width:100px;}
-.small .player2 {top: 119px; left: 261px;} .large .player2 {top: 200px; left: 430px; width: 160px; font-size: 1.2em;}
+.small .player2 {top: 119px; left: 261px;}
+.large .player2 {top: 165px; left: 360px; width: 118px; font-size: 1.1em;}
+.xlarge .player2 {top: 200px; left: 430px; width: 160px; font-size: 1.2em;}
 .player1 {top: 174px; height:15px; left:309px; width:100px;}
-.small .player1 { top: 162px; left: 261px;} .large .player1 {top: 246px; left: 430px; width: 160px; font-size: 1.2em;}
-.type0width {width: 409px;} .large .type0width {width: 585px;} .small .type0width {width: 357px;}
-.type3width {width: 309px;} .large .type3width {width: 410px;} .small .type3width {width: 267px;}
+.small .player1 { top: 162px; left: 261px;}
+.large .player1 {top: 208px; left: 360px; width: 118px; font-size: 1.1em;}
+.xlarge .player1 {top: 246px; left: 430px; width: 160px; font-size: 1.2em;}
+.type0width {width: 409px;} .large .type0width {width: 486px;}  .xlarge .type0width {width: 585px;}  .small .type0width {width: 357px;}
+.type3width {width: 309px;} .large .type3width {width: 373px;}  .xlarge .type3width {width: 410px;}  .small .type3width {width: 267px;}
 .board {position: absolute; left:10px; top:9px; width:286px; height: 312px;}
-.large .board {width: 410px; height: 454px;} .small .board {width:246px; height: 273px;}
+.large .board {width: 343px; height: 378px;}.xlarge .board {width: 410px; height: 454px;} .small .board {width:246px; height: 273px;}
 
 .boardbase {position:relative; width: 309px; height:326px;}
-.large .boardbase { width: 440px; height:470px;} .small .boardbase {width:266px; height:292px;}
+.large .boardbase { width: 368px; height:393px;} .xlarge .boardbase { width: 440px; height:470px;} .small .boardbase {width:266px; height:292px;}
 
 
 .komadai {width:100px; height:150px; line-height: 15px; background: #f4c151;}
-.large .komadai {height:220px; width:140px;} .small .komadai {width:90px; height:133px;}
+.xlarge .komadai {height:220px; width:140px;} .large .komadai {height:183px; width:118px;} .small .komadai {width:90px; height:133px;}
 
 .koma, .marker { position:absolute;}
 .koma, .marker, .komadai img {width:30px; height:33px;}
-.large .koma, .large .marker, .large .komadai img  {width:43px; height:48px;}
+.large .koma, .large .marker, .large .komadai img  {width:36px; height:40px;}
+.xlarge .koma, .xlarge .marker, .xlarge .komadai img  {width:43px; height:48px;}
 .small .koma, .small .marker, .small .komadai img {width:26px; height:29px;}
 
 .player1,.player2 {position: absolute; font-size: 0.8em; text-align: center;}
 .buttonBar {position: absolute;  top: 326px; left: 80px; height: 20px; z-index: 10;}
-.large .buttonBar {top: 465px; left:100px; height: 23px; font-size: 1.5em;}
+.large .buttonBar {top: 388px; left:100px; height: 23px; font-size: 1.3em;}
+.xlarge .buttonBar {top: 465px; left:100px; height: 23px; font-size: 1.5em;}
 .small .buttonBar {top: 290px; left: 74px; height: 20px;}
 
 .comment {width:inherit;  overflow: auto;
@@ -68,7 +76,7 @@ small size uses the following calculations
     box-sizing: border-box;
     -moz-box-sizing: border-box; /* Firefox */
     -webkit-box-sizing: border-box; /* Safari */}
-.large .comment {height:120px;} .small .comment { min-height:100px;}
+.xlarge .comment {height:120px;} .large .comment {height:110px;} .small .comment { min-height:100px;}
 
 
 .c1 {left:258px;} .c2 {left: 228px;} .c3 {left:198px;}
@@ -78,12 +86,19 @@ small size uses the following calculations
 .r4{top:116px;}   .r5{top:149px;}    .r6 {top:182px;}
 .r7{top:215px;}   .r8{top:248px;}    .r9{top:281px;}
 
-.large .c1 {left:365px;} .large .c2 {left: 322px;} .large .c3 {left:279px;}
-.large .c4 {left:236px;} .large .c5 {left: 193px;} .large .c6 {left:150px;}
-.large .c7 {left:107px;} .large .c8 {left: 64px;}  .large .c9 {left: 23px;}
-.large .r1 {top:20px;}   .large .r2 {top:68px;}    .large .r3 {top:116px;}
-.large .r4{top:164px;}   .large .r5{top:212px;}    .large .r6 {top:260px;}
-.large .r7{top:308px;}   .large .r8{top:356px;}    .large .r9{top:404px;}
+.large .c1 {left:307px;} .large .c2 {left: 271px;} .large .c3 {left:235px;}
+.large .c4 {left:199px;} .large .c5 {left: 163px;} .large .c6 {left:127px;}
+.large .c7 {left:91px;} .large .c8 {left: 55px;}  .large .c9 {left: 19px;}
+.large .r1 {top:19px;}   .large .r2 {top:59px;}    .large .r3 {top:99px;}
+.large .r4{top:139px;}   .large .r5{top:179px;}    .large .r6 {top:219px;}
+.large .r7{top:259px;}   .large .r8{top:299px;}    .large .r9{top:339px;}
+
+.xlarge .c1 {left:365px;} .xlarge .c2 {left: 322px;} .xlarge .c3 {left:279px;}
+.xlarge .c4 {left:236px;} .xlarge .c5 {left: 193px;} .xlarge .c6 {left:150px;}
+.xlarge .c7 {left:107px;} .xlarge .c8 {left: 64px;}  .xlarge .c9 {left: 23px;}
+.xlarge .r1 {top:20px;}   .xlarge .r2 {top:68px;}    .xlarge .r3 {top:116px;}
+.xlarge .r4{top:164px;}   .xlarge .r5{top:212px;}    .xlarge .r6 {top:260px;}
+.xlarge .r7{top:308px;}   .xlarge .r8{top:356px;}    .xlarge .r9{top:404px;}
 
 
 .small .c1 {left:224px;} .small .c2 {left: 198px;} .small .c3 {left:172px;}
