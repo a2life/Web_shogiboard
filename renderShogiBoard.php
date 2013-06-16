@@ -46,7 +46,7 @@ if (!isset($markerImage)) {$markerImage="focus_trpt_g.png";}
 
 spl_autoload_register(function ($class) {
 /** @noinspection PhpIncludeInspection */
-include MODX_ASSETS_URL.'components/shogiboard/'.$class.'.php';
+include MODX_ASSETS_PATH.'components/shogiboard/'.$class.'.php';
 
 });
 
