@@ -23,15 +23,16 @@
 * type : only support "1" at this time. in this case, the board arrangement is for tsume shogi.
 * markerAt: usually blank.
 * noComment: hide comment section
+ * size: (normal), large, small xlarge (four sizes) 4/21/2013
 */
 /* @var $modx modX */
 /* recovery section in case default property set is missing */
 
 
-if (!isset($filePathKoma)) {$filePathKoma="assets/components/shogiboard/images/koma/koma_ryoko_1";}
-if (!isset($filePathGrid)) {$filePathGrid="assets/components/shogiboard/images/masu/";}
-if (!isset($filePathBoard)) {$filePathboard="assets/components/shogiboard/images/ban/";}
-if (!isset($filePathFocus)) {$filePathFocus="assets/components/shogiboard/images/focus/";}
+if (!isset($filePathKoma)) {$filePathKoma=MODX_ASSETS_URL."components/shogiboard/images/koma/koma_ryoko_1";}
+if (!isset($filePathGrid)) {$filePathGrid=MODX_ASSETS_URL."components/shogiboard/images/masu/";}
+if (!isset($filePathBoard)) {$filePathboard=MODX_ASSETS_URL."components/shogiboard/images/ban/";}
+if (!isset($filePathFocus)) {$filePathFocus=MODX_ASSETS_URL."components/shogiboard/images/focus/";}
 if (!isset($sOnBoard)) {$sOnBoard="19l,29n,39s,49g,59k,69g,79s,89n,99l,28r,88b,17p,27p,37p,47p,57p,67p,77p,87p,97p";}
 if (!isset($gOnBoard)) {$gOnBoard="11l,21n,31s,41g,51k,61g,71s,81n,91l,22b,82r,13p,23p,33p,43p,53p,63p,73p,83p,93p";}
 if (!isset($sOnHand)) {$sOnHand="";}
@@ -44,7 +45,8 @@ if (!isset($markerImage)) {$markerImage="focus_trpt_g.png";}
 
 spl_autoload_register(function ($class) {
 /** @noinspection PhpIncludeInspection */
-include 'assets/components/shogiboard/'.$class.'.php';
+include MODX_ASSETS_URL.'components/shogiboard/'.$class.'.php';
+
 });
 
 /*
@@ -52,12 +54,12 @@ include 'assets/components/shogiboard/'.$class.'.php';
 */
 
 
-$modx->regClientCSS("assets/components/shogiboard/css/shogiboard.css");
+$modx->regClientCSS(MODX_ASSETS_URL."components/shogiboard/css/shogiboard.css");
 
 
 if (isset($file)||isset($kifuID)||isset($url)|| isset($src)){
 if (isset($file)){
-$string = file_get_contents("assets/Resources/kifu/".$file);
+$string = file_get_contents(MODX_ASSETS_URL."Resources/kifu/".$file);
 } elseif (isset($kifuID)) {
 $obj =$modx->getObject('modResource',$kifuID);
 $string = $obj->content;
@@ -161,10 +163,10 @@ EOT;
 $modx->regClientCSS($src);
 $buttonBarBlock='<div class="buttonBar"></div>';
 $modx->regClientScript("http://code.jquery.com/jquery-latest.min.js");
-$modx->regClientScript("assets/components/shogiboard/js/jquery-ui-1.9.2.custom.min.js");
-$modx->regClientScript("assets/components/shogiboard/js/namespace.js");
-$modx->regClientScript("assets/components/shogiboard/js/boardfunction.js");
-$modx->regClientScript("assets/components/shogiboard/js/starter.js");
+$modx->regClientScript(MODX_ASSETS_URL."components/shogiboard/js/jquery-ui-1.9.2.custom.min.js");
+$modx->regClientScript(MODX_ASSETS_URL."components/shogiboard/js/namespace.js");
+$modx->regClientScript(MODX_ASSETS_URL."components/shogiboard/js/boardfunction.js");
+$modx->regClientScript(MODX_ASSETS_URL."components/shogiboard/js/starter.js");
 $src=<<<EOT
 <script type="text/javascript">
     SSHACK.board.kifuList.push({
