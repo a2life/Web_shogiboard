@@ -24,6 +24,7 @@
 * markerAt: usually blank.
 * noComment: hide comment section
  * size: (normal), large, small xlarge (four sizes) 4/21/2013
+ * Use of MODX_Assets_URL constant 6/16/2013
 */
 /* @var $modx modX */
 /* recovery section in case default property set is missing */
