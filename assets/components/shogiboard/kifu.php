@@ -57,23 +57,31 @@ class kifu
         $xarrays=$this->mightyPattern;
         $boardMarker="９ ８ ７ ６ ５ ４ ３ ２ １";
         $senteOnHandPattern="\n先手の持駒：([^\n]*)[\r\n$]";
+        $shimoteOnHandPattern="\n下手の持駒：([^\n]*)[\r\n$]";
         $goteOnHandPattern= "\n後手の持駒：([^\n]*)[\r\n$]";
+        $uwateOnHandPattern= "\n上手の持駒：([^\n]*)[\r\n$]";
         $startDatePattern="\n開始日時：([^\n]*)[\r\n$]";
         $endDatePattern="\n終了日時：([^\n]*)[\r\n$]";
         $teaiPattern="\n手合割：([^\n]*)[\r\n$]";
         $senteNamePattern="先手：([^\n]*)[\r\n$]";
+        $shimoteNamePattern="下手：([^\n]*)[\r\n$]";
         $goteNamePattern="後手：([^\n]*)[\r\n$]";
+        $uwateNamePattern="上手：([^\n]*)[\r\n$]";
         $boardFlipPattern="盤面回転";
         $senteOnHand=null;
         $goteOnHand=null;
         $onHands=array();
         if(mb_ereg($senteOnHandPattern,$init_data,$onHands)!=false)$senteOnHand=trim($onHands[1]);
+        if(mb_ereg($shimoteOnHandPattern,$init_data,$onHands)!=false)$senteOnHand=trim($onHands[1]);// handle 下手　as 先手
         if(mb_ereg($goteOnHandPattern,$init_data,$onHands)!=false)$goteOnHand=trim($onHands[1]);
+        if(mb_ereg($uwateOnHandPattern,$init_data,$onHands)!=false)$goteOnHand=trim($onHands[1]);// handle 上手　as 後手
         if(mb_ereg($startDatePattern,$init_data,$onHands)!=false) $startDate=$onHands[1];
         if(mb_ereg($endDatePattern,$init_data,$onHands)!=false) $endDate=$onHands[1];
         if(mb_ereg($teaiPattern,$init_data,$onHands)!=false)$teai=$onHands[1];
         if(mb_ereg($senteNamePattern,$init_data,$onHands)!=false)$senteName=$onHands[1];
+        if(mb_ereg($shimoteNamePattern,$init_data,$onHands)!=false)$senteName=$onHands[1];//handle 下手　as 先手
         if(mb_ereg($goteNamePattern,$init_data,$onHands)!=false )$goteName=$onHands[1];
+        if(mb_ereg($uwateNamePattern,$init_data,$onHands)!=false )$goteName=$onHands[1];//handle 上手 as 後手
         $boardFlipped = mb_ereg_match($boardFlipPattern,$init_data);
         $init_array=explode("\n",$init_data);
         $i= $this->findline($boardMarker,$init_array);
