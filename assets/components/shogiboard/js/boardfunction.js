@@ -80,7 +80,8 @@ SSHACK.mover = function () { //this is one big object declaration with local var
                 backOneMove();
                 branchSelect = target.find('select');
                 if (branchSelect.length === 1) {
-                    branchSelect//attach event handler to selectors if its a part of snapshot retrieved.
+                    branchSelect//attach event handlers to selectors if its a part of snapshot retrieved.
+                        .mousedown(function(event){ event.stopPropagation();})
                         .change(function () {
                             aBoard.index = this.options[this.selectedIndex].value;
                         });
@@ -131,10 +132,12 @@ SSHACK.mover = function () { //this is one big object declaration with local var
 
             $(self).closest('.shogiBoard').find('.bbBox').append(dlist);
             nextIsBranch = true;
-
-            dlist.change(function () {
+            dlist
+            .mousedown(function(event){ event.stopPropagation();})
+            .change(function (event) {
                 aBoard.index = this.options[this.selectedIndex].value;
             });
+
         },
         forwardOne = function (aBoard, self) {
             /* aBoard point to an array element of Board[]
@@ -517,11 +520,13 @@ SSHACK.mover = function () { //this is one big object declaration with local var
          $('.buttonBar').prev('.clickable')
                 .each(function(i) {
                     $(this).mousedown(function(event){
+                        event.stopPropagation();
                         switch (event.which){
                             case 1:if ($(this).closest('.shogiBoard').find('.aButton').attr("disabled")!='disabled') forwardOne(target[i],this); break;
                             case 3: stepBack(target[i], $(this).find('.forSnapshot')); break;
                             default:
                         }
+                        return false;
                     })
                 });
 
