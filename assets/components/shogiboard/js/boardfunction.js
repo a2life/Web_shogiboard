@@ -84,6 +84,7 @@ SSHACK.mover = function () { //this is one big object declaration with local var
                         .mousedown(function(event){ event.stopPropagation();})
                         .change(function () {
                             aBoard.index = this.options[this.selectedIndex].value;
+                            forwardOne(aBoard,this);
                         });
                     nextIsBranch = true;
                 }
@@ -136,13 +137,14 @@ SSHACK.mover = function () { //this is one big object declaration with local var
             .mousedown(function(event){ event.stopPropagation();})
             .change(function() {
                 aBoard.index = this.options[this.selectedIndex].value;
+                    forwardOne(aBoard,this);
             });
 
         },
         forwardOne = function (aBoard, self) {
             /* aBoard point to an array element of Board[]
-             *  self point to button entity
-             *  target is ".forSnapshot" block that is ancestor of button that fires
+             *  self point to clicked entity
+             *  target is ".forSnapshot" block that is ancestor of clicked area (either button or board)
              *
              */
 
@@ -340,8 +342,10 @@ SSHACK.mover = function () { //this is one big object declaration with local var
             branchSelect = target.find('select');
             if (branchSelect.length === 1) {
                 branchSelect//attach event handler to selectors if its a part of snapshot retrieved.
+                    .mousedown(function(event){ event.stopPropagation();})
                     .change(function () {
                         aBoard.index = this.options[this.selectedIndex].value;
+                        forwardOne(aBoard,this);
                     });
                 nextIsBranch = true;
             } else {
@@ -526,7 +530,7 @@ SSHACK.mover = function () { //this is one big object declaration with local var
                             case 3: stepBack(target[i], $(this).find('.forSnapshot')); break;
                             default:
                         }
-                        return false;
+
                     })
                 });
 
