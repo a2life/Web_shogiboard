@@ -10,7 +10,7 @@
  */
 
 
-class shBoard
+class shogiboard
 {
     public  $filePathKoma;
     public  $filePathGrid;

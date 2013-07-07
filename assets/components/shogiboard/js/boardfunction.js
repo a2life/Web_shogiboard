@@ -284,7 +284,7 @@ SSHACK.mover = function () { //this is one big object declaration with local var
                 parseAction(zAction, target);
                 //   if (aBoard.moves[aBoard.index].charAt(0)=='x') // more sophsticated code below to do the same and more.
                 if (/(^[\-a-zA-Z0-9]*[xXC])/.test(aBoard.moves[aBoard.index])) {
-                    $(self).closest('.buttonBar').find('.forward').attr("disabled", "disabled");
+                    $(self).closest('.shogiBoard').find('.forward').attr("disabled", "disabled"); //forward move can be initiated either from button or board click
                     nextIsBranch = true;
                     endOfMoves = true;
                 } else if (/[\-\+0-9pPlLnNsSgrRbBk]{5,}J/.test(aBoard.moves[aBoard.index])) {
@@ -509,6 +509,23 @@ SSHACK.mover = function () { //this is one big object declaration with local var
                     );
                 }
             );
+            //attache the event handler for board click. left click is to push forward button and right push is to go back
+            //but first, disable context menu from right click
+     $('.clickable').bind("contextmenu", function() {return false; });
+            // only interested in the board with .buttonbar section = buttons exists.
+            //html div ".clickable" is right before ".buttonBar"
+         $('.buttonBar').prev('.clickable')
+                .each(function(i) {
+                    $(this).mousedown(function(event){
+                        switch (event.which){
+                            case 1:if ($(this).closest('.shogiBoard').find('.aButton').attr("disabled")!='disabled') forwardOne(target[i],this); break;
+                            case 3: stepBack(target[i], $(this).find('.forSnapshot')); break;
+                            default:
+                        }
+                    })
+                });
+
+
          /* if tesuu is specified, the next call will take care of that */
             for (i = 0; i < target.length; i++) {
                 setBoardtoTesuu(target[i], $('.forSnapshot').eq(i));

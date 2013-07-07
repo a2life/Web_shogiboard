@@ -1,47 +1,48 @@
 [[- This is a shogiboard html Template, to be used in modx with a lot of placeholders]]
-[[-1/24/2013]]
+[[-7/5/2013]]
 <section class="shogiBoard [[+size]]">
     [[+captionBlock]]
     <div class="buttonAnchor">
+        <div class="clickable">
+            <div class="forSnapshot [[+widthSetter]]" data-komapath="[[+komaPath]]" > <!-- outer table -->
+                <div class="table">
+                    <div class="row" >
+                        <div class="boardbase cell">
+                            <img class="board" src="[[+sBoard]]"  alt=""/>
+                            <img class="board" src="[[+sGrid]]" alt=""/>
+                            [[+onBoardImgs]]
+                        </div>
+                        <div class="cell [[+komadai]]" >
+                            [[+players]]
+                            <div class="table"><!-- inner table -->
+                                <div class="row">
+                                    <div class="goteMochigoma komadai cell [[+hide]]">
+                                        [[+gOnHandImgs]]
+                                        <!-- Gote mochigoma -->
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="cell statusLine" ></div> <!-- gap between two komaban -->
+                                </div>
+                                <div class="row">
+                                    <div class="senteMochigoma komadai cell">
+                                        [[+sOnHandImgs]]
+                                        <!-- Sente komaban -->
+                                    </div>
+                                </div><!-- row -->
+                            </div><!-- innter table -->
+                        </div><!-- cell-->
+                    </div><!-- shogirow for the outer css-table-->
+                </div><!-- outer css-table -->
+                <div class="bbBox [[+bbBox]]"></div> [[-placeholder for buttonblock ]]
+                <article class="comment [[+displayComment]]">
+                    [[+initialComment]]
+                </article>
+                <section class="cell"></section>
+
+            </div>
+        </div><!--clickable area-->
         [[+buttonBarBlock]] [[-outside of Snapshot, positioned absolutely outside of document flow]]
-
-        <div class="forSnapshot [[+widthSetter]]" data-komapath="[[+komaPath]]" > <!-- outer table -->
-            <div class="table">
-                <div class="row" >
-                    <div class="boardbase cell">
-                        <img class="board" src="[[+sBoard]]"  alt=""/>
-                        <img class="board" src="[[+sGrid]]" alt=""/>
-                        [[+onBoardImgs]]
-                    </div>
-                    <div class="cell [[+komadai]]" >
-                        [[+players]]
-                        <div class="table"><!-- inner table -->
-                            <div class="row">
-                                <div class="goteMochigoma komadai cell [[+hide]]">
-                                    [[+gOnHandImgs]]
-                                    <!-- Gote mochigoma -->
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="cell statusLine" ></div> <!-- gap between two komaban -->
-                            </div>
-                            <div class="row">
-                                <div class="senteMochigoma komadai cell">
-                                    [[+sOnHandImgs]]
-                                    <!-- Sente komaban -->
-                                </div>
-                            </div><!-- row -->
-                        </div><!-- innter table -->
-                    </div><!-- cell-->
-                </div><!-- shogirow for the outer css-table-->
-            </div><!-- outer css-table -->
-            <div class="bbBox [[+bbBox]]"></div> [[-placeholder for buttonblock ]]
-            <article class="comment [[+displayComment]]">
-                [[+initialComment]]
-            </article>
-            <section class="cell"></section>
-
-        </div>
     </div><!--button anchor-->
 
 </section> <!-- shogiboard section -->
