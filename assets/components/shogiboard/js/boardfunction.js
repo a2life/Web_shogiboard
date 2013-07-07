@@ -134,7 +134,7 @@ SSHACK.mover = function () { //this is one big object declaration with local var
             nextIsBranch = true;
             dlist
             .mousedown(function(event){ event.stopPropagation();})
-            .change(function (event) {
+            .change(function() {
                 aBoard.index = this.options[this.selectedIndex].value;
             });
 
