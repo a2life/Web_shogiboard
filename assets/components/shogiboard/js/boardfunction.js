@@ -84,7 +84,7 @@ SSHACK.mover = function () { //this is one big object declaration with local var
                         .mousedown(function(event){ event.stopPropagation();})
                         .change(function () {
                             aBoard.index = this.options[this.selectedIndex].value;
-                            forwardOne(aBoard,this);
+                           forwardOne(aBoard,target);
                         });
                     nextIsBranch = true;
                 }
@@ -137,7 +137,7 @@ SSHACK.mover = function () { //this is one big object declaration with local var
             .mousedown(function(event){ event.stopPropagation();})
             .change(function() {
                 aBoard.index = this.options[this.selectedIndex].value;
-                    forwardOne(aBoard,this);
+                   forwardOne(aBoard,self);
             });
 
         },
@@ -345,7 +345,7 @@ SSHACK.mover = function () { //this is one big object declaration with local var
                     .mousedown(function(event){ event.stopPropagation();})
                     .change(function () {
                         aBoard.index = this.options[this.selectedIndex].value;
-                        forwardOne(aBoard,this);
+                        forwardOne(aBoard,bTarget);
                     });
                 nextIsBranch = true;
             } else {
