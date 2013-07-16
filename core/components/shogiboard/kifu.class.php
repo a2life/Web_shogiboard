@@ -1,8 +1,9 @@
 <?php
 /**
  * Created by JetBrains PhpStorm.
- * User: 10032268
- * Date: 1/28/13
+ * User: A2life
+ * UpDate: 7/15/2013
+ * added "goteban" handling
  * Time: 2:17 PM
  * To change this template use File | Settings | File Templates.
  * Class kifu
@@ -22,6 +23,7 @@ class kifu
     private $moves, $sOnHand, $gOnHand,$senteName,$goteName,$teai,$startDate,$endDate,$boardFlip,
         $sOnBoard,
         $gOnBoard,
+        $goteban,
         $mightyPattern = array("10"=>"＋\s","1"=>"[１一]",  "2"=>"[二２]","3"=>"[三３]","4"=>"[四４]",
         "5"=>"[五５]","6"=>"[六６]","7"=>"[七７]","8"=>"[八８]","9"=>"[九９]","p"=>"歩","P"=>"と",
         'L'=>"成香","l"=>"香",'N'=>'成桂','n'=>'桂','S'=>'成銀','s'=>'銀','r'=>'飛',"R"=>'[竜龍]',
@@ -67,7 +69,8 @@ class kifu
         $shimoteNamePattern="下手：([^\n]*)[\r\n$]";
         $goteNamePattern="後手：([^\n]*)[\r\n$]";
         $uwateNamePattern="上手：([^\n]*)[\r\n$]";
-        $boardFlipPattern="盤面回転";
+        $boardFlipPattern=".*盤面回転";
+        $gotebanPattern =".*後手番";
         $senteOnHand=null;
         $goteOnHand=null;
         $onHands=array();
@@ -83,6 +86,7 @@ class kifu
         if(mb_ereg($goteNamePattern,$init_data,$onHands)!=false )$goteName=$onHands[1];
         elseif(mb_ereg($uwateNamePattern,$init_data,$onHands)!=false )$goteName=$onHands[1];
         $boardFlipped = mb_ereg_match($boardFlipPattern,$init_data);
+        $this->goteban =mb_ereg_match($gotebanPattern,$init_data)?1:0; echo $this->goteban;
         $init_array=explode("\n",$init_data);
         $i= $this->findline($boardMarker,$init_array);
         if ($i!==false){ //the string contains board chart
@@ -157,6 +161,7 @@ class kifu
     __construct($src){
         mb_regex_encoding ("UTF-8"); //prep to handle mb strings
         mb_internal_encoding("UTF-8");//ditto
+        $this->parsedata($src);
         $xlationArray=$this->mightyPattern;
 
         $match=array();
@@ -165,14 +170,14 @@ class kifu
         $pattern='(?:(\d+)\s+([\w\s]+)(?:\((\d+)\))?[ /():0-9]*(\+?))|(?:\n(?:\*)([^\n]*))|(?:変化：([\w]+))';
         $parsed="";//
         $movesLines="";
-        mb_ereg_search_init($src,$header); // does move exists?
+        mb_ereg_search_init($src,$header); // does move exists? if yes, next lines will parse moves
         if (mb_ereg_search()) { //forward to the start of move list
             mb_ereg_search_regs($pattern); //load regs with move parsing $pattern for the first time
             do{
                 $match=mb_ereg_search_getregs();
                 if ($match[2]){ //
                     $parsed="\n";
-                    $parsed.=(($match[1] & 1)?"s-":"g-");
+                    $parsed.=((($match[1] + $this->goteban) & 1)?"s-":"g-");
                     $parsed.=(trim($match[2]).$match[3].$match[4]."=".$match[1]);
 
                     foreach($xlationArray as $key=>$pat){
@@ -200,7 +205,6 @@ class kifu
             $movesLines="\"".implode("\",\n\"",$moves)."\""; // surround each line with quotes and ,
             $this->moves = $movesLines;
         }
-        $this->parsedata($src);
 
     }
 
