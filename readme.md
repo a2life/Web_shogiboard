@@ -24,6 +24,8 @@ See the shogishack.net page referenced above for actual usage examples.
 If no parameters are specified, then initial board setup (no handycap or Hirate) will be rendered.
 If "moves","kifuID" or "file"  parameter is specified, then it will also add four to six buttons at the bottom of 
 the board to move pieces.
+Those buttons are forward, back, forward to next branch, back to next branch, "go to end" and "go to start".
+Also note that just by left clicking the board area will move the piece forward and right clicking the area will step back the move.
 Initial board setup is totally configurable via following parameters
   sOnHand, gOnHand, sOnBoard,gOnBoard, markerAt
 
@@ -50,9 +52,12 @@ parameters--
 - kifu file. Currently, the program will read kakinoki style kif file.
 - kifuID : when specified, the engine will parse the modx resource identified by KiuID. if file and kifuID is both specified, kifuID will be ignored.
 - file and kifuID supports kakinoki kif format, including branch and initial board setting. However it does not support komaochi setting.
-- moves : data representing piece moves. ex. "s-2627","g-8687","s-2526","g-8586" (this represents ２六歩、８四歩、２五歩、８五歩)
+- moves : data representing piece moves. ex. "s-2627","g-8687","s-2526","g-8586" (this represents ２六歩、８四歩、２五歩、８五歩).
+- startAt:
+- tesuu:  those two are the same. the board will advance its move to asigned move number. Allows board to start from middle of the game.
 - size : if "large" or "small" is defined then the board will be rendred in different size. Mixed sizes are possible on the same page.
-- 
+
+
 Shogiboard layout is all in html and css.
 the general structural idea is
 
@@ -166,5 +171,3 @@ In the above example, when move reaches the third move (J3), list box will be cr
 It is difficult to manually write all this. Therefore, a most likely scenario is to use Kifu file parser to convert the kif file to the above format.
 
 
-[todo ]
-- add tesuu or count paramater so that the kifu can start from middle of the game.
