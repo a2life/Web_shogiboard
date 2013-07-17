@@ -86,7 +86,7 @@ class kifu
         if(mb_ereg($goteNamePattern,$init_data,$onHands)!=false )$goteName=$onHands[1];
         elseif(mb_ereg($uwateNamePattern,$init_data,$onHands)!=false )$goteName=$onHands[1];
         $boardFlipped = mb_ereg_match($boardFlipPattern,$init_data);
-        $this->goteban =mb_ereg_match($gotebanPattern,$init_data)?1:0; echo $this->goteban;
+        $this->goteban =mb_ereg_match($gotebanPattern,$init_data)?1:0;
         $init_array=explode("\n",$init_data);
         $i= $this->findline($boardMarker,$init_array);
         if ($i!==false){ //the string contains board chart
