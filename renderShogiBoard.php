@@ -162,7 +162,7 @@ EOT;
 
     $modx->regClientCSS($src);
     $buttonBarBlock='<div class="buttonBar"></div>';
-    $modx->regClientScript("http://code.jquery.com/jquery-latest.min.js");
+    $modx->regClientScript("//code.jquery.com/jquery-latest.min.js");
     $modx->regClientScript(MODX_ASSETS_URL."components/shogiboard/js/jquery-ui-1.9.2.custom.min.js");
     $modx->regClientScript(MODX_ASSETS_URL."components/shogiboard/js/namespace.js");
     $modx->regClientScript(MODX_ASSETS_URL."components/shogiboard/js/boardfunction.js");
