@@ -1,5 +1,5 @@
-#This is a readme file for shogiboard system.
-##The program reads data input(s) and render shogiboard(s) and mimic piece moves.
+# This is a readme file for shogiboard system.
+## The program reads data input(s) and render shogiboard(s) and mimic piece moves.
 This was primarily conceived to be used on my shogi learning site to show various moves and explain how the game of Shogi is played.
 See the link below for this code snippet in action.
 
