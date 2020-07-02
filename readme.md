@@ -48,13 +48,16 @@ parameters--
 - sOnBoard: string indicating on board pieces for sente. default is initial setup for sente for no handicap game. ex. "11l,21n,31s,41g,51k,13p,22b"
 - gOnBoard: string indicating on board pieces for sente. default is initial setup for gote for no handicap game. ex. "99l,28r"
 -markerAt: string Indicating the grid that is highlighted. default is "out of the way", ex., "24" for position ２四
-- file : when specified, the engine will parse the file and fill 'moves','sOnHand','gOnHand','sOnBoard','gOnBoard' parameters if they exists.  
-- Currently, the program will read kakinoki style kif file.
-- kifuID : when specified, the engine will parse the modx resource identified by KiuID. if file and kifuID is both specified, kifuID will be ignored.
-- file and kifuID supports kakinoki kif format, including branch and initial board setting. However it does not support komaochi setting.
 - moves : data representing piece moves. ex. "s-2627","g-8687","s-2526","g-8586" (this represents ２六歩、８四歩、２五歩、８五歩).
-- startAt:
-- tesuu:  those two are the same. the board will advance its move to asigned move number. Allows board to start from middle of the game.
+-- 
+- The program can also read kakinoki style kifu notation  The source can be speficed as file, kifuID, url or src.
+- when specified, the parser read the notation and fill 'moves','sOnHand','gOnHand','sOnBoard','gOnBoard' parameters. 
+- Currently the parser does not support handicap games.
+- file: the name of the file stored in site's /assets/resource/kif folder.
+- kifuID : when specified, the engine will parse the modx resource identified by KifuID. kifuID will be ignored if file is already specified.
+- url: similar to file but the file location can be anywhere in the internet. will be ignored if file or kifuID is already specified.
+- src: kifu notation in the string format.  Common usage will be to define a TV and refer to it.  will be ignored if file, kifuID or url is specified.
+- startAt or tesuu:  those two are the same. the board will advance its move to asigned move number. Allows board to start from middle of the game.
 - size : if "large","xlarge" or "small" is defined then the board will be rendred in different size. you can draw multiple instances in mixed sizes on the same page.
 
 
