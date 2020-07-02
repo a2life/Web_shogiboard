@@ -48,8 +48,8 @@ parameters--
 - sOnBoard: string indicating on board pieces for sente. default is initial setup for sente for no handicap game. ex. "11l,21n,31s,41g,51k,13p,22b"
 - gOnBoard: string indicating on board pieces for sente. default is initial setup for gote for no handicap game. ex. "99l,28r"
 -markerAt: string Indicating the grid that is highlighted. default is "out of the way", ex., "24" for position ２四
-- file : when specified, the engine will parse the file and fill 'moves','sOnHand','gOnHand','sOnBoard','gOnBoard' parameters if they exists in
-- kifu file. Currently, the program will read kakinoki style kif file.
+- file : when specified, the engine will parse the file and fill 'moves','sOnHand','gOnHand','sOnBoard','gOnBoard' parameters if they exists.  
+- Currently, the program will read kakinoki style kif file.
 - kifuID : when specified, the engine will parse the modx resource identified by KiuID. if file and kifuID is both specified, kifuID will be ignored.
 - file and kifuID supports kakinoki kif format, including branch and initial board setting. However it does not support komaochi setting.
 - moves : data representing piece moves. ex. "s-2627","g-8687","s-2526","g-8586" (this represents ２六歩、８四歩、２五歩、８五歩).
