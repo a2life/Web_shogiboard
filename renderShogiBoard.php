@@ -82,6 +82,7 @@ if (isset($file)||isset($kifuID)||isset($url)|| isset($src)){
     if ($akifu->getMoves()) {$moves = $akifu->getMoves();}
     if ($akifu->getEndDate()){$endDate =$akifu->getEndDate();}
     if ($akifu->getStartDate()){$startDate =$akifu->getStartDate();}
+    	if ($akifu->getsOnBoard() or $akifu->getgOnBoard()) {$sOnBoard=""; $gOnBoard="";} // If kifu is defning onBoard pieces, remove initial placements
     if ($akifu->getsOnBoard()){$sOnBoard =$akifu->getsOnBoard();}
     if ($akifu->getgOnBoard()){$gOnBoard =$akifu->getgOnBoard();}
     if ($akifu->getsOnHand()){$sOnHand =$akifu->getsOnhand();}
