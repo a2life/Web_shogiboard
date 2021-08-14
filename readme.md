@@ -9,6 +9,8 @@ PHP coding utilizes several MODX APIs and utilities that are available through i
 A Package file that uses MODX transport packaging method is available for easy install on MODX based web-site.
 Please  go to <http://www.shogishack.net/annex/rendershogiboard-package/> for more detail.
 
+There is a fork of this project that only uses Typescript/Javascript/html files.  See <a href="https://github.com/a2life/shogi-board">Shogi-board</a>
+
 JavaScriptOnlySolutin contains sample.html  and other helper js files to render this board without a need of 
 modx nor PHP. Core engine is the same with modx/PHP solution however, it lacks kifufile parser.(defined as PHP class)
 I have no intention of creating kifu parser with Javascript. This means you need to hand code moves as illustrated below
