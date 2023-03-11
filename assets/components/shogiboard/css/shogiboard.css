@@ -27,8 +27,8 @@ small size uses the following calculations
 .c0 {left:-20000px}/* move elements out of the way */
 .r0 {top:-20000px}
 .shogiBoard, .buttonAnchor, .forSnapshot {position:relative;}
-.table {display:table;}
-.row {display:table-row; ;}
+.table_s {display:table;}
+.row_s {display:table-row; ;}
 .cell {display:table-cell; vertical-align:top;}
 .hide {display:none;}
 .bbBox {height: 25px; width:100%;} .small .bbBox {height: 23px;} .large .bbBox {height: 26px;}
